@@ -1,0 +1,24 @@
+@import '../../../../node_modules/nav-frontend-core/less/_variabler';
+
+.backButton {
+    cursor: pointer;
+    color: @navMorkGra;
+    font-weight: bold;
+    background: transparent;
+    color: inherit;
+    position: relative;
+    border: none;
+    padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+    margin-left: -0.5rem;
+    &__chevron {
+        left: 0;
+        position: absolute;
+        top: 50%;
+        margin-top: -0.5rem;
+    }
+    &:hover,
+    &:active {
+        background: transparent;
+        color: @navBla;
+    }
+}
