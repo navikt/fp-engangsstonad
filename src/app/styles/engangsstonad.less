@@ -1,82 +1,15 @@
 @import 'globals';
-@import 'variables.less';
-@import 'print.less';
-@import '../../../node_modules/nav-datovelger/dist/datovelger/styles/datovelger.css';
-@import '../../common/styles/animation.less';
-
-.skjemaelement {
-    margin: 0;
-}
-
-.capitalizeName {
-    text-transform: capitalize;
-}
+@import 'variables';
+@import 'print';
 
 .engangsstonad {
-    .knapp--hoved {
-        min-height: 46px;
+    max-width: 704px;
+    margin: 0 auto;
+    padding: 2rem;
+    @media (max-width: @tablet-breakpoint) {
+        max-width: 100%;
     }
-    .typo-innholdstittel {
-        text-align: center;
-    }
-    .intro-snakkelenke {
-        display: inline-block;
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
-    }
-    .responsiveContainer {
-        max-width: 704px;
-        margin: 0 auto;
-        padding: 2rem;
-        @media (max-width: @tablet-breakpoint) {
-            max-width: 100%;
-        }
-        @media (max-width: @mobile-breakpoint) {
-            padding: 1rem;
-        }
-        .spotlightLetter {
-            width: 136px;
-            margin: 0 auto 2rem auto;
-            display: block;
-        }
-        .responsiveButton {
-            display: flex;
-            justify-content: center;
-            margin: 0 auto;
-            @media (max-width: @mobile-breakpoint) {
-                width: 100%;
-            }
-
-            &--søknadSendt {
-                margin-top: 2rem;
-            }
-        }
-        .personopplysningLenke {
-            text-align: center;
-        }
-    }
-    .radioPanelGruppe {
-        .skjema__legend {
-            font-size: 16px;
-            margin-bottom: 0.5rem;
-        }
-    }
-    .spinner {
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
-    }
-}
-
-.es-skjema__feilomrade--ingenBakgrunnsfarge {
-    .skjema__feilomrade--harFeil {
-        background-color: transparent !important;
-        box-shadow: none !important;
-    }
-}
-
-.nav-veileder {
-    svg {
-        height: auto;
+    @media (max-width: @mobile-breakpoint) {
+        padding: 1rem;
     }
 }
