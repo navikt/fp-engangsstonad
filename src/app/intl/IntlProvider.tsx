@@ -5,6 +5,7 @@ import { Språkkode } from './types';
 import nnMessages from './nn_NO.json';
 import nbMessages from './nb_NO.json';
 import enMessages from './en_US.json';
+import { allCommonMessages } from '@navikt/fp-common';
 
 interface Props {
     språkkode: Språkkode;
@@ -15,11 +16,11 @@ moment.locale('nb');
 
 const getLanguageMessages = (språkkode: Språkkode) => {
     if (språkkode === 'nb') {
-        return nbMessages;
+        return { ...nbMessages, ...allCommonMessages.nb };
     } else if (språkkode === 'nn') {
-        return nnMessages;
+        return { ...nnMessages, ...allCommonMessages.nn };
     } else {
-        return enMessages;
+        return { ...enMessages, ...allCommonMessages.en };
     }
 };
 

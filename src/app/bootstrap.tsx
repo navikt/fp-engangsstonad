@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { Normaltekst } from 'nav-frontend-typografi';
 import * as Sentry from '@sentry/browser';
 
 import Engangsstønad from './Engangsstønad';
-import IntlProvider from './intl/IntlProvider';
 
 import * as countries from 'i18n-iso-countries';
 import ErrorBoundary from './ErrorBoundary';
@@ -28,13 +26,9 @@ if (process.env.NODE_ENV !== 'development') {
 const root = document.getElementById('app');
 render(
     <ErrorBoundary>
-        <IntlProvider språkkode="nb">
-            <Router>
-                <Normaltekst tag="div">
-                    <Engangsstønad />
-                </Normaltekst>
-            </Router>
-        </IntlProvider>
+        <Normaltekst tag="div">
+            <Engangsstønad />
+        </Normaltekst>
     </ErrorBoundary>,
     root
 );

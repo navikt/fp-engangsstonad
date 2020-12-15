@@ -10,7 +10,6 @@ import { CSSTransition } from 'react-transition-group';
 import { guid } from 'nav-frontend-js-utils';
 import { Attachment, AttachmentType, Skjemanummer } from 'common/storage/attachment/types/Attachment';
 import AlertstripeWithCloseButton from 'common/components/alertstripe-content/AlertstripeWithCloseButton';
-import FormBlock from 'components/form-block/FormBlock';
 
 interface Props {
     attachments: Attachment[];
@@ -88,7 +87,7 @@ const AttachmentOverview: React.FunctionComponent<Props> = ({
 
     return (
         <React.Fragment>
-            <FormBlock margin={showAttachments || showErrorMessage ? 'xs' : undefined}>
+            <div>
                 <VedleggInput
                     id={inputId}
                     onFilesSelect={(files: File[]) => {
@@ -96,7 +95,7 @@ const AttachmentOverview: React.FunctionComponent<Props> = ({
                     }}
                     onClick={deleteFailedAttachments}
                 />
-            </FormBlock>
+            </div>
             <CSSTransition
                 classNames="transitionFade"
                 timeout={150}
@@ -106,7 +105,7 @@ const AttachmentOverview: React.FunctionComponent<Props> = ({
                 <>
                     {(showAttachments || showErrorMessage) && (
                         <>
-                            <FormBlock margin="xs" visible={showErrorMessage} animated={true}>
+                            <div>
                                 <AlertstripeWithCloseButton
                                     lukknappProps={{
                                         hvit: false,
@@ -117,8 +116,8 @@ const AttachmentOverview: React.FunctionComponent<Props> = ({
                                     )}
                                     onClose={deleteFailedAttachments}
                                 />
-                            </FormBlock>
-                            <FormBlock margin="xs">
+                            </div>
+                            <div>
                                 <LabelText>
                                     <FormattedMessage
                                         id="vedlegg.liste.tittel"
@@ -129,7 +128,7 @@ const AttachmentOverview: React.FunctionComponent<Props> = ({
                                         }}
                                     />
                                 </LabelText>
-                            </FormBlock>
+                            </div>
                             <AttachmentList
                                 attachments={attachmentsToRender}
                                 showFileSize={showFileSize}

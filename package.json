@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
+        "@navikt/fp-common": "^1.0.7",
         "@sentry/browser": "^5.27.1",
         "axios": "0.20.0",
         "babel-polyfill": "6.26.0",
@@ -128,6 +129,7 @@
         "mustache-loader": "1.4.3",
         "postcss-loader": "3.0.0",
         "promise": "8.1.0",
+        "react-scripts": "^4.0.1",
         "sinon": "9.2.0",
         "source-map-loader": "^1.1.1",
         "style-loader": "^2.0.0",

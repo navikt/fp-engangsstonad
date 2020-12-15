@@ -1,11 +1,11 @@
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 import Lenke from 'nav-frontend-lenker';
-import LanguageToggle from '../../intl/LanguageToggle';
 import SimpleIllustration from 'components/simple-illustration/SimpleIllustration';
 import { Innholdstittel, Ingress } from 'nav-frontend-typografi';
 import { VeilederProps } from 'components/veileder/Veileder';
 import { Språkkode } from 'intl/types';
+import { LanguageToggle } from '@navikt/fp-common/lib';
 
 export interface Props {
     containerId?: string;
@@ -37,7 +37,9 @@ const Feilside: React.FunctionComponent<Props> = ({
     return (
         <div id={containerId}>
             <DocumentTitle title={dokumenttittel} />
-            {setLanguage && språkkode && <LanguageToggle språkkode={språkkode} toggleLanguage={setLanguage} />}
+            {setLanguage && språkkode && (
+                <LanguageToggle locale={språkkode} availableLocales={['en', 'nb', 'nn']} toggle={setLanguage} />
+            )}
             {illustrasjon && (
                 <SimpleIllustration
                     veileder={illustrasjon.veileder}
