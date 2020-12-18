@@ -1,13 +1,15 @@
 import React from 'react';
 import * as Sentry from '@sentry/browser';
 
+interface Props {}
+
 interface State {
     eventId: string | null;
     hasError: boolean;
     errorInfo: any;
 }
 
-class ErrorBoundary extends React.Component<unknown, State> {
+class ErrorBoundary extends React.Component<Props, State> {
     constructor(props: any) {
         super(props);
         this.state = { eventId: null, hasError: false, errorInfo: null };

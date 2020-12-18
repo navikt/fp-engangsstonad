@@ -2,9 +2,9 @@ import * as React from 'react';
 import { IntlProvider as Provider } from 'react-intl';
 import moment from 'moment';
 import { Språkkode } from './types';
-import nnMessages from './nn_NO.json';
-import nbMessages from './nb_NO.json';
-import enMessages from './en_US.json';
+import nnMessages from './messages/nn_NO.json';
+import nbMessages from './messages/nb_NO.json';
+import enMessages from './messages/en_US.json';
 import { allCommonMessages } from '@navikt/fp-common';
 
 interface Props {

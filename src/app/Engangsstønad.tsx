@@ -1,19 +1,23 @@
-import BEMHelper from 'common/util/bem';
-import { LanguageToggle } from '@navikt/fp-common';
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import IntlProvider from 'intl/IntlProvider';
-
-import './styles/engangsstonad.less';
+import Velkommen from './velkommen/Velkommen';
+import { getRequest } from './api/apiHooks';
+import Api from './api/api';
+import NavFrontendSpinner from 'nav-frontend-spinner';
+import Person from './types/domain/Person';
 
 const AppContainer = () => {
-    const bem = BEMHelper('engangsstonad');
+    const { data, loading } = getRequest<Person>(Api.getPerson());
+
+    if (loading || !data) {
+        return <NavFrontendSpinner />;
+    }
 
     return (
         <IntlProvider språkkode="nb">
             <Router>
-                <LanguageToggle locale="nb" availableLocales={['en', 'nb', 'nn']} toggle={() => null} />
-                <div className={bem.className}>Hello world</div>
+                <Route path="/" component={() => <Velkommen fornavn={data.fornavn} />} />
             </Router>
         </IntlProvider>
     );
