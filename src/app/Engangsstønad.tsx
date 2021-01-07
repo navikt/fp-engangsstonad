@@ -8,10 +8,14 @@ import NavFrontendSpinner from 'nav-frontend-spinner';
 import Person from './types/domain/Person';
 
 const AppContainer = () => {
-    const { data, loading } = getRequest<Person>(Api.getPerson());
+    const { data, loading, error } = getRequest<Person>(Api.getPerson());
 
     if (loading || !data) {
         return <NavFrontendSpinner />;
+    }
+
+    if (error) {
+        return <div>Shit crashed</div>;
     }
 
     return (

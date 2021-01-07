@@ -28,7 +28,7 @@ const RadioPanelGruppeResponsive: React.FunctionComponent<Props> = ({
                 <SkjemaGruppe className="radioPanelGruppe--responsive" feil={feil}>
                     {radios.map((radio) => {
                         return (
-                            <div className={cls} key={radio.value}>
+                            <div className={cls} key={`${radio.value}`}>
                                 <RadioPanel
                                     checked={checked === radio.value}
                                     name={name}

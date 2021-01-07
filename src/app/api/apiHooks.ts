@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios';
 export const getRequest = <T>(request: Promise<AxiosResponse<any>>) => {
     const [data, setData] = useState<T>();
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState({});
+    const [error, setError] = useState();
 
     useEffect(() => {
         let ignore = false;

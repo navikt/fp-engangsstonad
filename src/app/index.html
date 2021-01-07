@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charSet="utf-8" />
+        <meta charset="utf-8" />
         <meta name="description" content="Her kan du søke om engangsstønad." />
         <meta property="og:title" content="Engangsstønad søknad - www.nav.no" />
         <meta property="og:description" content="Her kan du søke om engangsstønad." />
@@ -14,7 +14,7 @@
             if (window.location.href.indexOf('engangsstonad.dev-nav.no') === -1) {
                 try {
                     window['adrum-start-time'] = new Date().getTime();
-                    (function(config) {
+                    (function (config) {
                         if (window.location.href.indexOf('engangsstonad.nav.no') > -1) {
                             config.adrumExtUrlHttps = 'https://jsagent.nav.no';
                             config.beaconUrlHttps = 'https://eumgw.nav.no';
@@ -29,25 +29,9 @@
                 } catch {}
             }
         </script>
-        <script src='https://jsagent.nav.no/adrum/adrum.js'></script>
+        <script src="https://jsagent.nav.no/adrum/adrum.js"></script>
 
-        
-        {{{NAV_SCRIPTS
-
-
-
-
-
-
-        }}}
-        {{{NAV_STYLES
-
-
-
-
-
-
-        }}}
+        {{{NAV_SCRIPTS }}} {{{NAV_STYLES }}}
         <script type="text/javascript">
             window.REST_API_URL = '{{{REST_API_URL}}}';
             window.LOGIN_URL = '{{{LOGIN_URL}}}';
