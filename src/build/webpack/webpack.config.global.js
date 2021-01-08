@@ -54,12 +54,6 @@ const webpackConfig = {
                     'postcss-loader',
                     {
                         loader: 'less-loader',
-                        options: {
-                            globalVars: {
-                                coreModulePath: '"~"',
-                                nodeModulesPath: '"~"',
-                            },
-                        },
                     },
                 ],
             },

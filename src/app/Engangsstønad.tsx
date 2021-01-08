@@ -6,12 +6,22 @@ import { getRequest } from './api/apiHooks';
 import Api from './api/api';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import Person from './types/domain/Person';
+import { Locale } from '@navikt/fp-common';
 
-const AppContainer = () => {
+interface Props {
+    locale: Locale;
+    onChangeLocale: (locale: Locale) => void;
+}
+
+const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale }) => {
     const { data, loading, error } = getRequest<Person>(Api.getPerson());
 
     if (loading || !data) {
-        return <NavFrontendSpinner />;
+        return (
+            <div style={{ textAlign: 'center', padding: '12rem 0' }}>
+                <NavFrontendSpinner type="XXL" />
+            </div>
+        );
     }
 
     if (error) {
@@ -19,12 +29,17 @@ const AppContainer = () => {
     }
 
     return (
-        <IntlProvider språkkode="nb">
+        <IntlProvider språkkode={locale}>
             <Router>
-                <Route path="/" component={() => <Velkommen fornavn={data.fornavn} />} />
+                <Route
+                    path="/"
+                    component={() => (
+                        <Velkommen fornavn={data.fornavn} locale={locale} onChangeLocale={onChangeLocale} />
+                    )}
+                />
             </Router>
         </IntlProvider>
     );
 };
 
-export default AppContainer;
+export default Engangsstønad;

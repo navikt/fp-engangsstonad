@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Ingress, Innholdstittel } from 'nav-frontend-typografi';
-import { bemUtils, LanguageToggle, VelkommenBanner, intlUtils, Block } from '@navikt/fp-common';
+import { bemUtils, LanguageToggle, VelkommenBanner, intlUtils, Block, Locale } from '@navikt/fp-common';
 import Veiviser from 'components/veiviser/VeiviserSvg';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import { lenker } from 'util/lenker';
@@ -13,9 +13,11 @@ import './velkommen.less';
 
 interface Props {
     fornavn: string;
+    onChangeLocale: (locale: Locale) => void;
+    locale: Locale;
 }
 
-const Velkommen: FunctionComponent<Props> = ({ fornavn }) => {
+const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }) => {
     const intl = useIntl();
     const bem = bemUtils('velkommen');
 
@@ -29,7 +31,11 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn }) => {
                         includeButtons={false}
                         fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
                     >
-                        <LanguageToggle locale="nb" availableLocales={['en', 'nb', 'nn']} toggle={() => null} />
+                        <LanguageToggle
+                            locale={locale}
+                            availableLocales={['en', 'nb', 'nn']}
+                            toggle={(l: Locale) => onChangeLocale(l)}
+                        />
                         <VelkommenBanner
                             dialog={{
                                 text: intlUtils(intl, 'intro.standard.bobletekst'),
