@@ -7,6 +7,7 @@ import Api from './api/api';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import Person from './types/domain/Person';
 import { Locale } from '@navikt/fp-common';
+import OmBarnet from './om-barnet/OmBarnet';
 
 interface Props {
     locale: Locale;
@@ -33,10 +34,12 @@ const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale
             <Router>
                 <Route
                     path="/"
+                    exact={true}
                     component={() => (
                         <Velkommen fornavn={data.fornavn} locale={locale} onChangeLocale={onChangeLocale} />
                     )}
                 />
+                <Route path="/soknad/om-barnet" component={() => <OmBarnet />} />
             </Router>
         </IntlProvider>
     );

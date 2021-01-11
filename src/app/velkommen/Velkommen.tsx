@@ -1,7 +1,15 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Ingress, Innholdstittel } from 'nav-frontend-typografi';
-import { bemUtils, LanguageToggle, VelkommenBanner, intlUtils, Block, Locale } from '@navikt/fp-common';
+import {
+    bemUtils,
+    LanguageToggle,
+    VelkommenBanner,
+    intlUtils,
+    Block,
+    Locale,
+    useDocumentTitle,
+} from '@navikt/fp-common';
 import Veiviser from 'components/veiviser/VeiviserSvg';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import { lenker } from 'util/lenker';
@@ -10,6 +18,7 @@ import { commonFieldErrorRenderer } from 'util/validation/validationUtils';
 import { Hovedknapp } from 'nav-frontend-knapper';
 
 import './velkommen.less';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
     fornavn: string;
@@ -20,6 +29,12 @@ interface Props {
 const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }) => {
     const intl = useIntl();
     const bem = bemUtils('velkommen');
+    const history = useHistory();
+    useDocumentTitle(intlUtils(intl, 'intro.standard.dokumenttittel'));
+
+    const onValidSubmit = () => {
+        history.push('soknad/om-barnet');
+    };
 
     return (
         <VelkommenFormComponents.FormikWrapper
@@ -30,6 +45,7 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                     <VelkommenFormComponents.Form
                         includeButtons={false}
                         fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
+                        onValidSubmit={onValidSubmit}
                     >
                         <LanguageToggle
                             locale={locale}

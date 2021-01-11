@@ -201,7 +201,7 @@
     "valideringsfeil.fodselsdato.duMåOppgi": "Du må oppgi fødselsdato",
     "valideringsfeil.fodselsdato.ikkeMerEnn3ÅrTilbake": "Du kan ikke søke om engangsstønad for barn som er eldre enn tre år.",
     "valideringsfeil.fodselsdato.måVæreIdagEllerTidligere": "Fødselsdato må være i dag eller tidligere",
-    "valideringsfeil.godkjentVilkar": "Du må bekrefte at du har lest og forstått",
+    "valideringsfeil.velkommen.bekreftLestOgForståttRettigheter": "Du må bekrefte at du har lest og forstått",
     "valideringsfeil.terminbekreftelseDato.duMåOppgi": "Du må oppgi når terminbekreftelsen er datert",
     "valideringsfeil.terminbekreftelseDato.duMåVæreIUke22": "Terminbekreftelsen må vise at du er i 22. svangerskapsuke eller senere",
     "valideringsfeil.terminbekreftelseDato.måVæreIdagEllerTidligere": "Datoen på terminbekreftelsen kan ikke være frem i tid.",
@@ -252,5 +252,7 @@
     "søknadSendt.status.status": "Under behandling",
     "søknadSendt.status.saksnummer": "Saksnummer",
     "søknadSendt.oversikt.link": "Se og last ned søknaden din",
-    "søknadSendt.oversikt.sendtinn": "SENDT INN:"
+    "søknadSendt.oversikt.sendtinn": "SENDT INN:",
+    "steg.footer.fortsettSenere": "Fortsett senere",
+    "steg.footer.avbryt": "Avbryt søknaden"
 }

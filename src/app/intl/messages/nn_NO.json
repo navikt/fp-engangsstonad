@@ -199,7 +199,7 @@
     "valideringsfeil.fodselsdato.duMåOppgi": "Du må gi opp fødselsdato",
     "valideringsfeil.fodselsdato.ikkeMerEnn3ÅrTilbake": "Du kan ikkje søke om eingongsstønad for barn som er eldre enn tre år.",
     "valideringsfeil.fodselsdato.måVæreIdagEllerTidligere": "Fødselsdato må vere i dag eller tidlegare",
-    "valideringsfeil.godkjentVilkar": "Du må stadfeste at du har lese og forstått",
+    "valideringsfeil.velkommen.bekreftLestOgForståttRettigheter": "Du må stadfeste at du har lese og forstått",
     "valideringsfeil.terminbekreftelseDato.duMåOppgi": "Du må gi opp når stadfestinga av termin er datert",
     "valideringsfeil.terminbekreftelseDato.duMåVæreIUke22": "Stadfestinga på termin må vise at du er i 22. svangerskapsveke eller seinare",
     "valideringsfeil.terminbekreftelseDato.måVæreIdagEllerTidligere": "Datoen på stadfestinga av termin kan ikkje vere fram i tid.",

@@ -195,7 +195,7 @@
     "valideringsfeil.fodselsdato.duMåOppgi": "You must state the date of birth",
     "valideringsfeil.fodselsdato.ikkeMerEnn3ÅrTilbake": "You cannot apply for the lump-sum grant benefit for children who are more than three years of age.",
     "valideringsfeil.fodselsdato.måVæreIdagEllerTidligere": "The birth date must be today’s date or earlier",
-    "valideringsfeil.godkjentVilkar": "You must confirm that you have read and understood",
+    "valideringsfeil.velkommen.bekreftLestOgForståttRettigheter": "You must confirm that you have read and understood",
     "valideringsfeil.terminbekreftelseDato.duMåOppgi": "You must state when confirmation of the expected date of delivery is dated",
     "valideringsfeil.terminbekreftelseDato.duMåVæreIUke22": "The confirmation of the expected date of delivery must show that you are in the 22nd week of pregnancy or later",
     "valideringsfeil.terminbekreftelseDato.måVæreIdagEllerTidligere": "The date of the confirmation of the expected date of delivery cannot be in the future.",
