@@ -6,8 +6,8 @@ function saveAttachment(attachment: Attachment) {
         withCredentials: true,
         timeout: 45 * 1000,
         headers: {
-            'content-type': 'multipart/form-data'
-        }
+            'content-type': 'multipart/form-data',
+        },
     };
 
     const formData = new FormData();
@@ -19,4 +19,5 @@ function saveAttachment(attachment: Attachment) {
 }
 
 const AttachmentApi = { saveAttachment };
+
 export default AttachmentApi;

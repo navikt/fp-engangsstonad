@@ -1,11 +1,19 @@
 import { bemUtils, Block, Step } from '@navikt/fp-common';
 import React from 'react';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { commonFieldErrorRenderer } from 'util/validation/validationUtils';
 import { OmBarnetFormComponents, initialOmBarnetValues, OmBarnetFormField } from './omBarnetFormConfig';
 
 import './omBarnet.less';
 import omBarnetQuestionsConfig from './omBarnetQuestionsConfig';
+import Veilederpanel from 'nav-frontend-veilederpanel';
+import Veileder from '@navikt/fp-common/lib/components/veileder/Veileder';
+import getMessage from 'common/util/i18nUtils';
+import AttachmentList from 'common/storage/attachment/components/AttachmentList';
+import { Attachment } from 'common/storage/attachment/types/Attachment';
+import UtvidetInformasjon from 'components/utvidet-informasjon/UtvidetInformasjon';
+import PictureScanningGuide from 'components/picture-scanning-guide/PictureScanningGuide';
+import FormikFileUploader from 'components/formik-file-uploader/FormikFileUploader';
 
 const OmBarnet: React.FunctionComponent = () => {
     const intl = useIntl();
@@ -43,8 +51,8 @@ const OmBarnet: React.FunctionComponent = () => {
                                         name={OmBarnetFormField.erBarnetFødt}
                                         legend="Når er barnet født"
                                         labels={{
-                                            yes: 'Frem i tid',
-                                            no: 'Tilbake i tid',
+                                            no: 'Frem i tid',
+                                            yes: 'Tilbake i tid',
                                         }}
                                     />
                                 </Block>
@@ -62,6 +70,46 @@ const OmBarnet: React.FunctionComponent = () => {
                                         />
                                     </Block>
                                 )}
+                                {visibility.isVisible(OmBarnetFormField.fødselsdato) && (
+                                    <Block margin="xl">
+                                        <OmBarnetFormComponents.DatePicker
+                                            name={OmBarnetFormField.fødselsdato}
+                                            label={'Fødselsdato'}
+                                        />
+                                    </Block>
+                                )}
+                                {visibility.isVisible(OmBarnetFormField.termindato) && (
+                                    <Block margin="xl">
+                                        <OmBarnetFormComponents.DatePicker
+                                            name={OmBarnetFormField.termindato}
+                                            label={'Termindato'}
+                                        />
+                                    </Block>
+                                )}
+                                {visibility.isVisible(OmBarnetFormField.terminbekreftelse) && (
+                                    <>
+                                        <Block margin="xl">
+                                            <Veilederpanel kompakt={true} svg={<Veileder />}>
+                                                {getMessage(intl, 'terminbekreftelsen.text.terminbekreftelsen')}
+                                            </Veilederpanel>
+                                        </Block>
+                                        <Block margin="xl">
+                                            <FormikFileUploader
+                                                label="Last opp vedlegg"
+                                                name={OmBarnetFormField.terminbekreftelse}
+                                            />
+                                            <UtvidetInformasjon apneLabel={<FormattedMessage id="psg.åpneLabel" />}>
+                                                <PictureScanningGuide />
+                                            </UtvidetInformasjon>
+                                        </Block>
+                                    </>
+                                )}
+
+                                <AttachmentList
+                                    attachments={formValues.terminbekreftelse}
+                                    showFileSize={true}
+                                    onDelete={(file: Attachment) => null}
+                                />
                             </div>
                         </Step>
                     </OmBarnetFormComponents.Form>

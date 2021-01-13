@@ -8,25 +8,20 @@ const OmBarnetFormConfig: QuestionConfig<OmBarnetFormData, OmBarnetFormField> = 
         isAnswered: ({ antallBarn }) => antallBarn !== undefined,
         visibilityFilter: ({ erBarnetFødt }) => erBarnetFødt !== YesOrNo.UNANSWERED,
     },
-    [OmBarnetFormField.fødselstidspunkt]: {
-        isIncluded: ({ erBarnetFødt }) => erBarnetFødt === YesOrNo.YES,
-        isAnswered: ({ fødselstidspunkt }) => fødselstidspunkt !== '' || fødselstidspunkt !== undefined,
+    [OmBarnetFormField.fødselsdato]: {
+        isIncluded: ({ erBarnetFødt, antallBarn }) => erBarnetFødt === YesOrNo.YES && antallBarn !== undefined,
+        isAnswered: ({ fødselsdato }) => fødselsdato !== undefined,
         visibilityFilter: ({ erBarnetFødt }) => erBarnetFødt === YesOrNo.YES,
     },
-    [OmBarnetFormField.fødselsdato]: {
-        isIncluded: () => true,
-        isAnswered: ({ antallBarn }) => antallBarn !== undefined,
-        visibilityFilter: ({ erBarnetFødt }) => erBarnetFødt !== YesOrNo.UNANSWERED,
-    },
     [OmBarnetFormField.termindato]: {
-        isIncluded: () => true,
-        isAnswered: ({ antallBarn }) => antallBarn !== undefined,
-        visibilityFilter: ({ erBarnetFødt }) => erBarnetFødt !== YesOrNo.UNANSWERED,
+        isIncluded: ({ erBarnetFødt, antallBarn }) => erBarnetFødt === YesOrNo.NO && antallBarn !== undefined,
+        isAnswered: ({ termindato }) => termindato !== undefined,
+        visibilityFilter: ({ erBarnetFødt }) => erBarnetFødt === YesOrNo.NO,
     },
     [OmBarnetFormField.terminbekreftelse]: {
-        isIncluded: () => true,
-        isAnswered: ({ antallBarn }) => antallBarn !== undefined,
-        visibilityFilter: ({ erBarnetFødt }) => erBarnetFødt !== YesOrNo.UNANSWERED,
+        isIncluded: ({ erBarnetFødt, termindato }) => erBarnetFødt === YesOrNo.NO && termindato !== undefined,
+        isAnswered: ({ terminbekreftelse }) => terminbekreftelse !== undefined,
+        visibilityFilter: ({ termindato }) => termindato !== YesOrNo.UNANSWERED,
     },
     [OmBarnetFormField.terminbekreftelsedato]: {
         isIncluded: () => true,

@@ -7,6 +7,8 @@ import ErrorBoundary from './ErrorBoundary';
 import ModalWrapper from 'nav-frontend-modal';
 import AppContainer from './AppContainer';
 
+import './styles/globals.less';
+
 countries.registerLocale(require('i18n-iso-countries/langs/nb.json'));
 countries.registerLocale(require('i18n-iso-countries/langs/nn.json'));
 countries.registerLocale(require('i18n-iso-countries/langs/en.json'));
