@@ -3,6 +3,10 @@ import { QuestionConfig, Questions } from '@navikt/sif-common-question-config/li
 import { OmBarnetFormData, OmBarnetFormField } from './omBarnetFormConfig';
 
 const OmBarnetFormConfig: QuestionConfig<OmBarnetFormData, OmBarnetFormField> = {
+    [OmBarnetFormField.erBarnetFødt]: {
+        isIncluded: () => true,
+        isAnswered: ({ erBarnetFødt }) => erBarnetFødt !== YesOrNo.UNANSWERED,
+    },
     [OmBarnetFormField.antallBarn]: {
         isIncluded: () => true,
         isAnswered: ({ antallBarn }) => antallBarn !== undefined,
@@ -20,13 +24,14 @@ const OmBarnetFormConfig: QuestionConfig<OmBarnetFormData, OmBarnetFormField> = 
     },
     [OmBarnetFormField.terminbekreftelse]: {
         isIncluded: ({ erBarnetFødt, termindato }) => erBarnetFødt === YesOrNo.NO && termindato !== undefined,
-        isAnswered: ({ terminbekreftelse }) => terminbekreftelse !== undefined,
-        visibilityFilter: ({ termindato }) => termindato !== YesOrNo.UNANSWERED,
+        isAnswered: ({ terminbekreftelse }) => terminbekreftelse.length > 0,
+        visibilityFilter: ({ termindato }) => termindato !== undefined,
     },
     [OmBarnetFormField.terminbekreftelsedato]: {
-        isIncluded: () => true,
-        isAnswered: ({ antallBarn }) => antallBarn !== undefined,
-        visibilityFilter: ({ erBarnetFødt }) => erBarnetFødt !== YesOrNo.UNANSWERED,
+        isIncluded: ({ termindato }) => termindato !== undefined,
+        isAnswered: ({ terminbekreftelsedato }) => terminbekreftelsedato !== undefined,
+        visibilityFilter: ({ termindato, terminbekreftelse }) =>
+            termindato !== undefined && terminbekreftelse.length > 0,
     },
 };
 

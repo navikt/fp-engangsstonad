@@ -1,4 +1,5 @@
-import { NavFrontendSkjemaFeil } from '@navikt/sif-common-formik/lib';
+import { DateRange, NavFrontendSkjemaFeil } from '@navikt/sif-common-formik/lib';
+import dayjs from 'dayjs';
 import * as moment from 'moment';
 import { IntlShape } from 'react-intl';
 import Person from '../../types/domain/Person';
@@ -73,3 +74,146 @@ export const getForsteMuligeTerminbekreftesesdato = (termindato?: Date | string)
 
 export const getSisteMuligeTerminbekreftesesdato = (termindato?: Date | string) =>
     moment(new Date()).endOf('day').toDate();
+
+const prettyDateFormatExtended = 'DD. MMM YYYY';
+
+export const prettifyDateExtended = (date: Date) => moment(date).format(prettyDateFormatExtended);
+
+const dateIsWithinRange = (date: Date, minDate: Date, maxDate: Date) => {
+    return moment(date).isBetween(minDate, maxDate, 'day', '[]');
+};
+
+const validateDateInRange = (date: Date | undefined, minDate: Date, maxDate: Date, isFomDate: boolean) => {
+    if (date === undefined) {
+        if (isFomDate) {
+            return {
+                key: 'valideringsfeil.fraOgMedDato.gyldigDato',
+            };
+        }
+        return {
+            key: 'valideringsfeil.tilOgMedDato.gyldigDato',
+        };
+    }
+
+    if (!dateIsWithinRange(date, minDate, maxDate)) {
+        return {
+            key: 'valideringsfeil.dateOutsideRange',
+            values: {
+                fom: prettifyDateExtended(minDate),
+                tom: prettifyDateExtended(maxDate),
+            },
+        };
+    }
+
+    return undefined;
+};
+
+const validateFromDate = (date: Date | undefined, minDate: Date, maxDate: Date, toDate?: Date) => {
+    const error = validateDateInRange(date, minDate, maxDate, true);
+    if (error !== undefined) {
+        return error;
+    }
+    if (toDate && moment(date).isAfter(toDate, 'day')) {
+        return {
+            key: 'valideringsfeil.utenlandsopphold.førTilDato',
+        };
+    }
+    return undefined;
+};
+
+const validateToDate = (date: Date | undefined, minDate: Date, maxDate: Date, fromDate?: Date) => {
+    const error = validateDateInRange(date, minDate, maxDate, false);
+    if (error !== undefined) {
+        return error;
+    }
+    if (fromDate && moment(date).isBefore(fromDate, 'day')) {
+        return {
+            key: 'valideringsfeil.utenlandsopphold.etterFraDato',
+        };
+    }
+    return undefined;
+};
+
+export const dateRangeValidation = {
+    validateToDate,
+    validateFromDate,
+};
+
+export const sortDateRange = (d1: DateRange, d2: DateRange): number => {
+    if (moment(d1.from).isSameOrBefore(d2.from)) {
+        return -1;
+    }
+    return 1;
+};
+
+export const dateRangesCollide = (ranges: DateRange[]): boolean => {
+    if (ranges.length > 0) {
+        const sortedDates = ranges.sort(sortDateRange);
+        const hasOverlap = ranges.find((d, idx) => {
+            if (idx < sortedDates.length - 1) {
+                return moment(d.to).isSameOrAfter(sortedDates[idx + 1].from);
+            }
+            return false;
+        });
+        return hasOverlap !== undefined;
+    }
+    return false;
+};
+
+export const dateRangesExceedsRange = (ranges: DateRange[], allowedRange: DateRange): boolean => {
+    if (ranges.length === 0) {
+        return false;
+    }
+    const sortedRanges = ranges.sort(sortDateRange);
+    const from = sortedRanges[0].from;
+    const to = sortedRanges[sortedRanges.length - 1].to;
+
+    if (
+        !moment(from).isBetween(allowedRange.from, allowedRange.to, 'day', '[]') ||
+        !moment(to).isBetween(allowedRange.from, allowedRange.to, 'day', '[]')
+    ) {
+        return true;
+    }
+    return false;
+};
+
+export const hasValue = (v: any) => v !== '' && v !== undefined && v !== null;
+
+export const fieldIsRequiredError = (errorMsg = 'påkrevd') => createFieldValidationError(errorMsg);
+
+export type SkjemaelementFeil = React.ReactNode | boolean;
+
+export const validateRequiredField = (value: any, errorMsg = 'påkrevd'): SkjemaelementFeil => {
+    if (!hasValue(value)) {
+        return fieldIsRequiredError(errorMsg);
+    }
+    return undefined;
+};
+
+export const createFieldValidationError = <T extends string>(key: T | undefined, values?: any): SkjemaelementFeil => {
+    return key
+        ? {
+              key,
+              values,
+          }
+        : undefined;
+};
+
+interface ItemWithFom {
+    fom: string;
+}
+
+export interface OpenDateRange {
+    from: Date;
+    to?: Date;
+}
+
+export const sortOpenDateRange = (d1: OpenDateRange, d2: OpenDateRange): number => {
+    if (moment(d1.from).isSameOrBefore(d2.from)) {
+        return -1;
+    }
+    return 1;
+};
+
+export const sortItemsByFom = (a: ItemWithFom, b: ItemWithFom) =>
+    sortOpenDateRange({ from: dayjs(a.fom).toDate() }, { from: dayjs(b.fom).toDate() });

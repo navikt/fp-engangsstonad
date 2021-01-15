@@ -1,35 +1,53 @@
-import { bemUtils, Block, Step } from '@navikt/fp-common';
+import { bemUtils, Block, intlUtils, Step, useDocumentTitle } from '@navikt/fp-common';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { commonFieldErrorRenderer } from 'util/validation/validationUtils';
 import { OmBarnetFormComponents, initialOmBarnetValues, OmBarnetFormField } from './omBarnetFormConfig';
-
-import './omBarnet.less';
 import omBarnetQuestionsConfig from './omBarnetQuestionsConfig';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import Veileder from '@navikt/fp-common/lib/components/veileder/Veileder';
 import getMessage from 'common/util/i18nUtils';
-import AttachmentList from 'common/storage/attachment/components/AttachmentList';
-import { Attachment } from 'common/storage/attachment/types/Attachment';
 import UtvidetInformasjon from 'components/utvidet-informasjon/UtvidetInformasjon';
 import PictureScanningGuide from 'components/picture-scanning-guide/PictureScanningGuide';
 import FormikFileUploader from 'components/formik-file-uploader/FormikFileUploader';
+import dayjs from 'dayjs';
+import { Hovedknapp } from 'nav-frontend-knapper';
+import { useHistory } from 'react-router-dom';
+
+import './omBarnet.less';
+import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
 
 const OmBarnet: React.FunctionComponent = () => {
     const intl = useIntl();
     const bem = bemUtils('omBarnet');
+    const history = useHistory();
+    useDocumentTitle(intlUtils(intl, 'intro.standard.dokumenttittel'));
+
+    const onValidSubmit = () => {
+        history.push('/soknad/utenlandsopphold');
+    };
 
     return (
         <OmBarnetFormComponents.FormikWrapper
             initialValues={initialOmBarnetValues}
-            onSubmit={() => null}
+            onSubmit={() => onValidSubmit()}
             renderForm={({ values: formValues }) => {
                 const visibility = omBarnetQuestionsConfig.getVisbility(formValues);
+                const allQuestionsAnswered = visibility.areAllQuestionsAnswered();
 
                 return (
                     <OmBarnetFormComponents.Form
                         includeButtons={false}
                         fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
+                        noButtonsContentRenderer={
+                            allQuestionsAnswered
+                                ? undefined
+                                : () => (
+                                      <UnansweredQuestionsInfo>
+                                          {intlUtils(intl, 'steg.footer.spørsmålMåBesvares')}
+                                      </UnansweredQuestionsInfo>
+                                  )
+                        }
                     >
                         <Step
                             bannerTitle="Engangsstønad"
@@ -57,18 +75,33 @@ const OmBarnet: React.FunctionComponent = () => {
                                     />
                                 </Block>
                                 {visibility.isVisible(OmBarnetFormField.antallBarn) && (
-                                    <Block margin="xl">
-                                        <OmBarnetFormComponents.RadioPanelGroup
-                                            name={OmBarnetFormField.antallBarn}
-                                            radios={[
-                                                { label: 'Ett barn', value: '1' },
-                                                { label: 'Tvillinger', value: '2' },
-                                                { label: 'Flere barn', value: '3' },
-                                            ]}
-                                            useTwoColumns={true}
-                                            legend="Antall barn"
-                                        />
-                                    </Block>
+                                    <>
+                                        <Block margin="xl">
+                                            <OmBarnetFormComponents.RadioPanelGroup
+                                                name={OmBarnetFormField.antallBarn}
+                                                radios={[
+                                                    { label: 'Ett barn', value: '1' },
+                                                    { label: 'Tvillinger', value: '2' },
+                                                    { label: 'Flere barn', value: '3' },
+                                                ]}
+                                                useTwoColumns={true}
+                                                legend="Antall barn"
+                                            />
+                                        </Block>
+                                        {formValues.antallBarn && parseInt(formValues.antallBarn, 10) >= 3 && (
+                                            <Block margin="xl">
+                                                <OmBarnetFormComponents.Select name={OmBarnetFormField.antallBarn}>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                </OmBarnetFormComponents.Select>
+                                            </Block>
+                                        )}
+                                    </>
                                 )}
                                 {visibility.isVisible(OmBarnetFormField.fødselsdato) && (
                                     <Block margin="xl">
@@ -83,6 +116,8 @@ const OmBarnet: React.FunctionComponent = () => {
                                         <OmBarnetFormComponents.DatePicker
                                             name={OmBarnetFormField.termindato}
                                             label={'Termindato'}
+                                            minDate={dayjs().toDate()}
+                                            maxDate={dayjs().add(9, 'month').toDate()}
                                         />
                                     </Block>
                                 )}
@@ -104,12 +139,19 @@ const OmBarnet: React.FunctionComponent = () => {
                                         </Block>
                                     </>
                                 )}
-
-                                <AttachmentList
-                                    attachments={formValues.terminbekreftelse}
-                                    showFileSize={true}
-                                    onDelete={(file: Attachment) => null}
-                                />
+                                {visibility.isVisible(OmBarnetFormField.terminbekreftelsedato) && (
+                                    <Block margin="xl">
+                                        <OmBarnetFormComponents.DatePicker
+                                            name={OmBarnetFormField.terminbekreftelsedato}
+                                            label="Terminbekreftelsesdato"
+                                        />
+                                    </Block>
+                                )}
+                                {allQuestionsAnswered && (
+                                    <Block margin="xl" textAlignCenter={true}>
+                                        <Hovedknapp>Gå videre</Hovedknapp>
+                                    </Block>
+                                )}
                             </div>
                         </Step>
                     </OmBarnetFormComponents.Form>

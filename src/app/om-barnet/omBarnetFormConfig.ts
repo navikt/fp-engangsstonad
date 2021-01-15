@@ -11,7 +11,7 @@ export enum OmBarnetFormField {
 
 export interface OmBarnetFormData {
     [OmBarnetFormField.erBarnetFødt]: YesOrNo;
-    [OmBarnetFormField.antallBarn]?: number;
+    [OmBarnetFormField.antallBarn]?: string;
     [OmBarnetFormField.fødselsdato]?: string;
     [OmBarnetFormField.termindato]?: string;
     [OmBarnetFormField.terminbekreftelse]: any[];

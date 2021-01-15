@@ -33,7 +33,7 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
     useDocumentTitle(intlUtils(intl, 'intro.standard.dokumenttittel'));
 
     const onValidSubmit = () => {
-        history.push('soknad/om-barnet');
+        history.push('/soknad/om-barnet');
     };
 
     return (

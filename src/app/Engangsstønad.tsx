@@ -9,6 +9,7 @@ import Person from './types/domain/Person';
 import { Locale } from '@navikt/fp-common';
 import OmBarnet from './om-barnet/OmBarnet';
 import { initialOmBarnetValues } from './om-barnet/omBarnetFormConfig';
+import Utenlandsopphold from './utenlandsopphold/Utenlandsopphold';
 
 interface Props {
     locale: Locale;
@@ -43,6 +44,7 @@ const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale
                     )}
                 />
                 <Route path="/soknad/om-barnet" component={() => <OmBarnet />} />
+                <Route path="/soknad/utenlandsopphold" component={() => <Utenlandsopphold />} />
             </Router>
         </IntlProvider>
     );

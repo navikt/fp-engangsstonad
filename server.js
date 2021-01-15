@@ -30,7 +30,7 @@ const renderApp = (decoratorFragments) =>
                 {
                     REST_API_URL: process.env.FORELDREPENGESOKNAD_API_URL,
                     LOGIN_URL: process.env.LOGINSERVICE_URL,
-                    APP_VERSION: process.env.APP_VERSION
+                    APP_VERSION: process.env.APP_VERSION,
                 },
                 decoratorFragments
             ),
@@ -48,8 +48,8 @@ const startServer = (html) => {
     server.use('/engangsstonad/dist/js', express.static(path.resolve(__dirname, 'dist/js')));
     server.use('/engangsstonad/dist/css', express.static(path.resolve(__dirname, 'dist/css')));
 
-    server.get(['/', '/engangsstonad/?', /^\/engangsstonad\/(?!.*dist).*$/], (req, res) => {
-            res.send(html);
+    server.get(/^\/(?!.*dist).*$/, (req, res) => {
+        res.send(html);
     });
 
     server.get('/internal/metrics', (req, res) => {

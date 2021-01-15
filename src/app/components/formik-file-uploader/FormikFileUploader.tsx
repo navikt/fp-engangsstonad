@@ -4,8 +4,11 @@ import { ArrayHelpers, useFormikContext } from 'formik';
 import { Attachment, AttachmentType, Skjemanummer } from 'common/storage/attachment/types/Attachment';
 import FormikFileInput from '@navikt/sif-common-formik/lib/components/formik-file-input/FormikFileInput';
 import { OmBarnetFormField } from 'app/om-barnet/omBarnetFormConfig';
-import { mapFileToAttachment } from 'common/storage/attachment/components/util';
+import { isAttachmentWithError, mapFileToAttachment } from 'common/storage/attachment/components/util';
 import AttachmentApi from 'common/storage/api/attachmentApi';
+import AttachmentList from 'common/storage/attachment/components/AttachmentList';
+import { EngangsstønadFormData } from 'app/form/EngangsstønadFormConfig';
+import { Block } from '@navikt/fp-common';
 
 export type FieldArrayReplaceFn = (index: number, value: any) => void;
 export type FieldArrayPushFn = (obj: any) => void;
@@ -37,8 +40,10 @@ const fileExtensionIsValid = (filename: string): boolean => {
     return VALID_EXTENSIONS.includes(`.${ext!.toLowerCase()}`);
 };
 
+let removeFn: FieldArrayRemoveFn;
+
 const FormikFileUploader: React.FunctionComponent<Props> = ({ name, onFileInputClick, ...otherProps }) => {
-    const { values } = useFormikContext();
+    const { values } = useFormikContext<EngangsstønadFormData>();
 
     async function uploadAttachment(attachment: Attachment) {
         try {
@@ -92,16 +97,28 @@ const FormikFileUploader: React.FunctionComponent<Props> = ({ name, onFileInputC
     }
 
     return (
-        <FormikFileInput
-            name={name}
-            acceptedExtensions={VALID_EXTENSIONS.join(', ')}
-            onFilesSelect={async (files: File[], { push, replace }: ArrayHelpers) => {
-                const attachments = files.map((file) => addPendingAttachmentToFieldArray(file, push));
-                await uploadAttachments([...(values as any)[name], ...attachments], replace);
-            }}
-            onClick={onFileInputClick}
-            {...otherProps}
-        />
+        <>
+            <FormikFileInput
+                name={name}
+                acceptedExtensions={VALID_EXTENSIONS.join(', ')}
+                onFilesSelect={async (files: File[], { push, replace, remove }: ArrayHelpers) => {
+                    removeFn = remove;
+                    const attachments = files.map((file) => addPendingAttachmentToFieldArray(file, push));
+                    await uploadAttachments([...(values as any)[name], ...attachments], replace);
+                }}
+                onClick={onFileInputClick}
+                {...otherProps}
+            />
+            <Block margin="xl">
+                <AttachmentList
+                    attachments={values.terminbekreftelse.filter((a) => !isAttachmentWithError(a))}
+                    showFileSize={true}
+                    onDelete={(file: Attachment) => {
+                        removeFn(values.terminbekreftelse.indexOf(file));
+                    }}
+                />
+            </Block>
+        </>
     );
 };
 

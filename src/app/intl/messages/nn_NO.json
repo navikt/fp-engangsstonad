@@ -252,5 +252,8 @@
     "søknadSendt.status.status": "Under behandling",
     "søknadSendt.status.saksnummer": "Saksnummer",
     "søknadSendt.oversikt.link": "Sjå og last ned søknaden din",
-    "søknadSendt.oversikt.sendtinn": "SENDT INN:"
+    "søknadSendt.oversikt.sendtinn": "SENDT INN:",
+    "boddINorgeSiste12Mnd.alternativ.boddINorge": "kun bodd i Norge",
+    "boddINorgeSiste12Mnd.alternativ.boddIUtlandet": "bodd i utlandet helt eller delvis",
+    "boddINorgeSiste12Mnd.spørsmål": "Hvor har du bodd de siste 12 månedene?"
 }

@@ -10,17 +10,13 @@ interface Props {
     onDelete?: (file: Attachment) => void;
 }
 
-const AttachmentList: React.StatelessComponent<Props> = (props) => {
+const AttachmentList: React.FunctionComponent<Props> = (props) => {
     const { attachments, showFileSize, onDelete } = props;
     return (
         <ul className="attachmentList">
             <TransitionGroup>
                 {attachments.map((attachment, index) => (
-                    <CSSTransition
-                        classNames="transitionFade"
-                        timeout={500}
-                        key={index}
-                    >
+                    <CSSTransition classNames="transitionFade" timeout={500} key={index}>
                         <li>
                             <AttachmentComponent
                                 attachment={attachment}
