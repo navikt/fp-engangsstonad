@@ -3,11 +3,10 @@ import { FormikValidateFunction } from '@navikt/sif-common-formik/lib';
 import { ArrayHelpers, useFormikContext } from 'formik';
 import { Attachment, AttachmentType, Skjemanummer } from 'common/storage/attachment/types/Attachment';
 import FormikFileInput from '@navikt/sif-common-formik/lib/components/formik-file-input/FormikFileInput';
-import { OmBarnetFormField } from 'app/om-barnet/omBarnetFormConfig';
+import { OmBarnetFormData, OmBarnetFormField } from 'app/om-barnet/omBarnetFormConfig';
 import { isAttachmentWithError, mapFileToAttachment } from 'common/storage/attachment/components/util';
 import AttachmentApi from 'common/storage/api/attachmentApi';
 import AttachmentList from 'common/storage/attachment/components/AttachmentList';
-import { EngangsstønadFormData } from 'app/form/EngangsstønadFormConfig';
 import { Block } from '@navikt/fp-common';
 
 export type FieldArrayReplaceFn = (index: number, value: any) => void;
@@ -43,7 +42,7 @@ const fileExtensionIsValid = (filename: string): boolean => {
 let removeFn: FieldArrayRemoveFn;
 
 const FormikFileUploader: React.FunctionComponent<Props> = ({ name, onFileInputClick, ...otherProps }) => {
-    const { values } = useFormikContext<EngangsstønadFormData>();
+    const { values } = useFormikContext<OmBarnetFormData>();
 
     async function uploadAttachment(attachment: Attachment) {
         try {
@@ -111,10 +110,10 @@ const FormikFileUploader: React.FunctionComponent<Props> = ({ name, onFileInputC
             />
             <Block margin="xl">
                 <AttachmentList
-                    attachments={values.soknad.omBarnet.terminbekreftelse.filter((a) => !isAttachmentWithError(a))}
+                    attachments={values.terminbekreftelse.filter((a) => !isAttachmentWithError(a))}
                     showFileSize={true}
                     onDelete={(file: Attachment) => {
-                        removeFn(values.soknad.omBarnet.terminbekreftelse.indexOf(file));
+                        removeFn(values.terminbekreftelse.indexOf(file));
                     }}
                 />
             </Block>

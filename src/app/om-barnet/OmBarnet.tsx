@@ -1,5 +1,5 @@
 import { bemUtils, Block, intlUtils, Step, useDocumentTitle } from '@navikt/fp-common';
-import React, { useReducer } from 'react';
+import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { commonFieldErrorRenderer } from 'util/validation/validationUtils';
 import {
@@ -19,8 +19,8 @@ import dayjs from 'dayjs';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
 import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
-import engangsstonadReducer from './../form/reducer/engangsstonadReducer';
-import { EngangsstønadFormContext } from './../form/EngangsstønadFormContext';
+import { useEngangsstønadContext } from 'app/form/EngangsstønadContext';
+import action from 'app/form/action/action';
 
 import './omBarnet.less';
 
@@ -29,27 +29,20 @@ const OmBarnet: React.FunctionComponent = () => {
     const bem = bemUtils('omBarnet');
     const history = useHistory();
     useDocumentTitle(intlUtils(intl, 'intro.standard.dokumenttittel'));
-
-    const [state, dispatch] = useReducer(engangsstonadReducer, EngangsstønadFormContext);
+    const { dispatch } = useEngangsstønadContext();
 
     const onValidSubmit = (values: Partial<OmBarnetFormData>) => {
-        dispatchOmBarnet(values);
-        history.push('/soknad/utenlandsopphold');
-    };
-
-    const dispatchOmBarnet = (values: Partial<OmBarnetFormData>) => {
-        dispatch({
-            type: EngangsstønadFormActionKeys,
-            payload: {
-                ...state,
+        dispatch(
+            action.setOmBarnet({
+                antallBarn: values.antallBarn,
                 erBarnetFødt: values.erBarnetFødt!,
                 terminbekreftelse: values.terminbekreftelse || [],
-                antallBarn: values.antallBarn,
-                fødselsdato: values.fødselsdato,
                 terminbekreftelsedato: values.terminbekreftelsedato,
+                fødselsdato: values.fødselsdato,
                 termindato: values.termindato,
-            },
-        });
+            })
+        );
+        history.push('/soknad/utenlandsopphold');
     };
 
     return (

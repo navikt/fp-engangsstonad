@@ -21,19 +21,16 @@
         "baseUrl": "./src",
         "typeRoots": ["./node_modules/@types", "./src/@types"],
         "paths": {
+            "app/*": ["app/*"],
             "shared/*": ["app/components/shared/*"],
             "assets/*": ["app/assets/*"],
             "components/*": ["app/components/*"],
             "connectedComponents/*": ["app/connected-components"],
-            "actions": ["app/redux/actions"],
-            "actions/*": ["app/redux/actions/*"],
-            "reducers/*": ["app/redux/reducers/*"],
             "styles/*": ["app/styles/*"],
             "util/*": ["app/util/*"],
             "common/*": ["./common/*"],
             "storage/*": ["./storage/*"],
-            "intl/*": ["app/intl/*"],
-            "app/*": ["app/*"]
+            "intl/*": ["app/intl/*"]
         }
     },
     "exclude": ["node_modules", "build", "scripts", "config", "jest", "src/build", "src/config", "dist"]
