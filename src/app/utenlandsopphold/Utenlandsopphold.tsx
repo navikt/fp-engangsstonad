@@ -19,14 +19,10 @@ import {
 import { Utenlandsopphold } from 'app/types/domain/InformasjonOmUtenlandsopphold';
 // import InformasjonOmUtenlandsopphold, { Utenlandsopphold } from 'app/types/domain/InformasjonOmUtenlandsopphold';
 // import { BostedUtland } from './bostedUtlandListAndDialog/types';
-import dayjs from 'dayjs';
 import { useIntl } from 'react-intl';
 
 import './utenlandsopphold.less';
-
-const dateToday = new Date();
-const date1YearFromNow = dayjs().add(1, 'year').toDate();
-const date1YearAgo = dayjs().subtract(1, 'year').toDate();
+import { date1YearAgo, date1YearFromNow, dateToday } from '../util/validation/validationUtils';
 
 const defaultInitialValues: UtenlandsoppholdFormValues = {
     harBoddUtenforNorgeSiste12Mnd: YesOrNo.UNANSWERED,
