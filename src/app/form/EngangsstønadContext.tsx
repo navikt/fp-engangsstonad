@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 import { initialOmBarnetValues } from '../om-barnet/omBarnetFormConfig';
-import { EngangsstønadFormAction } from './action/action';
+import { EngangsstønadFormAction } from './action/actionCreator';
 import { EngangsstønadFormData } from './EngangsstønadFormConfig';
 import engangsstønadReducer from './reducer/engangsstønadReducer';
 

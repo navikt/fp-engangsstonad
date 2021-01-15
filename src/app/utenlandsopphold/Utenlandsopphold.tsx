@@ -14,7 +14,7 @@ import { utenlandsoppholdFormQuestions } from './utenlandsoppholdFormQuestions';
 import {
     UtenlandsoppholdFieldNames,
     UtenlandsoppholdFormComponents,
-    UtenlandsoppholdFormValues,
+    UtenlandsoppholdFormData,
 } from './utenlandsoppholdFormTypes';
 import { Utenlandsopphold } from 'app/types/domain/InformasjonOmUtenlandsopphold';
 // import InformasjonOmUtenlandsopphold, { Utenlandsopphold } from 'app/types/domain/InformasjonOmUtenlandsopphold';
@@ -24,7 +24,7 @@ import { useIntl } from 'react-intl';
 import './utenlandsopphold.less';
 import { date1YearAgo, date1YearFromNow, dateToday } from '../util/validation/validationUtils';
 
-const defaultInitialValues: UtenlandsoppholdFormValues = {
+const defaultInitialValues: UtenlandsoppholdFormData = {
     harBoddUtenforNorgeSiste12Mnd: YesOrNo.UNANSWERED,
     skalBoUtenforNorgeNeste12Mnd: YesOrNo.UNANSWERED,
     utenlandsoppholdNeste12Mnd: [],
@@ -47,7 +47,7 @@ const defaultInitialValues: UtenlandsoppholdFormValues = {
 
 // const getInitialValues = (
 //     informasjonOmUtenlandsoppholdFraSøknad: InformasjonOmUtenlandsopphold
-// ): UtenlandsoppholdFormValues => {
+// ): UtenlandsoppholdFormData => {
 //     if (utenlandsoppholdErGyldig(informasjonOmUtenlandsoppholdFraSøknad)) {
 //         const {
 //             iNorgeSiste12Mnd,
@@ -56,7 +56,7 @@ const defaultInitialValues: UtenlandsoppholdFormValues = {
 //             tidligereOpphold,
 //         } = informasjonOmUtenlandsoppholdFraSøknad;
 
-//         const initialValues: UtenlandsoppholdFormValues = {
+//         const initialValues: UtenlandsoppholdFormData = {
 //             harBoddUtenforNorgeSiste12Mnd: iNorgeSiste12Mnd ? YesOrNo.NO : YesOrNo.YES,
 //             skalBoUtenforNorgeNeste12Mnd: iNorgeNeste12Mnd ? YesOrNo.NO : YesOrNo.YES,
 //             utenlandsoppholdNeste12Mnd: senereOpphold.map(mapTilBostedUtland),

@@ -1,8 +1,8 @@
 import { QuestionConfig, Questions } from '@navikt/sif-common-question-config';
 import { YesOrNo } from '@navikt/sif-common-formik/lib';
-import { UtenlandsoppholdFormValues, UtenlandsoppholdFieldNames } from './utenlandsoppholdFormTypes';
+import { UtenlandsoppholdFormData, UtenlandsoppholdFieldNames } from './utenlandsoppholdFormTypes';
 
-const UtenlandsoppholdFormConfig: QuestionConfig<UtenlandsoppholdFormValues, UtenlandsoppholdFieldNames> = {
+const UtenlandsoppholdFormConfig: QuestionConfig<UtenlandsoppholdFormData, UtenlandsoppholdFieldNames> = {
     [UtenlandsoppholdFieldNames.harBoddUtenforNorgeSiste12Mnd]: {
         isAnswered: ({ harBoddUtenforNorgeSiste12Mnd }) => harBoddUtenforNorgeSiste12Mnd !== YesOrNo.UNANSWERED,
         isIncluded: () => true,
@@ -24,6 +24,6 @@ const UtenlandsoppholdFormConfig: QuestionConfig<UtenlandsoppholdFormValues, Ute
     },
 };
 
-export const utenlandsoppholdFormQuestions = Questions<UtenlandsoppholdFormValues, UtenlandsoppholdFieldNames>(
+export const utenlandsoppholdFormQuestions = Questions<UtenlandsoppholdFormData, UtenlandsoppholdFieldNames>(
     UtenlandsoppholdFormConfig
 );

@@ -20,7 +20,7 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
 import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
 import { useEngangsstønadContext } from 'app/form/EngangsstønadContext';
-import action from 'app/form/action/action';
+import actionCreator from 'app/form/action/actionCreator';
 
 import './omBarnet.less';
 
@@ -33,7 +33,7 @@ const OmBarnet: React.FunctionComponent = () => {
 
     const onValidSubmit = (values: Partial<OmBarnetFormData>) => {
         dispatch(
-            action.setOmBarnet({
+            actionCreator.setOmBarnet({
                 antallBarn: values.antallBarn,
                 erBarnetFødt: values.erBarnetFødt!,
                 terminbekreftelse: values.terminbekreftelse || [],

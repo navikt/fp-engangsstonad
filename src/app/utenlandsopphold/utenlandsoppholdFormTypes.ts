@@ -8,7 +8,7 @@ export const enum UtenlandsoppholdFieldNames {
     utenlandsoppholdNeste12Mnd = 'utenlandsoppholdNeste12Mnd',
 }
 
-export interface UtenlandsoppholdFormValues {
+export interface UtenlandsoppholdFormData {
     [UtenlandsoppholdFieldNames.harBoddUtenforNorgeSiste12Mnd]: YesOrNo;
     [UtenlandsoppholdFieldNames.utenlandsoppholdSiste12Mnd]: BostedUtland[];
     [UtenlandsoppholdFieldNames.skalBoUtenforNorgeNeste12Mnd]: YesOrNo;
@@ -17,5 +17,5 @@ export interface UtenlandsoppholdFormValues {
 
 export const UtenlandsoppholdFormComponents = getTypedFormComponents<
     UtenlandsoppholdFieldNames,
-    UtenlandsoppholdFormValues
+    UtenlandsoppholdFormData
 >();

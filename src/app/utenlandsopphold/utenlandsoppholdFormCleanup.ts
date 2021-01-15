@@ -1,7 +1,7 @@
-import { UtenlandsoppholdFormValues } from './utenlandsoppholdFormTypes';
+import { UtenlandsoppholdFormData } from './utenlandsoppholdFormTypes';
 import { YesOrNo } from '@navikt/sif-common-formik/lib';
 
-const utenlandsoppholdFormCleanup = (formValues: UtenlandsoppholdFormValues): UtenlandsoppholdFormValues => {
+const utenlandsoppholdFormCleanup = (formValues: UtenlandsoppholdFormData): UtenlandsoppholdFormData => {
     const {
         harBoddUtenforNorgeSiste12Mnd,
         skalBoUtenforNorgeNeste12Mnd,

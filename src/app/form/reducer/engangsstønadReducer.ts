@@ -1,4 +1,4 @@
-import { EngangsstønadFormAction, EngangsstønadFormActionKeys } from '../action/action';
+import { EngangsstønadFormAction, EngangsstønadFormActionKeys } from '../action/actionCreator';
 import { EngangsstønadFormData } from '../EngangsstønadFormConfig';
 
 const engangsstønadReducer = (state: EngangsstønadFormData, action: EngangsstønadFormAction): EngangsstønadFormData => {
