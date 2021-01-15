@@ -1,7 +1,7 @@
 import { bemUtils, Block, intlUtils } from '@navikt/fp-common';
 import { UnansweredQuestionsInfo, YesOrNo } from '@navikt/sif-common-formik/lib';
 import UtvidetInformasjon from 'components/utvidet-informasjon/UtvidetInformasjon';
-import React from 'react';
+import React, { useContext } from 'react';
 import { commonFieldErrorRenderer } from 'util/validation/validationUtils';
 import BostedUtlandListAndDialog from './bostedUtlandListAndDialog/BostedUtlandListAndDialog';
 import utenlandsoppholdFormCleanup from './utenlandsoppholdFormCleanup';
@@ -18,6 +18,7 @@ import dayjs from 'dayjs';
 import { useIntl } from 'react-intl';
 
 import './utenlandsopphold.less';
+import { EngangsstønadFormContext } from './../form/EngangsstønadFormContext';
 
 const dateToday = new Date();
 const date1YearFromNow = dayjs().add(1, 'year').toDate();
@@ -71,7 +72,9 @@ const defaultInitialValues: UtenlandsoppholdFormValues = {
 const Utenlandsopphold: React.FunctionComponent = () => {
     const bem = bemUtils('utenlandsopphold');
     const intl = useIntl();
+    const values = useContext(EngangsstønadFormContext);
 
+    console.log(values);
     // const initialValues = getInitialValues(informasjonOmUtenlandsoppholdFraSøknad);
 
     return (

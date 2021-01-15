@@ -32,7 +32,8 @@
             "util/*": ["app/util/*"],
             "common/*": ["./common/*"],
             "storage/*": ["./storage/*"],
-            "intl/*": ["app/intl/*"]
+            "intl/*": ["app/intl/*"],
+            "app/*": ["app/*"]
         }
     },
     "exclude": ["node_modules", "build", "scripts", "config", "jest", "src/build", "src/config", "dist"]

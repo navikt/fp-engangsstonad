@@ -111,10 +111,10 @@ const FormikFileUploader: React.FunctionComponent<Props> = ({ name, onFileInputC
             />
             <Block margin="xl">
                 <AttachmentList
-                    attachments={values.terminbekreftelse.filter((a) => !isAttachmentWithError(a))}
+                    attachments={values.soknad.omBarnet.terminbekreftelse.filter((a) => !isAttachmentWithError(a))}
                     showFileSize={true}
                     onDelete={(file: Attachment) => {
-                        removeFn(values.terminbekreftelse.indexOf(file));
+                        removeFn(values.soknad.omBarnet.terminbekreftelse.indexOf(file));
                     }}
                 />
             </Block>

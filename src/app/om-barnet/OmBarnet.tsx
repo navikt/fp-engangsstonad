@@ -1,8 +1,13 @@
 import { bemUtils, Block, intlUtils, Step, useDocumentTitle } from '@navikt/fp-common';
-import React from 'react';
+import React, { useReducer } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { commonFieldErrorRenderer } from 'util/validation/validationUtils';
-import { OmBarnetFormComponents, initialOmBarnetValues, OmBarnetFormField } from './omBarnetFormConfig';
+import {
+    OmBarnetFormComponents,
+    initialOmBarnetValues,
+    OmBarnetFormField,
+    OmBarnetFormData,
+} from './omBarnetFormConfig';
 import omBarnetQuestionsConfig from './omBarnetQuestionsConfig';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import Veileder from '@navikt/fp-common/lib/components/veileder/Veileder';
@@ -13,9 +18,11 @@ import FormikFileUploader from 'components/formik-file-uploader/FormikFileUpload
 import dayjs from 'dayjs';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
+import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
+import engangsstonadReducer from './../form/reducer/engangsstonadReducer';
+import { EngangsstønadFormContext } from './../form/EngangsstønadFormContext';
 
 import './omBarnet.less';
-import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
 
 const OmBarnet: React.FunctionComponent = () => {
     const intl = useIntl();
@@ -23,14 +30,32 @@ const OmBarnet: React.FunctionComponent = () => {
     const history = useHistory();
     useDocumentTitle(intlUtils(intl, 'intro.standard.dokumenttittel'));
 
-    const onValidSubmit = () => {
+    const [state, dispatch] = useReducer(engangsstonadReducer, EngangsstønadFormContext);
+
+    const onValidSubmit = (values: Partial<OmBarnetFormData>) => {
+        dispatchOmBarnet(values);
         history.push('/soknad/utenlandsopphold');
+    };
+
+    const dispatchOmBarnet = (values: Partial<OmBarnetFormData>) => {
+        dispatch({
+            type: EngangsstønadFormActionKeys,
+            payload: {
+                ...state,
+                erBarnetFødt: values.erBarnetFødt!,
+                terminbekreftelse: values.terminbekreftelse || [],
+                antallBarn: values.antallBarn,
+                fødselsdato: values.fødselsdato,
+                terminbekreftelsedato: values.terminbekreftelsedato,
+                termindato: values.termindato,
+            },
+        });
     };
 
     return (
         <OmBarnetFormComponents.FormikWrapper
             initialValues={initialOmBarnetValues}
-            onSubmit={() => onValidSubmit()}
+            onSubmit={(values) => onValidSubmit(values)}
             renderForm={({ values: formValues }) => {
                 const visibility = omBarnetQuestionsConfig.getVisbility(formValues);
                 const allQuestionsAnswered = visibility.areAllQuestionsAnswered();
