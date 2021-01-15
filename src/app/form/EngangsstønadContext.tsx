@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { createContext, Dispatch, FunctionComponent, ReactNode, useContext, useMemo, useReducer } from 'react';
 import { initialOmBarnetValues } from '../om-barnet/omBarnetFormConfig';
 import { EngangsstønadFormAction } from './action/actionCreator';
 import { EngangsstønadFormData } from './EngangsstønadFormConfig';
@@ -12,19 +12,19 @@ const initialState: EngangsstønadFormData = {
 
 interface EngangsstønadContextData {
     state: EngangsstønadFormData;
-    dispatch: React.Dispatch<EngangsstønadFormAction>;
+    dispatch: Dispatch<EngangsstønadFormAction>;
 }
 
-const EngangsstønadContext = React.createContext<EngangsstønadContextData>(null!);
+const EngangsstønadContext = createContext<EngangsstønadContextData>(null!);
 
 export const useEngangsstønadContext = () => useContext(EngangsstønadContext);
 
 interface Props {
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
-const EngangsstønadContextProvider: React.FunctionComponent<Props> = ({ children }) => {
-    const [state, dispatch] = React.useReducer(engangsstønadReducer, initialState);
+const EngangsstønadContextProvider: FunctionComponent<Props> = ({ children }) => {
+    const [state, dispatch] = useReducer(engangsstønadReducer, initialState);
 
     const contextValue = useMemo(() => {
         return { state, dispatch };
