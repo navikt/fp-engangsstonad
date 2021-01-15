@@ -8,15 +8,12 @@ import NavFrontendSpinner from 'nav-frontend-spinner';
 import Person from './types/domain/Person';
 import { Locale } from '@navikt/fp-common';
 import OmBarnet from './om-barnet/OmBarnet';
-import { initialOmBarnetValues } from './om-barnet/omBarnetFormConfig';
 import Utenlandsopphold from './utenlandsopphold/Utenlandsopphold';
 
 interface Props {
     locale: Locale;
     onChangeLocale: (locale: Locale) => void;
 }
-
-export const engangsstønadFormContext = React.createContext(initialOmBarnetValues);
 
 const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale }) => {
     const { data, loading, error } = getRequest<Person>(Api.getPerson());
