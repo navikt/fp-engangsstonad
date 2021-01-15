@@ -1,8 +1,13 @@
 import { bemUtils, Block, intlUtils } from '@navikt/fp-common';
 import { UnansweredQuestionsInfo, YesOrNo } from '@navikt/sif-common-formik/lib';
 import UtvidetInformasjon from 'components/utvidet-informasjon/UtvidetInformasjon';
-import React, { useContext } from 'react';
-import { commonFieldErrorRenderer } from 'util/validation/validationUtils';
+import React from 'react';
+import {
+    commonFieldErrorRenderer,
+    validateUtenlandsoppholdNeste12Mnd,
+    validateUtenlandsoppholdSiste12Mnd,
+    validateYesOrNoIsAnswered,
+} from 'util/validation/validationUtils';
 import BostedUtlandListAndDialog from './bostedUtlandListAndDialog/BostedUtlandListAndDialog';
 import utenlandsoppholdFormCleanup from './utenlandsoppholdFormCleanup';
 import { utenlandsoppholdFormQuestions } from './utenlandsoppholdFormQuestions';
@@ -18,7 +23,6 @@ import dayjs from 'dayjs';
 import { useIntl } from 'react-intl';
 
 import './utenlandsopphold.less';
-import { EngangsstønadFormContext } from './../form/EngangsstønadFormContext';
 
 const dateToday = new Date();
 const date1YearFromNow = dayjs().add(1, 'year').toDate();
@@ -72,9 +76,6 @@ const defaultInitialValues: UtenlandsoppholdFormValues = {
 const Utenlandsopphold: React.FunctionComponent = () => {
     const bem = bemUtils('utenlandsopphold');
     const intl = useIntl();
-    const values = useContext(EngangsstønadFormContext);
-
-    console.log(values);
     // const initialValues = getInitialValues(informasjonOmUtenlandsoppholdFraSøknad);
 
     return (
@@ -106,7 +107,7 @@ const Utenlandsopphold: React.FunctionComponent = () => {
                             >
                                 <div>
                                     {visibility.isVisible(UtenlandsoppholdFieldNames.skalBoUtenforNorgeNeste12Mnd) && (
-                                        <Block margin="m">
+                                        <Block>
                                             <UtenlandsoppholdFormComponents.YesOrNoQuestion
                                                 legend={intlUtils(intl, 'iNorgeNeste12Mnd.spørsmål')}
                                                 name={UtenlandsoppholdFieldNames.skalBoUtenforNorgeNeste12Mnd}
@@ -124,7 +125,7 @@ const Utenlandsopphold: React.FunctionComponent = () => {
                                                     no: intlUtils(intl, 'iNorgeNeste12Mnd.alternativ.boINorge'),
                                                     yes: intlUtils(intl, 'iNorgeNeste12Mnd.alternativ.boIUtlandet'),
                                                 }}
-                                                // validate={validateYesOrNoIsAnswered}
+                                                validate={validateYesOrNoIsAnswered}
                                             />
                                         </Block>
                                     )}
@@ -139,12 +140,12 @@ const Utenlandsopphold: React.FunctionComponent = () => {
                                                     modalTitle: 'Utenlandsopphold neste 12 måneder',
                                                 }}
                                                 erFremtidigOpphold={true}
-                                                // validate={validateUtenlandsoppholdNeste12Mnd}
+                                                validate={validateUtenlandsoppholdNeste12Mnd}
                                             />
                                         </Block>
                                     )}
                                     {visibility.isVisible(UtenlandsoppholdFieldNames.harBoddUtenforNorgeSiste12Mnd) && (
-                                        <Block>
+                                        <Block margin="xl">
                                             <UtenlandsoppholdFormComponents.YesOrNoQuestion
                                                 legend={intlUtils(intl, 'boddINorgeSiste12Mnd.spørsmål')}
                                                 name={UtenlandsoppholdFieldNames.harBoddUtenforNorgeSiste12Mnd}
@@ -165,12 +166,12 @@ const Utenlandsopphold: React.FunctionComponent = () => {
                                                         'boddINorgeSiste12Mnd.alternativ.boddIUtlandet'
                                                     ),
                                                 }}
-                                                // validate={validateYesOrNoIsAnswered}
+                                                validate={validateYesOrNoIsAnswered}
                                             />
                                         </Block>
                                     )}
                                     {visibility.isVisible(UtenlandsoppholdFieldNames.utenlandsoppholdSiste12Mnd) && (
-                                        <Block margin="m">
+                                        <Block margin="l">
                                             <BostedUtlandListAndDialog<UtenlandsoppholdFieldNames>
                                                 minDate={date1YearAgo}
                                                 maxDate={dateToday}
@@ -180,7 +181,7 @@ const Utenlandsopphold: React.FunctionComponent = () => {
                                                     modalTitle: 'Utenlandsopphold siste 12 måneder',
                                                 }}
                                                 erFremtidigOpphold={false}
-                                                // validate={validateUtenlandsoppholdSiste12Mnd}
+                                                validate={validateUtenlandsoppholdSiste12Mnd}
                                             />
                                         </Block>
                                     )}

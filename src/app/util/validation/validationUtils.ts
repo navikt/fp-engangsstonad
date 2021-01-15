@@ -1,13 +1,24 @@
-import { DateRange, NavFrontendSkjemaFeil } from '@navikt/sif-common-formik/lib';
+import { DateRange, NavFrontendSkjemaFeil, YesOrNo } from '@navikt/sif-common-formik/lib';
+import { BostedUtland } from 'app/utenlandsopphold/bostedUtlandListAndDialog/types';
 import dayjs from 'dayjs';
-import * as moment from 'moment';
 import { IntlShape } from 'react-intl';
 import Person from '../../types/domain/Person';
+import isBetween from 'dayjs/plugin/isBetween';
+import minMax from 'dayjs/plugin/minMax';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 
-const todaysDate = moment();
+dayjs.extend(isBetween);
+dayjs.extend(minMax);
+dayjs.extend(isSameOrBefore);
+dayjs.extend(isSameOrAfter);
+
+const todaysDate = dayjs();
 const ukerAaTrekkeFraTerminDato = 18;
 const ekstraDagerAaTrekkeFraTerminDato = 3;
 const dagerForTerminbekreftelse = ukerAaTrekkeFraTerminDato * 7 + ekstraDagerAaTrekkeFraTerminDato;
+const date1YearAhead = dayjs().add(1, 'years');
+const date1YearAgo = dayjs().subtract(1, 'years');
 
 export const commonFieldErrorRenderer = (intl: IntlShape, error: any): NavFrontendSkjemaFeil => {
     if (typeof error === 'object' && error.key !== undefined) {
@@ -20,67 +31,67 @@ export const commonFieldErrorRenderer = (intl: IntlShape, error: any): NavFronte
 };
 
 export const erIUke22Pluss3 = (dato: string) => {
-    const terminDato = moment(dato);
+    const terminDato = dayjs(dato);
     const uke22Pluss3 = terminDato.subtract(dagerForTerminbekreftelse, 'days');
-    return moment.max(todaysDate.startOf('day'), uke22Pluss3.startOf('day')) === todaysDate;
+    return dayjs.max(todaysDate.startOf('day'), uke22Pluss3.startOf('day')) === todaysDate;
 };
 
 export const erMindreEnn3UkerSiden = (dato: string) => {
-    const terminDato = moment(dato);
-    const datoFor3UkerSiden = moment().startOf('day').subtract(21, 'days');
-    return moment.max(terminDato, datoFor3UkerSiden) === terminDato;
+    const terminDato = dayjs(dato);
+    const datoFor3UkerSiden = dayjs().startOf('day').subtract(21, 'days');
+    return dayjs.max(terminDato, datoFor3UkerSiden) === terminDato;
 };
 
 export const utstedtDatoErIUke22 = (utstedtDatoString: string, terminDatoString: string) => {
-    const utstedtDato = moment(utstedtDatoString).startOf('day');
-    const terminDato = moment(terminDatoString).startOf('day');
+    const utstedtDato = dayjs(utstedtDatoString).startOf('day');
+    const terminDato = dayjs(terminDatoString).startOf('day');
     const uke22 = terminDato.subtract(dagerForTerminbekreftelse, 'days');
-    return moment.max(uke22, utstedtDato).isSame(utstedtDato);
+    return dayjs.max(uke22, utstedtDato).isSame(utstedtDato);
 };
 
 export const idagEllerTidligere = (dato: string) => {
-    const utstedtDato = moment(dato).startOf('day');
-    const tomorrow = moment().add(1, 'day').startOf('day');
-    return moment.max(utstedtDato, tomorrow) === tomorrow;
+    const utstedtDato = dayjs(dato).startOf('day');
+    const tomorrow = dayjs().add(1, 'day').startOf('day');
+    return dayjs.max(utstedtDato, tomorrow) === tomorrow;
 };
 
 export const erMyndig = (person: Person) => {
-    const now = moment();
-    const momentDate = moment(person.fødselsdato);
+    const now = dayjs();
+    const momentDate = dayjs(person.fødselsdato);
     return now.diff(momentDate, 'years') >= 18;
 };
 
 export const erMann = (person: Person) => person.kjønn === 'M';
 
-export const getFørsteMuligeTermindato = () => moment().subtract(21, 'days').startOf('day').toDate();
+export const getFørsteMuligeTermindato = () => dayjs().subtract(21, 'days').startOf('day').toDate();
 
 /**
  * Siste mulige termindato ut fra dagens dato
  * - dato må bekrefte at bruker er minst i uke 22
  */
 export const getSisteMuligeTermindato = () =>
-    moment()
+    dayjs()
         .add(dagerForTerminbekreftelse - 1, 'days')
         .endOf('day')
         .toDate();
 
 export const getForsteMuligeTerminbekreftesesdato = (termindato?: Date | string): Date => {
     return termindato
-        ? moment(termindato)
+        ? dayjs(termindato)
               .subtract(dagerForTerminbekreftelse - 1, 'days')
               .toDate()
-        : moment().subtract(1, 'years').startOf('day').toDate();
+        : dayjs().subtract(1, 'years').startOf('day').toDate();
 };
 
 export const getSisteMuligeTerminbekreftesesdato = (termindato?: Date | string) =>
-    moment(new Date()).endOf('day').toDate();
+    dayjs(new Date()).endOf('day').toDate();
 
 const prettyDateFormatExtended = 'DD. MMM YYYY';
 
-export const prettifyDateExtended = (date: Date) => moment(date).format(prettyDateFormatExtended);
+export const prettifyDateExtended = (date: Date) => dayjs(date).format(prettyDateFormatExtended);
 
 const dateIsWithinRange = (date: Date, minDate: Date, maxDate: Date) => {
-    return moment(date).isBetween(minDate, maxDate, 'day', '[]');
+    return dayjs(date).isBetween(minDate, maxDate, 'day', '[]');
 };
 
 const validateDateInRange = (date: Date | undefined, minDate: Date, maxDate: Date, isFomDate: boolean) => {
@@ -113,7 +124,7 @@ const validateFromDate = (date: Date | undefined, minDate: Date, maxDate: Date, 
     if (error !== undefined) {
         return error;
     }
-    if (toDate && moment(date).isAfter(toDate, 'day')) {
+    if (toDate && dayjs(date).isAfter(toDate, 'day')) {
         return {
             key: 'valideringsfeil.utenlandsopphold.førTilDato',
         };
@@ -126,7 +137,7 @@ const validateToDate = (date: Date | undefined, minDate: Date, maxDate: Date, fr
     if (error !== undefined) {
         return error;
     }
-    if (fromDate && moment(date).isBefore(fromDate, 'day')) {
+    if (fromDate && dayjs(date).isBefore(fromDate, 'day')) {
         return {
             key: 'valideringsfeil.utenlandsopphold.etterFraDato',
         };
@@ -140,7 +151,7 @@ export const dateRangeValidation = {
 };
 
 export const sortDateRange = (d1: DateRange, d2: DateRange): number => {
-    if (moment(d1.from).isSameOrBefore(d2.from)) {
+    if (dayjs(d1.from).isSameOrBefore(d2.from)) {
         return -1;
     }
     return 1;
@@ -151,7 +162,7 @@ export const dateRangesCollide = (ranges: DateRange[]): boolean => {
         const sortedDates = ranges.sort(sortDateRange);
         const hasOverlap = ranges.find((d, idx) => {
             if (idx < sortedDates.length - 1) {
-                return moment(d.to).isSameOrAfter(sortedDates[idx + 1].from);
+                return dayjs(d.to).isSameOrAfter(sortedDates[idx + 1].from);
             }
             return false;
         });
@@ -169,8 +180,8 @@ export const dateRangesExceedsRange = (ranges: DateRange[], allowedRange: DateRa
     const to = sortedRanges[sortedRanges.length - 1].to;
 
     if (
-        !moment(from).isBetween(allowedRange.from, allowedRange.to, 'day', '[]') ||
-        !moment(to).isBetween(allowedRange.from, allowedRange.to, 'day', '[]')
+        !dayjs(from).isBetween(allowedRange.from, allowedRange.to, 'day', '[]') ||
+        !dayjs(to).isBetween(allowedRange.from, allowedRange.to, 'day', '[]')
     ) {
         return true;
     }
@@ -209,7 +220,7 @@ export interface OpenDateRange {
 }
 
 export const sortOpenDateRange = (d1: OpenDateRange, d2: OpenDateRange): number => {
-    if (moment(d1.from).isSameOrBefore(d2.from)) {
+    if (dayjs(d1.from).isSameOrBefore(d2.from)) {
         return -1;
     }
     return 1;
@@ -217,3 +228,43 @@ export const sortOpenDateRange = (d1: OpenDateRange, d2: OpenDateRange): number 
 
 export const sortItemsByFom = (a: ItemWithFom, b: ItemWithFom) =>
     sortOpenDateRange({ from: dayjs(a.fom).toDate() }, { from: dayjs(b.fom).toDate() });
+
+export const validateYesOrNoIsAnswered = (answer: YesOrNo, errorIntlKey?: string): SkjemaelementFeil => {
+    if (answer === YesOrNo.UNANSWERED || answer === undefined) {
+        return fieldIsRequiredError(errorIntlKey);
+    }
+    return undefined;
+};
+
+export const validateUtenlandsoppholdSiste12Mnd = (utenlandsopphold: BostedUtland[]): SkjemaelementFeil => {
+    if (utenlandsopphold.length === 0) {
+        return createFieldValidationError('valideringsfeil.utenlandsopphold_ikke_registrert');
+    }
+
+    const dateRanges = utenlandsopphold.map((u) => ({ from: dayjs(u.fom).toDate(), to: dayjs(u.tom).toDate() }));
+
+    if (dateRangesCollide(dateRanges)) {
+        return createFieldValidationError('valideringsfeil.utenlandsopphold.overlapp');
+    }
+    if (dateRangesExceedsRange(dateRanges, { from: date1YearAgo.toDate(), to: new Date() })) {
+        return createFieldValidationError('valideringsfeil.utenlandsopphold_utenfor_periode');
+    }
+
+    return undefined;
+};
+
+export const validateUtenlandsoppholdNeste12Mnd = (utenlandsopphold: BostedUtland[]): SkjemaelementFeil => {
+    if (utenlandsopphold.length === 0) {
+        return createFieldValidationError('valideringsfeil.utenlandsopphold_ikke_registrert');
+    }
+
+    const dateRanges = utenlandsopphold.map((u) => ({ from: dayjs(u.fom).toDate(), to: dayjs(u.tom).toDate() }));
+
+    if (dateRangesCollide(dateRanges)) {
+        return createFieldValidationError('valideringsfeil.utenlandsopphold.overlapp');
+    }
+    if (dateRangesExceedsRange(dateRanges, { from: new Date(), to: date1YearAhead.toDate() })) {
+        return createFieldValidationError('valideringsfeil.utenlandsopphold_utenfor_periode');
+    }
+    return undefined;
+};

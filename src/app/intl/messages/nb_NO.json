@@ -280,5 +280,8 @@
     "valideringsfeil.dateOutsideRange": "Ugyldig dato",
     "valideringsfeil.utenlandsopphold.dagensEllerSenere": "Du må legge inn dagens dato eller senere.",
     "valideringsfeil.utenlandsopphold.etterFraDato": "Du må legge inn en dato som er etter fra-datoen",
-    "valideringsfeil.utenlandsopphold.førTilDato": "Du må legge inn en dato som er før til-datoen."
+    "valideringsfeil.utenlandsopphold.førTilDato": "Du må legge inn en dato som er før til-datoen.",
+    "valideringsfeil.utenlandsopphold_ikke_registrert": "Du har ikke lagt inn et utenlandsopphold",
+    "valideringsfeil.utenlandsopphold_utenfor_periode": "Du kan ikke legge inn et utenlandsopphold i valgt tidsperiode",
+    "valideringsfeil.utenlandsopphold.overlapp": "Du har allerede lagt inn utenlandsopphold i denne perioden"
 }
