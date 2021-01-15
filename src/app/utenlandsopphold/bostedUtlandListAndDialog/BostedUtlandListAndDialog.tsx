@@ -3,7 +3,7 @@ import { FormikModalFormAndList, FormikValidateFunction, ModalFormAndListLabels 
 import BostedUtlandForm from './BostedUtlandForm';
 import BostedUtlandListe from './BostedUtlandList';
 import { BostedUtland } from './types';
-// import { sortItemsByFom } from 'app/util/dates/dates';
+import { sortItemsByFom } from 'util/validation/validationUtils';
 
 interface Props<FieldNames> {
     name: FieldNames;
@@ -28,7 +28,7 @@ function BostedUtlandListAndDialog<FieldNames>({
             labels={labels}
             validate={validate}
             dialogWidth="narrow"
-            // sortFunc={sortItemsByFom}
+            sortFunc={sortItemsByFom}
             formRenderer={({ onSubmit, onCancel, item }) => (
                 <BostedUtlandForm
                     bosted={item}
