@@ -15,9 +15,9 @@ interface EngangsstønadContextData {
     dispatch: React.Dispatch<EngangsstønadFormAction>;
 }
 
-const EngangsstønadFormContext = React.createContext<EngangsstønadContextData>(null!);
+const EngangsstønadContext = React.createContext<EngangsstønadContextData>(null!);
 
-export const useEngangsstønadContext = () => useContext(EngangsstønadFormContext);
+export const useEngangsstønadContext = () => useContext(EngangsstønadContext);
 
 interface Props {
     children: React.ReactNode;
@@ -30,7 +30,7 @@ const EngangsstønadContextProvider: React.FunctionComponent<Props> = ({ childre
         return { state, dispatch };
     }, [state, dispatch]);
 
-    return <EngangsstønadFormContext.Provider value={contextValue}>{children}</EngangsstønadFormContext.Provider>;
+    return <EngangsstønadContext.Provider value={contextValue}>{children}</EngangsstønadContext.Provider>;
 };
 
 export default EngangsstønadContextProvider;
