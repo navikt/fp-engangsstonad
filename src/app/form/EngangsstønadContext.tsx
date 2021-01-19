@@ -1,3 +1,4 @@
+import { initialUtenlandsoppholdFormData } from 'app/utenlandsopphold/utenlandsoppholdFormTypes';
 import React, { createContext, Dispatch, FunctionComponent, ReactNode, useContext, useMemo, useReducer } from 'react';
 import { initialOmBarnetValues } from '../om-barnet/omBarnetFormConfig';
 import { EngangsstønadFormAction } from './action/actionCreator';
@@ -7,6 +8,7 @@ import engangsstønadReducer from './reducer/engangsstønadReducer';
 const initialState: EngangsstønadFormData = {
     soknad: {
         omBarnet: initialOmBarnetValues,
+        utenlandsopphold: initialUtenlandsoppholdFormData,
     },
 };
 

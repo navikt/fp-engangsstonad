@@ -15,6 +15,13 @@ export interface UtenlandsoppholdFormData {
     [UtenlandsoppholdFieldNames.utenlandsoppholdNeste12Mnd]: BostedUtland[];
 }
 
+export const initialUtenlandsoppholdFormData: UtenlandsoppholdFormData = {
+    [UtenlandsoppholdFieldNames.harBoddUtenforNorgeSiste12Mnd]: YesOrNo.UNANSWERED,
+    [UtenlandsoppholdFieldNames.utenlandsoppholdSiste12Mnd]: [],
+    [UtenlandsoppholdFieldNames.skalBoUtenforNorgeNeste12Mnd]: YesOrNo.UNANSWERED,
+    [UtenlandsoppholdFieldNames.utenlandsoppholdNeste12Mnd]: [],
+};
+
 export const UtenlandsoppholdFormComponents = getTypedFormComponents<
     UtenlandsoppholdFieldNames,
     UtenlandsoppholdFormData

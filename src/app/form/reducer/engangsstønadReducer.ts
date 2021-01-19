@@ -7,7 +7,23 @@ const engangsstønadReducer = (state: EngangsstønadFormData, action: Engangsst�
             return {
                 ...state,
                 soknad: {
+                    utenlandsopphold: {
+                        ...state.soknad.utenlandsopphold,
+                    },
                     omBarnet: {
+                        ...action.payload,
+                    },
+                },
+            };
+        }
+        case EngangsstønadFormActionKeys.SET_UTENLANDSOPPHOLD: {
+            return {
+                ...state,
+                soknad: {
+                    omBarnet: {
+                        ...state.soknad.omBarnet,
+                    },
+                    utenlandsopphold: {
                         ...action.payload,
                     },
                 },

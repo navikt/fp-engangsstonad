@@ -23,6 +23,9 @@ import { useIntl } from 'react-intl';
 
 import './utenlandsopphold.less';
 import { date1YearAgo, date1YearFromNow, dateToday } from '../util/validation/validationUtils';
+import actionCreator from 'app/form/action/actionCreator';
+import { useEngangsstønadContext } from 'app/form/EngangsstønadContext';
+import { useHistory } from 'react-router-dom';
 
 const defaultInitialValues: UtenlandsoppholdFormData = {
     harBoddUtenforNorgeSiste12Mnd: YesOrNo.UNANSWERED,
@@ -70,15 +73,30 @@ const defaultInitialValues: UtenlandsoppholdFormData = {
 // };
 
 const Utenlandsopphold: React.FunctionComponent = () => {
-    const bem = bemUtils('utenlandsopphold');
     const intl = useIntl();
+    const bem = bemUtils('utenlandsopphold');
+    const history = useHistory();
     // const initialValues = getInitialValues(informasjonOmUtenlandsoppholdFraSøknad);
+
+    const { dispatch } = useEngangsstønadContext();
+
+    const onValidSubmit = (values: Partial<UtenlandsoppholdFormData>) => {
+        dispatch(
+            actionCreator.setUtenlandsopphold({
+                skalBoUtenforNorgeNeste12Mnd: values.skalBoUtenforNorgeNeste12Mnd!,
+                harBoddUtenforNorgeSiste12Mnd: values.harBoddUtenforNorgeSiste12Mnd!,
+                utenlandsoppholdNeste12Mnd: values.utenlandsoppholdNeste12Mnd || [],
+                utenlandsoppholdSiste12Mnd: values.utenlandsoppholdSiste12Mnd || [],
+            })
+        );
+        history.push('/soknad/oppsummering');
+    };
 
     return (
         <div className={bem.block}>
             <UtenlandsoppholdFormComponents.FormikWrapper
                 initialValues={defaultInitialValues}
-                onSubmit={() => null}
+                onSubmit={(values) => onValidSubmit(values)}
                 renderForm={({ values: formValues }) => {
                     const visibility = utenlandsoppholdFormQuestions.getVisbility(formValues);
                     const allQuestionsAnswered = visibility.areAllQuestionsAnswered();
