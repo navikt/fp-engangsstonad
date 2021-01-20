@@ -2,7 +2,7 @@ import { bemUtils, Block, intlUtils, Step, useDocumentTitle } from '@navikt/fp-c
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { commonFieldErrorRenderer } from 'util/validation/validationUtils';
-import { OmBarnetFormComponents, initialOmBarnetValues, OmBarnetFormField } from './omBarnetFormConfig';
+import { OmBarnetFormComponents, OmBarnetFormField, OmBarnetFormData } from './omBarnetFormConfig';
 import omBarnetQuestionsConfig from './omBarnetQuestionsConfig';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import Veileder from '@navikt/fp-common/lib/components/veileder/Veileder';
@@ -13,55 +13,67 @@ import FormikFileUploader from 'components/formik-file-uploader/FormikFileUpload
 import dayjs from 'dayjs';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
+import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
+import { useEngangsstønadContext } from 'app/form/EngangsstønadContext';
+import actionCreator from 'app/form/action/actionCreator';
+import stepConfig from 'app/step-config/stepConfig';
+import { cleanupOmBarnet } from './omBarnetUtils';
 
 import './omBarnet.less';
-import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
 
 const OmBarnet: React.FunctionComponent = () => {
     const intl = useIntl();
     const bem = bemUtils('omBarnet');
     const history = useHistory();
     useDocumentTitle(intlUtils(intl, 'intro.standard.dokumenttittel'));
+    const { state, dispatch } = useEngangsstønadContext();
+    const initialValues = state.soknad.omBarnet;
 
-    const onValidSubmit = () => {
+    const onValidSubmit = (values: Partial<OmBarnetFormData>) => {
+        dispatch(
+            actionCreator.setOmBarnet({
+                antallBarn: values.antallBarn,
+                erBarnetFødt: values.erBarnetFødt!,
+                terminbekreftelse: values.terminbekreftelse || [],
+                terminbekreftelsedato: values.terminbekreftelsedato,
+                fødselsdato: values.fødselsdato,
+                termindato: values.termindato,
+            })
+        );
         history.push('/soknad/utenlandsopphold');
     };
 
     return (
         <OmBarnetFormComponents.FormikWrapper
-            initialValues={initialOmBarnetValues}
-            onSubmit={() => onValidSubmit()}
+            initialValues={initialValues}
+            onSubmit={(values) => onValidSubmit(values)}
             renderForm={({ values: formValues }) => {
                 const visibility = omBarnetQuestionsConfig.getVisbility(formValues);
                 const allQuestionsAnswered = visibility.areAllQuestionsAnswered();
 
                 return (
-                    <OmBarnetFormComponents.Form
-                        includeButtons={false}
-                        fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
-                        noButtonsContentRenderer={
-                            allQuestionsAnswered
-                                ? undefined
-                                : () => (
-                                      <UnansweredQuestionsInfo>
-                                          {intlUtils(intl, 'steg.footer.spørsmålMåBesvares')}
-                                      </UnansweredQuestionsInfo>
-                                  )
-                        }
+                    <Step
+                        bannerTitle="Engangsstønad"
+                        activeStepId="omBarnet"
+                        pageTitle="Om Barnet"
+                        stepTitle="Om Barnet"
+                        onCancel={() => null}
+                        steps={stepConfig}
+                        kompakt={true}
                     >
-                        <Step
-                            bannerTitle="Engangsstønad"
-                            activeStepId="om-barnet"
-                            pageTitle="Om Barnet"
-                            stepTitle="Om Barnet"
-                            onCancel={() => null}
-                            steps={[
-                                {
-                                    id: 'om-barnet',
-                                    index: 0,
-                                    label: 'Fyll ut informasjon om barnet',
-                                },
-                            ]}
+                        <OmBarnetFormComponents.Form
+                            includeButtons={false}
+                            fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
+                            cleanup={() => cleanupOmBarnet(formValues)}
+                            noButtonsContentRenderer={
+                                allQuestionsAnswered
+                                    ? undefined
+                                    : () => (
+                                          <UnansweredQuestionsInfo>
+                                              {intlUtils(intl, 'steg.footer.spørsmålMåBesvares')}
+                                          </UnansweredQuestionsInfo>
+                                      )
+                            }
                         >
                             <div className={bem.block}>
                                 <Block>
@@ -153,8 +165,8 @@ const OmBarnet: React.FunctionComponent = () => {
                                     </Block>
                                 )}
                             </div>
-                        </Step>
-                    </OmBarnetFormComponents.Form>
+                        </OmBarnetFormComponents.Form>
+                    </Step>
                 );
             }}
         />

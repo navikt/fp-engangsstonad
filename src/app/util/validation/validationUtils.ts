@@ -13,12 +13,13 @@ dayjs.extend(minMax);
 dayjs.extend(isSameOrBefore);
 dayjs.extend(isSameOrAfter);
 
-const todaysDate = dayjs();
+export const dateToday = dayjs().toDate();
+export const date1YearFromNow = dayjs().add(1, 'years').toDate();
+export const date1YearAgo = dayjs().subtract(1, 'years').toDate();
+
 const ukerAaTrekkeFraTerminDato = 18;
 const ekstraDagerAaTrekkeFraTerminDato = 3;
 const dagerForTerminbekreftelse = ukerAaTrekkeFraTerminDato * 7 + ekstraDagerAaTrekkeFraTerminDato;
-const date1YearAhead = dayjs().add(1, 'years');
-const date1YearAgo = dayjs().subtract(1, 'years');
 
 export const commonFieldErrorRenderer = (intl: IntlShape, error: any): NavFrontendSkjemaFeil => {
     if (typeof error === 'object' && error.key !== undefined) {
@@ -33,7 +34,7 @@ export const commonFieldErrorRenderer = (intl: IntlShape, error: any): NavFronte
 export const erIUke22Pluss3 = (dato: string) => {
     const terminDato = dayjs(dato);
     const uke22Pluss3 = terminDato.subtract(dagerForTerminbekreftelse, 'days');
-    return dayjs.max(todaysDate.startOf('day'), uke22Pluss3.startOf('day')) === todaysDate;
+    return dayjs.max(dayjs().startOf('day'), uke22Pluss3.startOf('day')) === dayjs();
 };
 
 export const erMindreEnn3UkerSiden = (dato: string) => {
@@ -246,7 +247,7 @@ export const validateUtenlandsoppholdSiste12Mnd = (utenlandsopphold: BostedUtlan
     if (dateRangesCollide(dateRanges)) {
         return createFieldValidationError('valideringsfeil.utenlandsopphold.overlapp');
     }
-    if (dateRangesExceedsRange(dateRanges, { from: date1YearAgo.toDate(), to: new Date() })) {
+    if (dateRangesExceedsRange(dateRanges, { from: date1YearAgo, to: new Date() })) {
         return createFieldValidationError('valideringsfeil.utenlandsopphold_utenfor_periode');
     }
 
@@ -263,7 +264,7 @@ export const validateUtenlandsoppholdNeste12Mnd = (utenlandsopphold: BostedUtlan
     if (dateRangesCollide(dateRanges)) {
         return createFieldValidationError('valideringsfeil.utenlandsopphold.overlapp');
     }
-    if (dateRangesExceedsRange(dateRanges, { from: new Date(), to: date1YearAhead.toDate() })) {
+    if (dateRangesExceedsRange(dateRanges, { from: new Date(), to: date1YearFromNow })) {
         return createFieldValidationError('valideringsfeil.utenlandsopphold_utenfor_periode');
     }
     return undefined;

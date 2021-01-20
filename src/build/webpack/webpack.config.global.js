@@ -13,6 +13,7 @@ const webpackConfig = {
     devtool: 'source-map',
     resolve: {
         alias: {
+            app: path.resolve(__dirname, './../../app/'),
             assets: path.resolve(__dirname, './../../app/assets/'),
             components: path.resolve(__dirname, './../../app/components/'),
             containers: path.resolve(__dirname, './../../app/containers/'),

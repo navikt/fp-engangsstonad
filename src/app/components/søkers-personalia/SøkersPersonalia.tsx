@@ -14,7 +14,7 @@ interface Props {
     personnummer: string;
 }
 
-const SøkersPersonalia: React.StatelessComponent<Props> = ({ navn, kjønn, personnummer }) => (
+const SøkersPersonalia: React.FunctionComponent<Props> = ({ navn, kjønn, personnummer }) => (
     <div className="søkersPersonalia">
         <CustomSVG iconRef={kjønn === 'K' ? womanSvg : manSvg} size={40} />
         <div className="søkersPersonalia__label">
