@@ -25,13 +25,13 @@ const OmBarnetFormConfig: QuestionConfig<OmBarnetFormData, OmBarnetFormField> = 
     [OmBarnetFormField.terminbekreftelse]: {
         isIncluded: ({ erBarnetFødt, termindato }) => erBarnetFødt === YesOrNo.NO && termindato !== undefined,
         isAnswered: ({ terminbekreftelse }) => terminbekreftelse.length > 0,
-        visibilityFilter: ({ termindato }) => termindato !== undefined,
+        visibilityFilter: ({ termindato, erBarnetFødt }) => termindato !== undefined && erBarnetFødt === YesOrNo.NO,
     },
     [OmBarnetFormField.terminbekreftelsedato]: {
         isIncluded: ({ termindato }) => termindato !== undefined,
         isAnswered: ({ terminbekreftelsedato }) => terminbekreftelsedato !== undefined,
-        visibilityFilter: ({ termindato, terminbekreftelse }) =>
-            termindato !== undefined && terminbekreftelse.length > 0,
+        visibilityFilter: ({ termindato, terminbekreftelse, erBarnetFødt }) =>
+            termindato !== undefined && terminbekreftelse.length > 0 && erBarnetFødt === YesOrNo.NO,
     },
 };
 
