@@ -1,31 +1,21 @@
-import { bemUtils, Block, intlUtils } from '@navikt/fp-common';
-import { UnansweredQuestionsInfo, YesOrNo } from '@navikt/sif-common-formik/lib';
-import UtvidetInformasjon from 'components/utvidet-informasjon/UtvidetInformasjon';
+import { bemUtils } from '@navikt/fp-common';
+import { YesOrNo } from '@navikt/sif-common-formik/lib';
 import React from 'react';
+
 import {
-    commonFieldErrorRenderer,
-    validateUtenlandsoppholdNeste12Mnd,
-    validateUtenlandsoppholdSiste12Mnd,
-    validateYesOrNoIsAnswered,
-} from 'util/validation/validationUtils';
-import BostedUtlandListAndDialog from './bostedUtlandListAndDialog/BostedUtlandListAndDialog';
-import utenlandsoppholdFormCleanup from './utenlandsoppholdFormCleanup';
-import { utenlandsoppholdFormQuestions } from './utenlandsoppholdFormQuestions';
-import {
-    UtenlandsoppholdFieldNames,
-    UtenlandsoppholdFormComponents,
     UtenlandsoppholdFormData,
 } from './utenlandsoppholdFormTypes';
-import { Utenlandsopphold } from 'app/types/domain/InformasjonOmUtenlandsopphold';
+import {Utenlandsopphold } from 'app/types/domain/InformasjonOmUtenlandsopphold';
 // import InformasjonOmUtenlandsopphold, { Utenlandsopphold } from 'app/types/domain/InformasjonOmUtenlandsopphold';
 // import { BostedUtland } from './bostedUtlandListAndDialog/types';
 import { useIntl } from 'react-intl';
 
 import './utenlandsopphold.less';
-import { date1YearAgo, date1YearFromNow, dateToday } from '../util/validation/validationUtils';
+
 import actionCreator from 'app/form/action/actionCreator';
 import { useEngangsstønadContext } from 'app/form/EngangsstønadContext';
 import { useHistory } from 'react-router-dom';
+
 
 const defaultInitialValues: UtenlandsoppholdFormData = {
     harBoddUtenforNorgeSiste12Mnd: YesOrNo.UNANSWERED,
@@ -34,51 +24,78 @@ const defaultInitialValues: UtenlandsoppholdFormData = {
     utenlandsoppholdSiste12Mnd: [],
 };
 
-// const utenlandsoppholdErGyldig = (informasjonOmUtenlandsopphold: InformasjonOmUtenlandsopphold): boolean => {
-//     const { iNorgeSiste12Mnd, iNorgeNeste12Mnd, tidligereOpphold, senereOpphold } = informasjonOmUtenlandsopphold;
-//     return (
-//         (iNorgeSiste12Mnd || (iNorgeSiste12Mnd === false && tidligereOpphold.length > 0)) &&
-//         (iNorgeNeste12Mnd || (iNorgeNeste12Mnd === false && senereOpphold.length > 0))
-//     );
-// };
+const utenlandsoppholdErGyldig = (informasjonOmUtenlandsopphold: UtenlandsoppholdFormData): YesOrNo => {
+    const {
+        harBoddUtenforNorgeSiste12Mnd,
+        skalBoUtenforNorgeNeste12Mnd,
+        utenlandsoppholdSiste12Mnd,
+        utenlandsoppholdNeste12Mnd,
+    } = informasjonOmUtenlandsopphold;
+    return (
+        (harBoddUtenforNorgeSiste12Mnd ||
+            (harBoddUtenforNorgeSiste12Mnd === YesOrNo.NO && utenlandsoppholdSiste12Mnd.length > 0)) &&
+        (skalBoUtenforNorgeNeste12Mnd ||
+            (skalBoUtenforNorgeNeste12Mnd === YesOrNo.NO && utenlandsoppholdNeste12Mnd.length > 0))
+    );
+};
 
-// const mapTilBostedUtland = (opphold: Utenlandsopphold): BostedUtland => ({
-//     fom: dayjs(opphold.tidsperiode.fom).toDate(),
-//     tom: dayjs(opphold.tidsperiode.tom).toDate(),
-//     landkode: opphold.land,
-// });
+ const mapTilBostedUtland = (opphold: Utenlandsopphold): Utenlandsopphold => ({
+     tidsperiode : { 
+        fom: opphold.tidsperiode.fom,
+        tom: opphold.tidsperiode.tom,
+     },
+     land: opphold.land,
+ });
 
-// const getInitialValues = (
-//     informasjonOmUtenlandsoppholdFraSøknad: InformasjonOmUtenlandsopphold
-// ): UtenlandsoppholdFormData => {
-//     if (utenlandsoppholdErGyldig(informasjonOmUtenlandsoppholdFraSøknad)) {
-//         const {
-//             iNorgeSiste12Mnd,
-//             iNorgeNeste12Mnd,
-//             senereOpphold,
-//             tidligereOpphold,
-//         } = informasjonOmUtenlandsoppholdFraSøknad;
+/*
+const getInitialValues = (
+    informasjonOmUtenlandsoppholdFraSøknad: UtenlandsoppholdFormData
+): UtenlandsoppholdFormData => {
+    if (utenlandsoppholdErGyldig(informasjonOmUtenlandsoppholdFraSøknad)) {
+    //         const {
+    //             iNorgeSiste12Mnd,
+    //             iNorgeNeste12Mnd,
+    //             senereOpphold,
+    //             tidligereOpphold,
+    //         } = informasjonOmUtenlandsoppholdFraSøknad;
 
-//         const initialValues: UtenlandsoppholdFormData = {
-//             harBoddUtenforNorgeSiste12Mnd: iNorgeSiste12Mnd ? YesOrNo.NO : YesOrNo.YES,
-//             skalBoUtenforNorgeNeste12Mnd: iNorgeNeste12Mnd ? YesOrNo.NO : YesOrNo.YES,
-//             utenlandsoppholdNeste12Mnd: senereOpphold.map(mapTilBostedUtland),
-//             utenlandsoppholdSiste12Mnd: tidligereOpphold.map(mapTilBostedUtland),
-//         };
+    const initialValues: UtenlandsoppholdFormData = {
+             harBoddUtenforNorgeSiste12Mnd: informasjonOmUtenlandsoppholdFraSøknad.harBoddUtenforNorgeSiste12Mnd ? YesOrNo.NO : YesOrNo.YES,
+                skalBoUtenforNorgeNeste12Mnd: informasjonOmUtenlandsoppholdFraSøknad.skalBoUtenforNorgeNeste12Mnd ? YesOrNo.NO : YesOrNo.YES,
+                 utenlandsoppholdNeste12Mnd: informasjonOmUtenlandsoppholdFraSøknad.utenlandsoppholdNeste12Mnd.map(mapTilBostedUtland),
+                 utenlandsoppholdSiste12Mnd: informasjonOmUtenlandsoppholdFraSøknad.utenlandsoppholdSiste12Mnd.map(mapTilBostedUtland),
+             };
 
-//         return initialValues;
-//     }
+         return initialValues;
+    }
 
-//     return defaultInitialValues;
-// };
-
+    return defaultInitialValues;
+};
+*/
 const Utenlandsopphold: React.FunctionComponent = () => {
     const intl = useIntl();
     const bem = bemUtils('utenlandsopphold');
     const history = useHistory();
     // const initialValues = getInitialValues(informasjonOmUtenlandsoppholdFraSøknad);
 
-    const { dispatch } = useEngangsstønadContext();
+    const { state, dispatch } = useEngangsstønadContext();
+
+    const getInitialValues = ( informasjonOmUtenlandsoppholdFraSøknad: UtenlandsoppholdFormData
+    ): UtenlandsoppholdFormData => {
+        if (utenlandsoppholdErGyldig(state.soknad.utenlandsopphold)) 
+        const initialValues: UtenlandsoppholdFormData = {
+                harBoddUtenforNorgeSiste12Mnd: state.soknad.utenlandsopphold.harBoddUtenforNorgeSiste12Mnd ? YesOrNo.NO : YesOrNo.YES,
+                skalBoUtenforNorgeNeste12Mnd: state.soknad.utenlandsopphold.skalBoUtenforNorgeNeste12Mnd ? YesOrNo.NO : YesOrNo.YES,
+                utenlandsoppholdNeste12Mnd: state.soknad.utenlandsopphold.utenlandsoppholdNeste12Mnd.map(mapTilBostedUtland,
+                utenlandsoppholdSiste12Mnd: state.soknad.utenlandsopphold.utenlandsoppholdSiste12Mnd.map(mapTilBostedUtland),
+                 };
+    
+             return initialValues;
+        }
+    
+        return defaultInitialValues;
+    };
+
 
     const onValidSubmit = (values: Partial<UtenlandsoppholdFormData>) => {
         dispatch(

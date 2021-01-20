@@ -1,38 +1,30 @@
 import * as React from 'react';
 import { Attachment } from 'common/storage/attachment/types/Attachment';
 import { EtikettLiten } from 'nav-frontend-typografi';
-import { FodtBarn, UfodtBarn } from '../types/domain/Barn';
 import { useIntl } from 'react-intl';
 import { isAttachmentWithError } from 'common/storage/attachment/components/util';
 import { ISODateToMaskedInput } from 'util/date/dateUtils';
 import AttachmentList from 'common/storage/attachment/components/AttachmentList';
 import DisplayTextWithLabel from 'components/display-text-with-label/DisplayTextWithLabel';
 import getMessage from 'common/util/i18nUtils';
-import '../../styles/engangsstonad.less';
+import { OmBarnetFormData } from 'app/om-barnet/omBarnetFormConfig';
+import { YesOrNo } from '@navikt/sif-common-formik/lib';
 
 interface Props {
-    barn: FodtBarn & UfodtBarn;
+    barn: OmBarnetFormData;
 }
 
-const OmBarnetOppsummering: React.FunctionComponent<Props> = (props) => {
+const OmBarnetOppsummering: React.FunctionComponent<Props> = ({ barn }) => {
     const intl = useIntl();
-    const {
-        antallBarn,
-        erBarnetFødt,
-        fødselsdatoer,
-        terminbekreftelse,
-        termindato,
-        terminbekreftelseDato,
-    } = props.barn;
 
     let antallBarnSummaryText;
-    if (antallBarn === 1) {
+    if (barn.antallBarn === '1') {
         antallBarnSummaryText = getMessage(intl, 'relasjonBarn.radiobutton.ettbarn');
-    } else if (antallBarn === 2) {
+    } else if (barn.antallBarn === '2') {
         antallBarnSummaryText = getMessage(intl, 'relasjonBarn.radiobutton.tvillinger');
     } else {
         antallBarnSummaryText = getMessage(intl, 'oppsummering.text.flereAntallBarn', {
-            antall: antallBarn,
+            antall: barn.antallBarn,
         });
     }
 
@@ -42,29 +34,29 @@ const OmBarnetOppsummering: React.FunctionComponent<Props> = (props) => {
                 label={getMessage(intl, 'oppsummering.text.soknadenGjelder')}
                 text={antallBarnSummaryText}
             />
-            {erBarnetFødt && (
+            {barn.erBarnetFødt === YesOrNo.YES && (
                 <DisplayTextWithLabel
                     label={getMessage(intl, 'oppsummering.text.medFødselsdato')}
-                    text={ISODateToMaskedInput(fødselsdatoer[0])}
+                    text={ISODateToMaskedInput(barn.fødselsdato!)}
                 />
             )}
-            {!erBarnetFødt && termindato && terminbekreftelseDato && (
+            {barn.erBarnetFødt === YesOrNo.NO && barn.termindato && barn.terminbekreftelsedato && (
                 <div>
                     <DisplayTextWithLabel
                         label={getMessage(intl, 'oppsummering.text.medTermindato')}
-                        text={ISODateToMaskedInput(termindato)}
+                        text={ISODateToMaskedInput(barn.termindato)}
                     />
                     <div className="oppsummering__attachments">
                         <EtikettLiten className="textWithLabel__label">
                             {getMessage(intl, 'oppsummering.text.vedlagtTerminbekreftelse')}
                         </EtikettLiten>
                         <AttachmentList
-                            attachments={terminbekreftelse.filter((a: Attachment) => !isAttachmentWithError(a))}
+                            attachments={barn.terminbekreftelse.filter((a: Attachment) => !isAttachmentWithError(a))}
                         />
                     </div>
                     <DisplayTextWithLabel
                         label={getMessage(intl, 'oppsummering.text.somErDatert')}
-                        text={ISODateToMaskedInput(terminbekreftelseDato)}
+                        text={ISODateToMaskedInput(barn.terminbekreftelsedato)}
                     />
                 </div>
             )}
