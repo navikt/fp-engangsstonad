@@ -8,10 +8,10 @@ import { useIntl } from 'react-intl';
 import Oppsummeringspunkt from './Oppsummeringspunkt';
 import Person from 'app/types/domain/Person';
 import { fullNameFormat } from 'app/util/formats/formatUtils';
-import { useEngangsstønadContext } from 'app/form/EngangsstønadContext';
 import OmBarnetOppsummering from './OmBarnetOppsummering';
 import UtenlandsoppholdOppsummering from './UtenlandsoppholdOppsummering';
 import stepConfig, { getPreviousStepHref } from 'app/step-config/stepConfig';
+import { useEngangsstønadContext } from 'app/form/hooks/useEngangsstønadContext';
 
 import './oppsummering.less';
 

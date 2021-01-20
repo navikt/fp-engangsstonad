@@ -14,10 +14,10 @@ import dayjs from 'dayjs';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
 import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
-import { useEngangsstønadContext } from 'app/form/EngangsstønadContext';
 import actionCreator from 'app/form/action/actionCreator';
 import stepConfig from 'app/step-config/stepConfig';
 import { cleanupOmBarnet } from './omBarnetUtils';
+import { useEngangsstønadContext } from 'app/form/hooks/useEngangsstønadContext';
 
 import './omBarnet.less';
 

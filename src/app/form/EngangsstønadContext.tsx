@@ -1,32 +1,21 @@
-import { initialUtenlandsoppholdFormData } from 'app/utenlandsopphold/utenlandsoppholdFormTypes';
-import React, { createContext, Dispatch, FunctionComponent, ReactNode, useContext, useMemo, useReducer } from 'react';
-import { initialOmBarnetValues } from '../om-barnet/omBarnetFormConfig';
+import React, { createContext, Dispatch, FunctionComponent, ReactNode, useMemo, useReducer } from 'react';
 import { EngangsstønadFormAction } from './action/actionCreator';
-import { EngangsstønadFormData } from './EngangsstønadFormConfig';
+import { EngangsstønadFormData, engangsstønadInitialState } from './EngangsstønadFormConfig';
 import engangsstønadReducer from './reducer/engangsstønadReducer';
-
-const initialState: EngangsstønadFormData = {
-    soknad: {
-        omBarnet: initialOmBarnetValues,
-        utenlandsopphold: initialUtenlandsoppholdFormData,
-    },
-};
 
 interface EngangsstønadContextData {
     state: EngangsstønadFormData;
     dispatch: Dispatch<EngangsstønadFormAction>;
 }
 
-const EngangsstønadContext = createContext<EngangsstønadContextData>(null!);
-
-export const useEngangsstønadContext = () => useContext(EngangsstønadContext);
+export const EngangsstønadContext = createContext<EngangsstønadContextData>(null!);
 
 interface Props {
     children: ReactNode;
 }
 
 const EngangsstønadContextProvider: FunctionComponent<Props> = ({ children }) => {
-    const [state, dispatch] = useReducer(engangsstønadReducer, initialState);
+    const [state, dispatch] = useReducer(engangsstønadReducer, engangsstønadInitialState);
 
     const contextValue = useMemo(() => {
         return { state, dispatch };

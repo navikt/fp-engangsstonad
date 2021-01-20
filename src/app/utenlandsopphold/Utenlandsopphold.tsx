@@ -10,7 +10,6 @@ import {
 import { Utenlandsopphold } from 'app/types/domain/InformasjonOmUtenlandsopphold';
 import { useIntl } from 'react-intl';
 import actionCreator from 'app/form/action/actionCreator';
-import { useEngangsstønadContext } from 'app/form/EngangsstønadContext';
 import { useHistory } from 'react-router-dom';
 import stepConfig, { getPreviousStepHref } from 'app/step-config/stepConfig';
 import { utenlandsoppholdFormQuestions } from './utenlandsoppholdFormQuestions';
@@ -25,6 +24,7 @@ import {
 } from 'app/util/validation/validationUtils';
 import BostedUtlandListAndDialog from './bostedUtlandListAndDialog/BostedUtlandListAndDialog';
 import { utenlandsoppholdFormCleanup } from './utenlandsoppholdFormUtils';
+import { useEngangsstønadContext } from 'app/form/hooks/useEngangsstønadContext';
 
 import './utenlandsopphold.less';
 
