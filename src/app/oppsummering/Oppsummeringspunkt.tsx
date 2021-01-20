@@ -1,23 +1,18 @@
-import * as React from 'react';
+import React, { ReactNode } from 'react';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-//import { useEngangsstønadContext } from 'app/form/EngangsstønadContext';
-import { ReactNode } from 'react';
+import { Block } from '@navikt/fp-common';
 
 interface Props {
     tittel: string;
     children: ReactNode;
 }
 
-const Oppsummeringspunkt = ({ tittel, children }: Props) => {
-    //const { state } = useEngangsstønadContext();
-
-    return (
-        <div className="blokk-m">
-            <Ekspanderbartpanel apen={false} tittel={tittel}>
-                {children}
-            </Ekspanderbartpanel>
-        </div>
-    );
-};
+const Oppsummeringspunkt = ({ tittel, children }: Props) => (
+    <Block margin="xl">
+        <Ekspanderbartpanel apen={false} tittel={tittel}>
+            {children}
+        </Ekspanderbartpanel>
+    </Block>
+);
 
 export default Oppsummeringspunkt;

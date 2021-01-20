@@ -9,6 +9,7 @@ import DisplayTextWithLabel from 'components/display-text-with-label/DisplayText
 import getMessage from 'common/util/i18nUtils';
 import { OmBarnetFormData } from 'app/om-barnet/omBarnetFormConfig';
 import { YesOrNo } from '@navikt/sif-common-formik/lib';
+import { Block } from '@navikt/fp-common';
 
 interface Props {
     barn: OmBarnetFormData;
@@ -29,7 +30,7 @@ const OmBarnetOppsummering: React.FunctionComponent<Props> = ({ barn }) => {
     }
 
     return (
-        <div className=" blokk-m">
+        <Block>
             <DisplayTextWithLabel
                 label={getMessage(intl, 'oppsummering.text.soknadenGjelder')}
                 text={antallBarnSummaryText}
@@ -60,7 +61,7 @@ const OmBarnetOppsummering: React.FunctionComponent<Props> = ({ barn }) => {
                     />
                 </div>
             )}
-        </div>
+        </Block>
     );
 };
 export default OmBarnetOppsummering;

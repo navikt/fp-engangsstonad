@@ -1,5 +1,4 @@
 import * as React from 'react';
-//import { CountrySummaryList } from 'components/country-picker/CountryList';
 import { EtikettLiten } from 'nav-frontend-typografi';
 import { useIntl } from 'react-intl';
 import { UtenlandsoppholdFormData } from 'app/utenlandsopphold/utenlandsoppholdFormTypes';
@@ -8,16 +7,9 @@ import DisplayTextWithLabel from 'app/components/display-text-with-label/Display
 import getMessage from 'common/util/i18nUtils';
 import { OmBarnetFormData } from 'app/om-barnet/omBarnetFormConfig';
 import { YesOrNo } from '@navikt/sif-common-formik/lib';
-//import DisplayTextWithLabel from 'components/display-text-with-label/DisplayTextWithLabel';
-//import InformasjonOmUtenlandsopphold, {
-//    Tidsperiode,
-//    Utenlandsopphold,
-//} from '../../types/domain/InformasjonOmUtenlandsopphold';
-//import * as moment from 'moment';
-//import Barn, { FodtBarn, UfodtBarn } from '../../types/domain/Barn';
-//import getMessage from 'common/util/i18nUtils';
-
-//import '../../styles/engangsstonad.less';
+import { Tidsperiode } from 'app/types/domain/InformasjonOmUtenlandsopphold';
+import LandOppsummering from './LandOppsummering';
+import { Block } from '@navikt/fp-common';
 
 interface Props {
     barn: OmBarnetFormData;
@@ -25,55 +17,43 @@ interface Props {
 }
 
 // TODO fjerne denne  logikken og bruke funksjonalitet fra datovelgeren v4
-/*const erDatoITidsperiode = (dato: Date, tidsperiode: Tidsperiode) => {
-    return moment(dato).isBetween(moment(tidsperiode.fom), moment(tidsperiode.tom), 'day', '[]');
+const erDatoITidsperiode = (dato: Date, tidsperiode: Tidsperiode) => {
+    return dayjs(dato).isBetween(dayjs(tidsperiode.fom), dayjs(tidsperiode.tom), 'day', '[]');
 };
-*/
+
 const erFamiliehendelsedatoIEnUtenlandsoppholdPeriode = (
     familiehendelsedato: string,
     informasjonOmUtenlandsopphold: UtenlandsoppholdFormData
 ) => {
-    const d = dayjs(familiehendelsedato).toDate();
+    const famDato = dayjs(familiehendelsedato).toDate();
     return (
-        informasjonOmUtenlandsopphold.utenlandsoppholdSiste12Mnd.some((utenlandsoppholdSiste12Mnd: any ) 
-        /*
-        informasjonOmUtenlandsopphold.utenlandsoppholdSiste12Mnd
-        informasjonOmUtenlandsopphold.utenlandsoppholdNeste12Mnd
-        informasjonOmUtenlandsopphold.skalBoUtenforNorgeNeste12Mnd
-        informasjonOmUtenlandsopphold.harBoddUtenforNorgeSiste12Mnd
-        */
-
-        /*
-        informasjonOmUtenlandsopphold.harBoddUtenforNorgeSiste12Mnd.some((tidligereOpphold: Utenlandsopphold) =>
-            erDatoITidsperiode(d, tidligereOpphold.tidsperiode)
+        informasjonOmUtenlandsopphold.utenlandsoppholdSiste12Mnd.some((tidligereOpphold) =>
+            erDatoITidsperiode(famDato, { fom: tidligereOpphold.fom, tom: tidligereOpphold.tom })
         ) ||
-        informasjonOmUtenlandsopphold.senereOpphold.some((senereOpphold: Utenlandsopphold) =>
-            erDatoITidsperiode(d, senereOpphold.tidsperiode)
+        informasjonOmUtenlandsopphold.utenlandsoppholdNeste12Mnd.some((senereOpphold) =>
+            erDatoITidsperiode(famDato, { fom: senereOpphold.fom, tom: senereOpphold.tom })
         )
-        */
     );
 };
 
 const UtenlandsoppholdOppsummering: React.FunctionComponent<Props> = ({ barn, informasjonOmUtenlandsopphold }) => {
-    //const { iNorgeNeste12Mnd, iNorgeSiste12Mnd, tidligereOpphold, senereOpphold } = informasjonOmUtenlandsopphold;
-
-    //skalBoUtenforNorgeNeste12Mnd, harBoddUtenforNorgeSiste12Mnd, utenlandsoppholdSiste12Mnd, utenlandsoppholdNeste12Mnd]: YesOrNo;
-    
     const intl = useIntl();
 
     return (
-        <div className="blokk-m">
-            {informasjonOmUtenlandsopphold.harBoddUtenforNorgeSiste12Mnd ? (
+        <Block>
+            {informasjonOmUtenlandsopphold.harBoddUtenforNorgeSiste12Mnd === YesOrNo.NO ? (
                 <DisplayTextWithLabel label={getMessage(intl, 'oppsummering.text.boddSisteTolv')} text="Norge" />
             ) : (
                 <div className="textWithLabel">
                     <EtikettLiten className="textWithLabel__label">
                         {getMessage(intl, 'oppsummering.text.boddSisteTolv')}
                     </EtikettLiten>
-                    {/*<CountrySummaryList utenlandsoppholdListe={informasjonOmUtenlandsopphold.utenlandsoppholdSiste12Mnd} />*/}
+                    <LandOppsummering
+                        utenlandsoppholdListe={informasjonOmUtenlandsopphold.utenlandsoppholdSiste12Mnd}
+                    />
                 </div>
             )}
-            {informasjonOmUtenlandsopphold.skalBoUtenforNorgeNeste12Mnd ? (
+            {informasjonOmUtenlandsopphold.skalBoUtenforNorgeNeste12Mnd === YesOrNo.NO ? (
                 <DisplayTextWithLabel
                     label={getMessage(intl, 'oppsummering.text.neste12mnd')}
                     text={getMessage(intl, 'medlemmskap.radiobutton.boNorge')}
@@ -83,7 +63,9 @@ const UtenlandsoppholdOppsummering: React.FunctionComponent<Props> = ({ barn, in
                     <EtikettLiten className="textWithLabel__label">
                         {getMessage(intl, 'medlemmskap.text.oppsummering.neste12mnd')}
                     </EtikettLiten>
-                    {/*<CountrySummaryList utenlandsoppholdListe={informasjonOmUtenlandsopphold.utenlandsoppholdNeste12Mnd} />*/}
+                    <LandOppsummering
+                        utenlandsoppholdListe={informasjonOmUtenlandsopphold.utenlandsoppholdNeste12Mnd}
+                    />
                 </div>
             )}
             {barn.erBarnetFødt === YesOrNo.NO && (
@@ -109,7 +91,8 @@ const UtenlandsoppholdOppsummering: React.FunctionComponent<Props> = ({ barn, in
                     }
                 />
             )}
-        </div>
+        </Block>
     );
 };
+
 export default UtenlandsoppholdOppsummering;

@@ -1,20 +1,24 @@
-import CountryListElement from 'app/components/country-picker/CountryListElement';
-import { Utenlandsopphold } from 'app/types/domain/InformasjonOmUtenlandsopphold';
 import React from 'react';
+import { BostedUtland } from 'app/utenlandsopphold/bostedUtlandListAndDialog/types';
+import { Element } from 'nav-frontend-typografi';
 
-const LandOppsummering: React.FunctionComponent = () => {
-    return <div>HEPP</div>;
-};
-export default LandOppsummering;
+import './landOppsummering.less';
 
-interface CountryListProps {
-    utenlandsoppholdListe: Utenlandsopphold[];
+interface Props {
+    utenlandsoppholdListe: BostedUtland[];
 }
 
-export const CountrySummaryList: React.FunctionComponent<CountryListProps> = (props) => (
-    <ul className="countryList countryList--summary">
-        {props.utenlandsoppholdListe.map((periode: Utenlandsopphold, index: number) => (
-            <CountryListElement key={index} utenlandsopphold={periode} />
+const LandOppsummering: React.FunctionComponent<Props> = ({ utenlandsoppholdListe }) => (
+    <ul className="landOppsummering">
+        {utenlandsoppholdListe.map((opphold: BostedUtland) => (
+            <div key={`${opphold.landkode}${opphold.fom}`} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Element>{opphold.landkode}</Element>
+                <Element>
+                    {opphold.fom} - {opphold.tom}
+                </Element>
+            </div>
         ))}
     </ul>
 );
+
+export default LandOppsummering;

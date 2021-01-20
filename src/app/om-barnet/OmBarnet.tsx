@@ -17,7 +17,7 @@ import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
 import { useEngangsstønadContext } from 'app/form/EngangsstønadContext';
 import actionCreator from 'app/form/action/actionCreator';
 import stepConfig from 'app/step-config/stepConfig';
-import { cleanupOmBarnet, getOmBarnetInitialValues } from './omBarnetUtils';
+import { cleanupOmBarnet } from './omBarnetUtils';
 
 import './omBarnet.less';
 
@@ -27,7 +27,7 @@ const OmBarnet: React.FunctionComponent = () => {
     const history = useHistory();
     useDocumentTitle(intlUtils(intl, 'intro.standard.dokumenttittel'));
     const { state, dispatch } = useEngangsstønadContext();
-    const initialValues = getOmBarnetInitialValues(state.soknad.omBarnet);
+    const initialValues = state.soknad.omBarnet;
 
     const onValidSubmit = (values: Partial<OmBarnetFormData>) => {
         dispatch(
