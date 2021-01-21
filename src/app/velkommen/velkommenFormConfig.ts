@@ -4,7 +4,7 @@ export enum VelkommenFormField {
     harForståttRettigheterOgPlikter = 'harForståttRettigheterOgPlikter',
 }
 
-interface VelkommenFormData {
+export interface VelkommenFormData {
     [VelkommenFormField.harForståttRettigheterOgPlikter]: boolean;
 }
 

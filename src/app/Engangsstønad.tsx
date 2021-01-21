@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import IntlProvider from 'intl/IntlProvider';
 import Velkommen from './velkommen/Velkommen';
 import { getRequest } from './api/apiHooks';
@@ -10,6 +10,7 @@ import { Locale } from '@navikt/fp-common';
 import OmBarnet from './om-barnet/OmBarnet';
 import Utenlandsopphold from './utenlandsopphold/Utenlandsopphold';
 import Oppsummering from './oppsummering/Oppsummering';
+import { useEngangsstønadContext } from './form/hooks/useEngangsstønadContext';
 
 interface Props {
     locale: Locale;
@@ -18,6 +19,7 @@ interface Props {
 
 const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale }) => {
     const { data, loading, error } = getRequest<Person>(Api.getPerson());
+    const { state } = useEngangsstønadContext();
 
     if (loading || !data) {
         return (
@@ -41,9 +43,15 @@ const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale
                         <Velkommen fornavn={data.fornavn} locale={locale} onChangeLocale={onChangeLocale} />
                     )}
                 />
-                <Route path="/soknad/om-barnet" component={() => <OmBarnet />} />
-                <Route path="/soknad/utenlandsopphold" component={() => <Utenlandsopphold />} />
-                <Route path="/soknad/oppsummering" component={() => <Oppsummering person={data} />} />
+                {!state.soknad.velkommen.harForståttRettigheterOgPlikter ? (
+                    <Redirect to="/" exact={true} />
+                ) : (
+                    <>
+                        <Route path="/soknad/om-barnet" component={() => <OmBarnet />} />
+                        <Route path="/soknad/utenlandsopphold" component={() => <Utenlandsopphold />} />
+                        <Route path="/soknad/oppsummering" component={() => <Oppsummering person={data} />} />
+                    </>
+                )}
             </Router>
         </IntlProvider>
     );
