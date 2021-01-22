@@ -11,6 +11,8 @@ import OmBarnet from './om-barnet/OmBarnet';
 import Utenlandsopphold from './utenlandsopphold/Utenlandsopphold';
 import Oppsummering from './oppsummering/Oppsummering';
 import { useEngangsstønadContext } from './form/hooks/useEngangsstønadContext';
+import { erMyndig } from './util/validation/validationUtils';
+import Umyndig from './umyndig/Umyndig';
 
 interface Props {
     locale: Locale;
@@ -35,24 +37,28 @@ const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale
 
     return (
         <IntlProvider språkkode={locale}>
-            <Router>
-                <Route
-                    path="/"
-                    exact={true}
-                    component={() => (
-                        <Velkommen fornavn={data.fornavn} locale={locale} onChangeLocale={onChangeLocale} />
+            {!erMyndig(data) ? (
+                <Umyndig person={data} />
+            ) : (
+                <Router>
+                    <Route
+                        path="/"
+                        exact={true}
+                        component={() => (
+                            <Velkommen fornavn={data.fornavn} locale={locale} onChangeLocale={onChangeLocale} />
+                        )}
+                    />
+                    {!state.soknad.velkommen.harForståttRettigheterOgPlikter ? (
+                        <Redirect to="/" exact={true} />
+                    ) : (
+                        <>
+                            <Route path="/soknad/om-barnet" component={() => <OmBarnet />} />
+                            <Route path="/soknad/utenlandsopphold" component={() => <Utenlandsopphold />} />
+                            <Route path="/soknad/oppsummering" component={() => <Oppsummering person={data} />} />
+                        </>
                     )}
-                />
-                {!state.soknad.velkommen.harForståttRettigheterOgPlikter ? (
-                    <Redirect to="/" exact={true} />
-                ) : (
-                    <>
-                        <Route path="/soknad/om-barnet" component={() => <OmBarnet />} />
-                        <Route path="/soknad/utenlandsopphold" component={() => <Utenlandsopphold />} />
-                        <Route path="/soknad/oppsummering" component={() => <Oppsummering person={data} />} />
-                    </>
-                )}
-            </Router>
+                </Router>
+            )}
         </IntlProvider>
     );
 };

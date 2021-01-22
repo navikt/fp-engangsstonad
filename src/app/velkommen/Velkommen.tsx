@@ -1,15 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Ingress, Innholdstittel } from 'nav-frontend-typografi';
-import {
-    bemUtils,
-    LanguageToggle,
-    VelkommenBanner,
-    intlUtils,
-    Block,
-    Locale,
-    useDocumentTitle,
-} from '@navikt/fp-common';
+import { bemUtils, LanguageToggle, intlUtils, Block, Locale, useDocumentTitle, Sidebanner } from '@navikt/fp-common';
 import Veiviser from 'components/veiviser/VeiviserSvg';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import { lenker } from 'util/lenker';
@@ -64,7 +56,7 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                             availableLocales={['en', 'nb', 'nn']}
                             toggle={(l: Locale) => onChangeLocale(l)}
                         />
-                        <VelkommenBanner
+                        <Sidebanner
                             dialog={{
                                 text: intlUtils(intl, 'intro.standard.bobletekst'),
                                 title: intlUtils(intl, 'intro.standard.bobletittel', { name: fornavn }),

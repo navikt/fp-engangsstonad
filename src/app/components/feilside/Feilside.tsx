@@ -4,7 +4,7 @@ import Lenke from 'nav-frontend-lenker';
 import { Innholdstittel, Ingress } from 'nav-frontend-typografi';
 import { Språkkode } from 'intl/types';
 import { VeilederProps } from '@navikt/fp-common/lib/components/veileder/Veileder';
-import { LanguageToggle, VelkommenBanner } from '@navikt/fp-common';
+import { LanguageToggle, Sidebanner } from '@navikt/fp-common';
 
 export interface Props {
     containerId?: string;
@@ -40,7 +40,7 @@ const Feilside: React.FunctionComponent<Props> = ({
                 <LanguageToggle locale={språkkode} availableLocales={['en', 'nb', 'nn']} toggle={setLanguage} />
             )}
             {illustrasjon && (
-                <VelkommenBanner
+                <Sidebanner
                     veileder={illustrasjon.veileder}
                     dialog={{
                         title: illustrasjon.tittel,
