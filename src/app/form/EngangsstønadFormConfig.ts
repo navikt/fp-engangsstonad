@@ -3,9 +3,11 @@ import {
     initialUtenlandsoppholdFormData,
     UtenlandsoppholdFormData,
 } from 'app/utenlandsopphold/utenlandsoppholdFormTypes';
+import { initialVelkommenValues, VelkommenFormData } from 'app/velkommen/velkommenFormConfig';
 
 export type EngangsstønadFormData = {
     soknad: {
+        velkommen: VelkommenFormData;
         omBarnet: OmBarnetFormData;
         utenlandsopphold: UtenlandsoppholdFormData;
     };
@@ -13,6 +15,7 @@ export type EngangsstønadFormData = {
 
 export const engangsstønadInitialState: EngangsstønadFormData = {
     soknad: {
+        velkommen: initialVelkommenValues,
         omBarnet: initialOmBarnetValues,
         utenlandsopphold: initialUtenlandsoppholdFormData,
     },
