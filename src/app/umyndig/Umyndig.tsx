@@ -1,4 +1,4 @@
-import { bemUtils, intlUtils, Sidebanner } from '@navikt/fp-common';
+import { bemUtils, intlUtils, Sidebanner, useDocumentTitle } from '@navikt/fp-common';
 import Person from 'app/types/domain/Person';
 import { lenker } from 'app/util/lenker';
 import Lenke from 'nav-frontend-lenker';
@@ -15,6 +15,7 @@ interface Props {
 const Umyndig: React.FunctionComponent<Props> = ({ person }) => {
     const bem = bemUtils('umyndig');
     const intl = useIntl();
+    useDocumentTitle(intlUtils(intl, 'intro.standard.dokumenttittel'));
 
     return (
         <div className={bem.block}>
