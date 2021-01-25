@@ -27,6 +27,7 @@ import { utenlandsoppholdFormCleanup } from './utenlandsoppholdFormUtils';
 import { useEngangsstønadContext } from 'app/form/hooks/useEngangsstønadContext';
 
 import './utenlandsopphold.less';
+import getMessage from 'common/util/i18nUtils';
 
 const Utenlandsopphold: React.FunctionComponent = () => {
     const intl = useIntl();
@@ -57,10 +58,10 @@ const Utenlandsopphold: React.FunctionComponent = () => {
                 const allQuestionsAnswered = visibility.areAllQuestionsAnswered();
                 return (
                     <Step
-                        bannerTitle="Engangsstønad"
+                        bannerTitle={getMessage(intl, 'søknad.pageheading')}
                         activeStepId="utenlandsopphold"
-                        pageTitle="Utenlandsopphold"
-                        stepTitle="Utenlandsopphold"
+                        pageTitle={getMessage(intl, 'søknad.utenlandsopphold')}
+                        stepTitle={getMessage(intl, 'søknad.utenlandsopphold')}
                         backLinkHref={getPreviousStepHref('utenlandsopphold')}
                         onCancel={() => null}
                         steps={stepConfig}
@@ -87,7 +88,7 @@ const Utenlandsopphold: React.FunctionComponent = () => {
                                 {visibility.isVisible(UtenlandsoppholdFieldNames.skalBoUtenforNorgeNeste12Mnd) && (
                                     <Block>
                                         <UtenlandsoppholdFormComponents.YesOrNoQuestion
-                                            legend={intlUtils(intl, 'iNorgeNeste12Mnd.spørsmål')}
+                                            legend={intlUtils(intl, 'utenlandsopphold.spørsmål')}
                                             name={UtenlandsoppholdFieldNames.skalBoUtenforNorgeNeste12Mnd}
                                             description={
                                                 <UtvidetInformasjon
@@ -100,8 +101,8 @@ const Utenlandsopphold: React.FunctionComponent = () => {
                                                 </UtvidetInformasjon>
                                             }
                                             labels={{
-                                                no: intlUtils(intl, 'iNorgeNeste12Mnd.alternativ.boINorge'),
-                                                yes: intlUtils(intl, 'iNorgeNeste12Mnd.alternativ.boIUtlandet'),
+                                                no: intlUtils(intl, 'utenlandsopphold.radiobutton.boINorge'),
+                                                yes: intlUtils(intl, 'utenlandsopphold.radiobutton.boIUtlandet'),
                                             }}
                                             validate={validateYesOrNoIsAnswered}
                                         />

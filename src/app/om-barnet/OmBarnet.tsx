@@ -53,10 +53,10 @@ const OmBarnet: React.FunctionComponent = () => {
 
                 return (
                     <Step
-                        bannerTitle="Engangsstønad"
+                        bannerTitle={getMessage(intl, 'søknad.pageheading')}
                         activeStepId="omBarnet"
-                        pageTitle="Om Barnet"
-                        stepTitle="Om Barnet"
+                        pageTitle={getMessage(intl, 'søknad.omBarnet')}
+                        stepTitle={getMessage(intl, 'søknad.omBarnet')}
                         onCancel={() => null}
                         steps={stepConfig}
                         kompakt={true}
@@ -70,7 +70,7 @@ const OmBarnet: React.FunctionComponent = () => {
                                     ? undefined
                                     : () => (
                                           <UnansweredQuestionsInfo>
-                                              {intlUtils(intl, 'steg.footer.spørsmålMåBesvares')}
+                                              {intlUtils(intl, 'søknad.footer.spørsmålMåBesvares')}
                                           </UnansweredQuestionsInfo>
                                       )
                             }
@@ -79,10 +79,10 @@ const OmBarnet: React.FunctionComponent = () => {
                                 <Block>
                                     <OmBarnetFormComponents.YesOrNoQuestion
                                         name={OmBarnetFormField.erBarnetFødt}
-                                        legend="Når er barnet født"
+                                        legend={getMessage(intl, 'omBarnet.spørsmål.nårErBarnetFødt')}
                                         labels={{
-                                            no: 'Frem i tid',
-                                            yes: 'Tilbake i tid',
+                                            no: getMessage(intl, 'omBarnet.radiobutton.fremtid'),
+                                            yes: getMessage(intl, 'omBarnet.radiobutton.fortid'),
                                         }}
                                     />
                                 </Block>
@@ -92,12 +92,21 @@ const OmBarnet: React.FunctionComponent = () => {
                                             <OmBarnetFormComponents.RadioPanelGroup
                                                 name={OmBarnetFormField.antallBarn}
                                                 radios={[
-                                                    { label: 'Ett barn', value: '1' },
-                                                    { label: 'Tvillinger', value: '2' },
-                                                    { label: 'Flere barn', value: '3' },
+                                                    {
+                                                        label: intlUtils(intl, 'omBarnet.radiobutton.ettbarn'),
+                                                        value: '1',
+                                                    },
+                                                    {
+                                                        label: intlUtils(intl, 'omBarnet.radiobutton.tvillinger'),
+                                                        value: '2',
+                                                    },
+                                                    {
+                                                        label: intlUtils(intl, 'omBarnet.radiobutton.flere'),
+                                                        value: '3',
+                                                    },
                                                 ]}
                                                 useTwoColumns={true}
-                                                legend="Antall barn"
+                                                legend={getMessage(intl, 'omBarnet.text.antallBarn')}
                                             />
                                         </Block>
                                         {formValues.antallBarn && parseInt(formValues.antallBarn, 10) >= 3 && (
@@ -119,7 +128,7 @@ const OmBarnet: React.FunctionComponent = () => {
                                     <Block margin="xl">
                                         <OmBarnetFormComponents.DatePicker
                                             name={OmBarnetFormField.fødselsdato}
-                                            label={'Fødselsdato'}
+                                            label={getMessage(intl, 'søknad.fødselsdato')}
                                         />
                                     </Block>
                                 )}
@@ -127,7 +136,7 @@ const OmBarnet: React.FunctionComponent = () => {
                                     <Block margin="xl">
                                         <OmBarnetFormComponents.DatePicker
                                             name={OmBarnetFormField.termindato}
-                                            label={'Termindato'}
+                                            label={getMessage(intl, 'søknad.termindato')}
                                             minDate={dayjs().toDate()}
                                             maxDate={dayjs().add(9, 'month').toDate()}
                                         />
@@ -142,7 +151,7 @@ const OmBarnet: React.FunctionComponent = () => {
                                         </Block>
                                         <Block margin="xl">
                                             <FormikFileUploader
-                                                label="Last opp vedlegg"
+                                                label={getMessage(intl, 'vedlegg.lastoppknapp.label')}
                                                 name={OmBarnetFormField.terminbekreftelse}
                                             />
                                             <UtvidetInformasjon apneLabel={<FormattedMessage id="psg.åpneLabel" />}>
@@ -155,13 +164,13 @@ const OmBarnet: React.FunctionComponent = () => {
                                     <Block margin="xl">
                                         <OmBarnetFormComponents.DatePicker
                                             name={OmBarnetFormField.terminbekreftelsedato}
-                                            label="Terminbekreftelsesdato"
+                                            label={getMessage(intl, 'søknad.terminbekreftelsesdato')}
                                         />
                                     </Block>
                                 )}
                                 {allQuestionsAnswered && (
                                     <Block margin="xl" textAlignCenter={true}>
-                                        <Hovedknapp>Gå videre</Hovedknapp>
+                                        <Hovedknapp>{getMessage(intl, 'søknad.gåVidere')}</Hovedknapp>
                                     </Block>
                                 )}
                             </div>

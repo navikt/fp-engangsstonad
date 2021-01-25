@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Ingress, Innholdstittel } from 'nav-frontend-typografi';
 import {
@@ -19,6 +19,7 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 
 import './velkommen.less';
 import { useHistory } from 'react-router-dom';
+import getMessage from 'common/util/i18nUtils';
 
 interface Props {
     fornavn: string;
@@ -30,10 +31,16 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
     const intl = useIntl();
     const bem = bemUtils('velkommen');
     const history = useHistory();
-    useDocumentTitle(intlUtils(intl, 'intro.standard.dokumenttittel'));
+    const [, setIsPlikterModalOpen] = useState<boolean>(false);
+    useDocumentTitle(intlUtils(intl, 'velkommen.standard.dokumenttittel'));
 
     const onValidSubmit = () => {
         history.push('/soknad/om-barnet');
+    };
+
+    const openPlikterModal = (e: React.SyntheticEvent<HTMLElement>) => {
+        e.preventDefault();
+        setIsPlikterModalOpen(true);
     };
 
     return (
@@ -54,26 +61,28 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                         />
                         <VelkommenBanner
                             dialog={{
-                                text: intlUtils(intl, 'intro.standard.bobletekst'),
-                                title: intlUtils(intl, 'intro.standard.bobletittel', { name: fornavn }),
+                                text: intlUtils(intl, 'velkommen.standard.bobletekst'),
+                                title: intlUtils(intl, 'velkommen.standard.bobletittel', { name: fornavn }),
                             }}
                         />
                         <div className={bem.block}>
                             <Block padBottom="xl">
                                 <div className={bem.element('tittel')}>
-                                    <Innholdstittel>{intlUtils(intl, 'intro.standard.velkommentittel')}</Innholdstittel>
+                                    <Innholdstittel>
+                                        {intlUtils(intl, 'velkommen.standard.velkommentittel')}
+                                    </Innholdstittel>
                                 </div>
                             </Block>
                             <Block padBottom="xl">
-                                <Ingress>{intlUtils(intl, 'intro.standard.ingress')}</Ingress>
+                                <Ingress>{intlUtils(intl, 'velkommen.standard.ingress')}</Ingress>
                             </Block>
                             <Block padBottom="xl">
                                 <Veilederpanel kompakt={true} svg={<Veiviser />}>
-                                    <FormattedMessage id="intro.text.veiviser" />
+                                    <FormattedMessage id="velkommen.text.veiviser" />
                                     <br />
                                     <br />
                                     <FormattedMessage
-                                        id="intro.text.veiviser.lenke"
+                                        id="velkommen.text.veiviser.lenke"
                                         values={{
                                             a: (msg: any) => (
                                                 <a
@@ -92,7 +101,7 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                             <Block padBottom="xl">
                                 <VelkommenFormComponents.ConfirmationCheckbox
                                     name={VelkommenFormField.harForståttRettigheterOgPlikter}
-                                    label="Whatever"
+                                    label={getMessage(intl, 'velkommen.text.samtykke')}
                                     validate={(value) => {
                                         let result;
                                         if (value !== true) {
@@ -103,10 +112,21 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                                         }
                                         return result;
                                     }}
-                                />
+                                >
+                                    <FormattedMessage
+                                        id="velkommen.text.samtykkeIntro"
+                                        values={{
+                                            link: (
+                                                <a className="lenke" href="#" onClick={(e) => openPlikterModal(e)}>
+                                                    <FormattedMessage id="velkommen.text.samtykke.link" />
+                                                </a>
+                                            ),
+                                        }}
+                                    />
+                                </VelkommenFormComponents.ConfirmationCheckbox>
                             </Block>
                             <div className={bem.element('startSøknadKnapp')}>
-                                <Hovedknapp>Gå videre</Hovedknapp>
+                                <Hovedknapp>{getMessage(intl, 'velkommen.button.startSøknad')}</Hovedknapp>
                             </div>
                         </div>
                     </VelkommenFormComponents.Form>
