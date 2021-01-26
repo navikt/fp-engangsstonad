@@ -1,25 +1,23 @@
 import React, { FunctionComponent, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Ingress, Innholdstittel } from 'nav-frontend-typografi';
-import {
-    bemUtils,
-    LanguageToggle,
-    VelkommenBanner,
-    intlUtils,
-    Block,
-    Locale,
-    useDocumentTitle,
-} from '@navikt/fp-common';
+import { bemUtils, LanguageToggle, intlUtils, Block, Locale, useDocumentTitle, Sidebanner } from '@navikt/fp-common';
 import Veiviser from 'components/veiviser/VeiviserSvg';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import { lenker } from 'util/lenker';
-import { initialVelkommenValues, VelkommenFormComponents, VelkommenFormField } from './velkommenFormConfig';
+import {
+    initialVelkommenValues,
+    VelkommenFormComponents,
+    VelkommenFormData,
+    VelkommenFormField,
+} from './velkommenFormConfig';
 import { commonFieldErrorRenderer } from 'util/validation/validationUtils';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import actionCreator from 'app/form/action/actionCreator';
+import { useHistory } from 'react-router-dom';
+import { useEngangsstønadContext } from 'app/form/hooks/useEngangsstønadContext';
 
 import './velkommen.less';
-import { useHistory } from 'react-router-dom';
-import getMessage from 'common/util/i18nUtils';
 
 interface Props {
     fornavn: string;
@@ -31,10 +29,15 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
     const intl = useIntl();
     const bem = bemUtils('velkommen');
     const history = useHistory();
-    const [, setIsPlikterModalOpen] = useState<boolean>(false);
     useDocumentTitle(intlUtils(intl, 'velkommen.standard.dokumenttittel'));
+    const { dispatch } = useEngangsstønadContext();
 
-    const onValidSubmit = () => {
+    const onValidSubmit = (values: Partial<VelkommenFormData>) => {
+        dispatch(
+            actionCreator.setVelkommen({
+                harForståttRettigheterOgPlikter: values.harForståttRettigheterOgPlikter!!,
+            })
+        );
         history.push('/soknad/om-barnet');
     };
 
@@ -46,20 +49,19 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
     return (
         <VelkommenFormComponents.FormikWrapper
             initialValues={initialVelkommenValues}
-            onSubmit={() => null}
+            onSubmit={(values) => onValidSubmit(values)}
             renderForm={() => {
                 return (
                     <VelkommenFormComponents.Form
                         includeButtons={false}
                         fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
-                        onValidSubmit={onValidSubmit}
                     >
                         <LanguageToggle
                             locale={locale}
                             availableLocales={['en', 'nb', 'nn']}
                             toggle={(l: Locale) => onChangeLocale(l)}
                         />
-                        <VelkommenBanner
+                        <Sidebanner
                             dialog={{
                                 text: intlUtils(intl, 'velkommen.standard.bobletekst'),
                                 title: intlUtils(intl, 'velkommen.standard.bobletittel', { name: fornavn }),
