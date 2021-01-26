@@ -4,7 +4,7 @@ import { OppsummeringFormData, OppsummeringFormField } from './oppsummeringFormC
 const OppsummeringFormConfig: QuestionConfig<OppsummeringFormData, OppsummeringFormField> = {
     [OppsummeringFormField.oppgittKorrekteOpplysninger]: {
         isIncluded: () => true,
-        isAnswered: ({ oppgittKorrekteOpplysninger }) => oppgittKorrekteOpplysninger !== undefined,
+        isAnswered: ({ oppgittKorrekteOpplysninger }) => oppgittKorrekteOpplysninger === true,
     },
 };
 

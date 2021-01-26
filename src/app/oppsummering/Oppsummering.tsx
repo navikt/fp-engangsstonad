@@ -18,6 +18,9 @@ import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
 import './oppsummering.less';
 import oppsummeringQuestionsConfig from './oppsummeringQuestionsConfig';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import { EngangsstønadSøknadDto } from 'app/types/domain/EngangsstønadSøknad';
+import { mapStateForInnsending } from 'app/util/apiUtils';
+import Api from 'app/api/api';
 
 interface Props {
     person: Person;
@@ -27,10 +30,16 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person }) => {
     const intl = useIntl();
     const bem = bemUtils('oppsummering');
     const { state } = useEngangsstønadContext();
+
+    const sendSøknad = () => {
+        const søknadForInnsending: EngangsstønadSøknadDto = mapStateForInnsending(state);
+        Api.sendSøknad(søknadForInnsending);
+    };
+
     return (
         <OppsummeringFormComponents.FormikWrapper
             initialValues={initialOppsummeringValues}
-            onSubmit={() => null}
+            onSubmit={() => sendSøknad()}
             renderForm={({ values: formValues }) => {
                 const visibility = oppsummeringQuestionsConfig.getVisbility(formValues);
                 const allQuestionsAnswered = visibility.areAllQuestionsAnswered();
@@ -76,12 +85,12 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person }) => {
                                 </Block>
 
                                 <Oppsummeringspunkt tittel={intlUtils(intl, 'søknad.omBarnet')}>
-                                    <OmBarnetOppsummering barn={state.soknad.omBarnet} />
+                                    <OmBarnetOppsummering barn={state.søknad.omBarnet} />
                                 </Oppsummeringspunkt>
                                 <Oppsummeringspunkt tittel={intlUtils(intl, 'søknad.utenlandsopphold')}>
                                     <UtenlandsoppholdOppsummering
-                                        barn={state.soknad.omBarnet}
-                                        informasjonOmUtenlandsopphold={state.soknad.utenlandsopphold}
+                                        barn={state.søknad.omBarnet}
+                                        informasjonOmUtenlandsopphold={state.søknad.utenlandsopphold}
                                     />
                                 </Oppsummeringspunkt>
                             </div>
@@ -91,9 +100,13 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person }) => {
                                     label="De opplysninger jeg har oppgitt er riktige og jeg har ikke holdt tilbake opplysninger som har betydning for min rett til engangsstønad."
                                 />
                             </Block>
-                            <div className={bem.element('sendSøknadKnapp')}>
-                                <Hovedknapp>{intlUtils(intl, 'velkommen.button.startSøknad')}</Hovedknapp>
-                            </div>
+                            {allQuestionsAnswered && (
+                                <Block margin="xl">
+                                    <div className={bem.element('sendSøknadKnapp')}>
+                                        <Hovedknapp>{intlUtils(intl, 'velkommen.button.startSøknad')}</Hovedknapp>
+                                    </div>
+                                </Block>
+                            )}
                         </OppsummeringFormComponents.Form>
                     </Step>
                 );

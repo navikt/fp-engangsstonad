@@ -7,7 +7,6 @@ import DisplayTextWithLabel from 'app/components/display-text-with-label/Display
 import getMessage from 'common/util/i18nUtils';
 import { OmBarnetFormData } from 'app/om-barnet/omBarnetFormConfig';
 import { YesOrNo } from '@navikt/sif-common-formik/lib';
-import { Tidsperiode } from 'app/types/domain/InformasjonOmUtenlandsopphold';
 import LandOppsummering from './LandOppsummering';
 import { Block } from '@navikt/fp-common';
 
@@ -16,22 +15,20 @@ interface Props {
     informasjonOmUtenlandsopphold: UtenlandsoppholdFormData;
 }
 
-// TODO fjerne denne  logikken og bruke funksjonalitet fra datovelgeren v4
-const erDatoITidsperiode = (dato: Date, tidsperiode: Tidsperiode) => {
-    return dayjs(dato).isBetween(dayjs(tidsperiode.fom), dayjs(tidsperiode.tom), 'day', '[]');
+const erDatoITidsperiode = (dato: string, fom: string, tom: string) => {
+    return dayjs(dato).isBetween(dayjs(fom), dayjs(tom), 'day', '[]');
 };
 
 const erFamiliehendelsedatoIEnUtenlandsoppholdPeriode = (
     familiehendelsedato: string,
     informasjonOmUtenlandsopphold: UtenlandsoppholdFormData
 ) => {
-    const famDato = dayjs(familiehendelsedato).toDate();
     return (
         informasjonOmUtenlandsopphold.utenlandsoppholdSiste12Mnd.some((tidligereOpphold) =>
-            erDatoITidsperiode(famDato, { fom: tidligereOpphold.fom, tom: tidligereOpphold.tom })
+            erDatoITidsperiode(familiehendelsedato, tidligereOpphold.fom, tidligereOpphold.tom)
         ) ||
         informasjonOmUtenlandsopphold.utenlandsoppholdNeste12Mnd.some((senereOpphold) =>
-            erDatoITidsperiode(famDato, { fom: senereOpphold.fom, tom: senereOpphold.tom })
+            erDatoITidsperiode(familiehendelsedato, senereOpphold.fom, senereOpphold.tom)
         )
     );
 };

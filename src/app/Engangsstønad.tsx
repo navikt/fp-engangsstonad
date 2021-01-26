@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import IntlProvider from 'intl/IntlProvider';
 import Velkommen from './velkommen/Velkommen';
-import { getRequest } from './api/apiHooks';
+import { useRequest } from './api/apiHooks';
 import Api from './api/api';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import Person from './types/domain/Person';
@@ -20,7 +20,7 @@ interface Props {
 }
 
 const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale }) => {
-    const { data, loading, error } = getRequest<Person>(Api.getPerson());
+    const { data, loading, error } = useRequest<Person>(Api.getPerson());
     const { state } = useEngangsstønadContext();
 
     if (loading || !data) {
@@ -48,7 +48,7 @@ const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale
                             <Velkommen fornavn={data.fornavn} locale={locale} onChangeLocale={onChangeLocale} />
                         )}
                     />
-                    {!state.soknad.velkommen.harForståttRettigheterOgPlikter ? (
+                    {!state.søknad.velkommen.harForståttRettigheterOgPlikter ? (
                         <Redirect to="/" exact={true} />
                     ) : (
                         <>

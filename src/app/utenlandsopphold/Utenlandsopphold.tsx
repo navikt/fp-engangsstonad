@@ -35,7 +35,7 @@ const Utenlandsopphold: React.FunctionComponent = () => {
     const history = useHistory();
 
     const { state, dispatch } = useEngangsstønadContext();
-    const initialValues = state.soknad.utenlandsopphold;
+    const initialValues = state.søknad.utenlandsopphold;
 
     const onValidSubmit = (values: Partial<UtenlandsoppholdFormData>) => {
         dispatch(

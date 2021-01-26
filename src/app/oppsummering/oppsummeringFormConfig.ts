@@ -5,11 +5,11 @@ export enum OppsummeringFormField {
 }
 
 export interface OppsummeringFormData {
-    [OppsummeringFormField.oppgittKorrekteOpplysninger]?: boolean;
+    [OppsummeringFormField.oppgittKorrekteOpplysninger]: boolean;
 }
 
 export const initialOppsummeringValues: OppsummeringFormData = {
-    [OppsummeringFormField.oppgittKorrekteOpplysninger]: undefined,
+    [OppsummeringFormField.oppgittKorrekteOpplysninger]: false,
 };
 
 export const OppsummeringFormComponents = getTypedFormComponents<OppsummeringFormField, OppsummeringFormData>();

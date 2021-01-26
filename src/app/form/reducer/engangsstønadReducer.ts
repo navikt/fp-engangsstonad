@@ -6,15 +6,15 @@ const engangsstønadReducer = (state: EngangsstønadFormData, action: Engangsst�
         case EngangsstønadFormActionKeys.SET_VELKOMMEN: {
             return {
                 ...state,
-                soknad: {
+                søknad: {
                     velkommen: {
                         ...action.payload,
                     },
                     utenlandsopphold: {
-                        ...state.soknad.utenlandsopphold,
+                        ...state.søknad.utenlandsopphold,
                     },
                     omBarnet: {
-                        ...state.soknad.omBarnet,
+                        ...state.søknad.omBarnet,
                     },
                 },
             };
@@ -22,12 +22,12 @@ const engangsstønadReducer = (state: EngangsstønadFormData, action: Engangsst�
         case EngangsstønadFormActionKeys.SET_OM_BARNET: {
             return {
                 ...state,
-                soknad: {
+                søknad: {
                     velkommen: {
-                        ...state.soknad.velkommen,
+                        ...state.søknad.velkommen,
                     },
                     utenlandsopphold: {
-                        ...state.soknad.utenlandsopphold,
+                        ...state.søknad.utenlandsopphold,
                     },
                     omBarnet: {
                         ...action.payload,
@@ -38,12 +38,12 @@ const engangsstønadReducer = (state: EngangsstønadFormData, action: Engangsst�
         case EngangsstønadFormActionKeys.SET_UTENLANDSOPPHOLD: {
             return {
                 ...state,
-                soknad: {
+                søknad: {
                     velkommen: {
-                        ...state.soknad.velkommen,
+                        ...state.søknad.velkommen,
                     },
                     omBarnet: {
-                        ...state.soknad.omBarnet,
+                        ...state.søknad.omBarnet,
                     },
                     utenlandsopphold: {
                         ...action.payload,

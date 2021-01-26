@@ -27,7 +27,7 @@ const OmBarnet: React.FunctionComponent = () => {
     const history = useHistory();
     useDocumentTitle(intlUtils(intl, 'velkommen.standard.dokumenttittel'));
     const { state, dispatch } = useEngangsstønadContext();
-    const initialValues = state.soknad.omBarnet;
+    const initialValues = state.søknad.omBarnet;
 
     const onValidSubmit = (values: Partial<OmBarnetFormData>) => {
         dispatch(

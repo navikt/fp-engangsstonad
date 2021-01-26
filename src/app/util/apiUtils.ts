@@ -1,7 +1,14 @@
-import EngangsstonadSoknad, { EngangssoknadSoknadDto } from '../types/domain/EngangsstonadSoknad';
-
 import { Attachment } from 'common/storage/attachment/types/Attachment';
 import { isAttachmentWithError } from 'common/storage/attachment/components/util';
+import { EngangsstønadSøknadDto } from 'app/types/domain/EngangsstønadSøknad';
+import { EngangsstønadFormData } from 'app/form/EngangsstønadFormConfig';
+import { YesOrNo } from '@navikt/sif-common-formik/lib';
+import { FodtBarn, UfodtBarn } from 'app/types/domain/Barn';
+import { OmBarnetFormData } from 'app/om-barnet/omBarnetFormConfig';
+import { UtenlandsoppholdFormData } from 'app/utenlandsopphold/utenlandsoppholdFormTypes';
+import InformasjonOmUtenlandsopphold, { Utenlandsopphold } from 'app/types/domain/InformasjonOmUtenlandsopphold';
+import { BostedUtland } from 'app/utenlandsopphold/bostedUtlandListAndDialog/types';
+import dayjs from 'dayjs';
 
 const isArrayOfAttachments = (object: object) => {
     return Array.isArray(object) && object.some((element) => element.filename);
@@ -25,24 +32,55 @@ export const mapAttachments = (object: object): Attachment[] => {
     return foundAttachments;
 };
 
-export default {
-    cleanupSøknad: (søknad: EngangsstonadSoknad, språkkode: string): EngangssoknadSoknadDto => {
-        const { informasjonOmUtenlandsopphold } = søknad;
-        const { iNorgeSiste12Mnd, tidligereOpphold } = informasjonOmUtenlandsopphold;
-        const { iNorgeNeste12Mnd, senereOpphold } = informasjonOmUtenlandsopphold;
+const mapBarnForInnsending = (omBarnet: OmBarnetFormData): FodtBarn | UfodtBarn => {
+    return omBarnet.erBarnetFødt === YesOrNo.YES
+        ? {
+              antallBarn: parseInt(omBarnet.antallBarn!, 10),
+              erBarnetFødt: true,
+              fødselsdatoer: [dayjs(omBarnet.fødselsdato!).toDate()],
+          }
+        : {
+              antallBarn: parseInt(omBarnet.antallBarn!, 10),
+              erBarnetFødt: false,
+              termindato: dayjs(omBarnet.termindato).toDate(),
+              terminbekreftelseDato: dayjs(omBarnet.terminbekreftelsedato).toDate(),
+          };
+};
 
-        if (iNorgeSiste12Mnd && tidligereOpphold.length > 0) {
-            søknad.informasjonOmUtenlandsopphold.tidligereOpphold = [];
-        }
-        if (iNorgeNeste12Mnd && senereOpphold.length > 0) {
-            søknad.informasjonOmUtenlandsopphold.senereOpphold = [];
-        }
+const mapBostedUtlandTilUtenlandsopphold = (bostedUtland: BostedUtland[]): Utenlandsopphold[] => {
+    return bostedUtland.map((bosted) => ({
+        land: bosted.landkode,
+        tidsperiode: {
+            fom: dayjs(bosted.fom).toDate(),
+            tom: dayjs(bosted.tom).toDate(),
+        },
+    }));
+};
 
-        søknad.vedlegg = mapAttachments(søknad);
+const mapUtenlandsoppholdForInnsending = (
+    utenlandsopphold: UtenlandsoppholdFormData
+): InformasjonOmUtenlandsopphold => {
+    return {
+        senereOpphold: mapBostedUtlandTilUtenlandsopphold(utenlandsopphold.utenlandsoppholdNeste12Mnd),
+        tidligereOpphold: mapBostedUtlandTilUtenlandsopphold(utenlandsopphold.utenlandsoppholdSiste12Mnd),
+        iNorgeNeste12Mnd: utenlandsopphold.skalBoUtenforNorgeNeste12Mnd === YesOrNo.YES,
+        iNorgeSiste12Mnd: utenlandsopphold.harBoddUtenforNorgeSiste12Mnd === YesOrNo.YES,
+    };
+};
 
-        return {
-            ...søknad,
-            søker: { språkkode }
-        };
-    }   
+export const mapStateForInnsending = (state: EngangsstønadFormData): EngangsstønadSøknadDto => {
+    const { omBarnet, utenlandsopphold } = state.søknad;
+    const barn: FodtBarn | UfodtBarn = mapBarnForInnsending(omBarnet);
+    const utenlandsoppholdDto = mapUtenlandsoppholdForInnsending(utenlandsopphold);
+
+    return {
+        barn,
+        type: 'endringssoknad',
+        erEndringssøknad: false,
+        informasjonOmUtenlandsopphold: utenlandsoppholdDto,
+        søker: {
+            språkkode: 'NB',
+        },
+        vedlegg: mapAttachments(state.søknad),
+    };
 };

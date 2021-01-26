@@ -6,7 +6,7 @@ import {
 import { initialVelkommenValues, VelkommenFormData } from 'app/velkommen/velkommenFormConfig';
 
 export interface EngangsstønadFormData {
-    soknad: {
+    søknad: {
         velkommen: VelkommenFormData;
         omBarnet: OmBarnetFormData;
         utenlandsopphold: UtenlandsoppholdFormData;
@@ -14,7 +14,7 @@ export interface EngangsstønadFormData {
 }
 
 export const engangsstønadInitialState: EngangsstønadFormData = {
-    soknad: {
+    søknad: {
         velkommen: initialVelkommenValues,
         omBarnet: initialOmBarnetValues,
         utenlandsopphold: initialUtenlandsoppholdFormData,

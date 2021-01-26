@@ -1,18 +1,18 @@
 import { Attachment } from 'common/storage/attachment/types/Attachment';
 
-abstract class Barn {
+interface Barn {
     antallBarn?: number | undefined;
     erBarnetFødt?: boolean;
 }
 
-export class FodtBarn extends Barn {
-    fødselsdatoer: string[];
+export interface FodtBarn extends Barn {
+    fødselsdatoer: Date[];
 }
 
-export class UfodtBarn extends Barn {
-    termindato?: string | undefined;
-    terminbekreftelse: Attachment[];
-    terminbekreftelseDato?: string | undefined;
+export interface UfodtBarn extends Barn {
+    termindato: Date | undefined;
+    terminbekreftelse?: Attachment[];
+    terminbekreftelseDato: Date | undefined;
 }
 
 export const isUfødtBarn = (barn: Barn): barn is UfodtBarn => {

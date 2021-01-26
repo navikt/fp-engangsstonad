@@ -1,6 +1,7 @@
 import React from 'react';
 import { BostedUtland } from 'app/utenlandsopphold/bostedUtlandListAndDialog/types';
 import { Element } from 'nav-frontend-typografi';
+import * as countries from 'i18n-iso-countries';
 
 import './landOppsummering.less';
 
@@ -12,7 +13,7 @@ const LandOppsummering: React.FunctionComponent<Props> = ({ utenlandsoppholdList
     <ul className="landOppsummering">
         {utenlandsoppholdListe.map((opphold: BostedUtland) => (
             <div key={`${opphold.landkode}${opphold.fom}`} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Element>{opphold.landkode}</Element>
+                <Element>{countries.getName(opphold.landkode, 'nb')}</Element>
                 <Element>
                     {opphold.fom} - {opphold.tom}
                 </Element>

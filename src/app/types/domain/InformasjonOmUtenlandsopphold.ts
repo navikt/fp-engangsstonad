@@ -1,19 +1,19 @@
-export type Utenlandsopphold = {
+export interface Utenlandsopphold {
     land: string;
     tidsperiode: Tidsperiode;
-};
+}
 
-export type Tidsperiode = {
-    tom: string;
-    fom: string;
-};
+export interface Tidsperiode {
+    tom: Date;
+    fom: Date;
+}
 
-type InformasjonOmUtenlandsopphold = {
+interface InformasjonOmUtenlandsopphold {
     jobbetINorgeSiste12Mnd?: boolean;
     iNorgeSiste12Mnd?: boolean;
     iNorgeNeste12Mnd?: boolean;
     tidligereOpphold: Utenlandsopphold[];
     senereOpphold: Utenlandsopphold[];
-};
+}
 
 export default InformasjonOmUtenlandsopphold;

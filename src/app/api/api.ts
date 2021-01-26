@@ -1,10 +1,10 @@
-import EngangsstonadSoknad from '../types/domain/EngangsstonadSoknad';
+import { EngangsstønadSøknadDto } from '../types/domain/EngangsstønadSøknad';
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { redirectToLogin } from 'util/login';
 
 const foreldrepengersoknadApi = axios.create({
     baseURL: (window as any).REST_API_URL,
-    withCredentials: true
+    withCredentials: true,
 });
 
 foreldrepengersoknadApi.interceptors.request.use(
@@ -36,13 +36,13 @@ const getPerson = () => {
     return foreldrepengersoknadApi.get('/personinfo');
 };
 
-const sendSoknad = (soknad: EngangsstonadSoknad) => {
+const sendSøknad = (soknad: EngangsstønadSøknadDto) => {
     return foreldrepengersoknadApi.post('/soknad', soknad, {
         headers: {
-            'content-type': 'application/json;'
-        }
+            'content-type': 'application/json;',
+        },
     });
 };
 
-const Api = { getPerson, sendSoknad };
+const Api = { getPerson, sendSøknad };
 export default Api;
