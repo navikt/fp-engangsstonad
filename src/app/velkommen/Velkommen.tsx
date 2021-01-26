@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Ingress, Innholdstittel } from 'nav-frontend-typografi';
 import { bemUtils, LanguageToggle, intlUtils, Block, Locale, useDocumentTitle, Sidebanner } from '@navikt/fp-common';
@@ -18,6 +18,7 @@ import { useHistory } from 'react-router-dom';
 import { useEngangsstønadContext } from 'app/form/hooks/useEngangsstønadContext';
 
 import './velkommen.less';
+import getMessage from 'common/util/i18nUtils';
 
 interface Props {
     fornavn: string;
@@ -43,7 +44,7 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
 
     const openPlikterModal = (e: React.SyntheticEvent<HTMLElement>) => {
         e.preventDefault();
-        setIsPlikterModalOpen(true);
+        //setIsPlikterModalOpen(true);
     };
 
     return (

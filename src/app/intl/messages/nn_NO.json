@@ -26,6 +26,8 @@
     "valideringsfeil.fraOgMedDato.gyldigDato": "Frå og med dato må vera ein gyldig dato på formatet dd.mm.åååå",
     "valideringsfeil.tilOgMedDato.gyldigDato": "Til og med dato må vera ein gyldig dato på formatet dd.mm.åååå",
 
+    "valideringsfeil.utenlandsopphold.ikkeRegistrert": "Du har ikkje lagt inn eit utenlandsopphold",
+
     "utenlandsopphold.leggTilUtenlandsopphold.tittel": "Legg til utenlandsopphold",
     "utenlandsopphold.leggTilUtenlandsopphold.fraogmed": "Frå og med",
     "utenlandsopphold.leggTilUtenlandsopphold.spørsmål.hvilketLandHarDuBoddI": "Kva land budde du i?",
