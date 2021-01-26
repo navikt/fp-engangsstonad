@@ -1,6 +1,6 @@
-const nb = require('../nb_NO.json');
-const nn = require('../nn_NO.json');
-const en = require('../en_US.json');
+const nb = require('../messages/nb_NO.json');
+const nn = require('../messages/nn_NO.json');
+const en = require('../messages/en_US.json');
 
 describe('intl tests', () => {
     it('Language files should have exactly the same keys', () => {
