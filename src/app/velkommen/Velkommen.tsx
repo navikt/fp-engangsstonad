@@ -111,16 +111,7 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                                         return result;
                                     }}
                                 >
-                                    <FormattedMessage
-                                        id="velkommen.text.samtykkeIntro"
-                                        values={{
-                                            link: (
-                                                <a className="lenke" href="#">
-                                                    <FormattedMessage id="velkommen.text.samtykke.link" />
-                                                </a>
-                                            ),
-                                        }}
-                                    />
+                                    <FormattedMessage id="velkommen.text.samtykkeIntro" />
                                 </VelkommenFormComponents.ConfirmationCheckbox>
                             </Block>
                             <div className={bem.element('startSøknadKnapp')}>
