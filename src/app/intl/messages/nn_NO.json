@@ -39,6 +39,7 @@
     "utenlandsopphold.leggTilUtenlandsopphold.spørsmål.hvilketLandSkalDuBoI": "Kva land skal du bu i?",
     "utenlandsopphold.leggTilUtenlandsopphold.tilogmed": "Til og med",
     "utenlandsopphold.leggTilUtenlandsopphold.tidsrom": "Tidsrom",
+    "utenlandsopphold.knapp.leggTilLand": "Legg til nytt utenlandsopphold",
 
     "steg.footer.fortsettSenere": "Hald seinare fram",
     "steg.footer.avbryt": "Avbryt søknaden",
@@ -59,7 +60,6 @@
     "oppsummering.utenlandsopphold.iNorge": "i Noreg",
     "oppsummering.utenlandsopphold.iUtlandet": "i utlandet",
 
-    "utenlandsopphold.knapp.leggTilLand": "Legg til nytt utenlandsopphold",
     "utenlandsopphold.modal.avbryt": "Avbryt",
     "utenlandsopphold.modal.lagreEndringer": "Lagre endringar",
     "utenlandsopphold.modal.overskrift": "Legg til land",

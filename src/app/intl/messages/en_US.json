@@ -39,6 +39,7 @@
     "utenlandsopphold.leggTilUtenlandsopphold.spørsmål.hvilketLandSkalDuBoI": "Which country should you live in?",
     "utenlandsopphold.leggTilUtenlandsopphold.tilogmed": "Even",
     "utenlandsopphold.leggTilUtenlandsopphold.tidsrom": "Time period",
+    "utenlandsopphold.knapp.leggTilLand": "Add a new stay abroad",
 
     "steg.footer.fortsettSenere": "Continue later",
     "steg.footer.avbryt": "Cancel the application",
@@ -58,8 +59,6 @@
     "oppsummering.utenlandsopphold.boIUtlandet": "stay abroad in whole or in part",
     "oppsummering.utenlandsopphold.iNorge": "in Norway",
     "oppsummering.utenlandsopphold.iUtlandet": "abroad",
-
-    "utenlandsopphold.knapp.leggTilLand": "Add a new stay abroad",
 
     "utenlandsopphold.modal.avbryt": "Cancel",
     "utenlandsopphold.modal.lagreEndringer": "Save changes",
