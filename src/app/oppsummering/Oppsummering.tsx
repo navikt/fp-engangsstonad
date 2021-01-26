@@ -25,10 +25,10 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person }) => {
     const { state } = useEngangsstønadContext();
     return (
         <Step
-            bannerTitle="Engangsstønad"
-            activeStepId="utenlandsopphold"
-            pageTitle="Utenlandsopphold"
-            stepTitle="Utenlandsopphold"
+            bannerTitle={getMessage(intl, 'søknad.pageheading')}
+            activeStepId="oppsummering"
+            pageTitle={getMessage(intl, 'søknad.oppsummering')}
+            stepTitle={getMessage(intl, 'søknad.oppsummering')}
             backLinkHref={getPreviousStepHref('oppsummering')}
             onCancel={() => null}
             steps={stepConfig}
@@ -46,10 +46,10 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person }) => {
                     />
                 </Block>
 
-                <Oppsummeringspunkt tittel="Om Barnet">
+                <Oppsummeringspunkt tittel={getMessage(intl, 'søknad.omBarnet')}>
                     <OmBarnetOppsummering barn={state.soknad.omBarnet} />
                 </Oppsummeringspunkt>
-                <Oppsummeringspunkt tittel="Utenlandsopphold">
+                <Oppsummeringspunkt tittel={getMessage(intl, 'søknad.utenlandsopphold')}>
                     <UtenlandsoppholdOppsummering
                         barn={state.soknad.omBarnet}
                         informasjonOmUtenlandsopphold={state.soknad.utenlandsopphold}
