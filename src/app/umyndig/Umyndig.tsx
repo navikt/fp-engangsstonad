@@ -15,19 +15,21 @@ interface Props {
 const Umyndig: React.FunctionComponent<Props> = ({ person }) => {
     const bem = bemUtils('umyndig');
     const intl = useIntl();
-    useDocumentTitle(intlUtils(intl, 'intro.standard.dokumenttittel'));
+    useDocumentTitle(intlUtils(intl, 'velkommen.standard.dokumenttittel'));
 
     return (
         <div className={bem.block}>
             <Sidebanner
                 dialog={{
-                    title: intlUtils(intl, 'intro.standard.bobletittel', {
+                    title: intlUtils(intl, 'velkommen.standard.bobletittel', {
                         name: person.fornavn.toLowerCase(),
                     }),
                     text: (
                         <div>
-                            <div className={bem.element('info')}>{intlUtils(intl, 'intro.under18.bobletekst')}</div>
-                            <Lenke href={lenker.papirsøknad}>{intlUtils(intl, 'intro.under18.boblelenketekst')}</Lenke>
+                            <div className={bem.element('info')}>{intlUtils(intl, 'velkommen.under18.bobletekst')}</div>
+                            <Lenke href={lenker.papirsøknad}>
+                                {intlUtils(intl, 'velkommen.under18.boblelenketekst')}
+                            </Lenke>
                         </div>
                     ),
                 }}

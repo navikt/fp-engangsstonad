@@ -42,11 +42,6 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
         history.push('/soknad/om-barnet');
     };
 
-    const openPlikterModal = (e: React.SyntheticEvent<HTMLElement>) => {
-        e.preventDefault();
-        //setIsPlikterModalOpen(true);
-    };
-
     return (
         <VelkommenFormComponents.FormikWrapper
             initialValues={initialVelkommenValues}
@@ -120,7 +115,7 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                                         id="velkommen.text.samtykkeIntro"
                                         values={{
                                             link: (
-                                                <a className="lenke" href="#" onClick={(e) => openPlikterModal(e)}>
+                                                <a className="lenke" href="#">
                                                     <FormattedMessage id="velkommen.text.samtykke.link" />
                                                 </a>
                                             ),

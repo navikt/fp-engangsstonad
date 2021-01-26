@@ -5,13 +5,13 @@ import {
 } from 'app/utenlandsopphold/utenlandsoppholdFormTypes';
 import { initialVelkommenValues, VelkommenFormData } from 'app/velkommen/velkommenFormConfig';
 
-export type EngangsstønadFormData = {
+export interface EngangsstønadFormData {
     soknad: {
         velkommen: VelkommenFormData;
         omBarnet: OmBarnetFormData;
         utenlandsopphold: UtenlandsoppholdFormData;
     };
-};
+}
 
 export const engangsstønadInitialState: EngangsstønadFormData = {
     soknad: {
