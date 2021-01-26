@@ -76,14 +76,16 @@ const BostedUtlandForm: React.FunctionComponent<Props> = ({
                         fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
                     >
                         <Systemtittel tag="h1">
-                            <FormattedMessage id="utenlandsopphold.tittel" />
+                            <FormattedMessage
+                                id={getMessage(intl, 'utenlandsopphold.leggTilUtenlandsopphold.tittel')}
+                            />
                         </Systemtittel>
                         <Block>
                             <Form.DateIntervalPicker
-                                legend="Tidsrom"
+                                legend={getMessage(intl, 'utenlandsopphold.leggTilUtenlandsopphold.tidsrom')}
                                 fromDatepickerProps={{
                                     name: BostedUtlandFormFields.fom,
-                                    label: getMessage(intl, 'fraogmed'),
+                                    label: getMessage(intl, 'utenlandsopphold.leggTilUtenlandsopphold.fraogmed'),
                                     fullscreenOverlay: true,
                                     placeholder: 'dd.mm.åååå',
                                     minDate,
@@ -99,7 +101,7 @@ const BostedUtlandForm: React.FunctionComponent<Props> = ({
                                 }}
                                 toDatepickerProps={{
                                     name: BostedUtlandFormFields.tom,
-                                    label: getMessage(intl, 'tilogmed'),
+                                    label: getMessage(intl, 'utenlandsopphold.leggTilUtenlandsopphold.tilogmed'),
                                     fullscreenOverlay: true,
                                     placeholder: 'dd.mm.åååå',
                                     minDate: ISOStringToDate(values.fom) || minDate,
@@ -120,11 +122,22 @@ const BostedUtlandForm: React.FunctionComponent<Props> = ({
                                 name={BostedUtlandFormFields.landkode}
                                 label={
                                     erFremtidigOpphold
-                                        ? getMessage(intl, 'utenlandsopphold.select.spørsmål.senereOpphold')
-                                        : getMessage(intl, 'utenlandsopphold.select.spørsmål.tidligereOpphold')
+                                        ? getMessage(
+                                              intl,
+                                              'utenlandsopphold.leggTilUtenlandsopphold.spørsmål.hvilketLandHarDuBoddI'
+                                          )
+                                        : getMessage(
+                                              intl,
+                                              'utenlandsopphold.leggTilUtenlandsopphold.spørsmål.hvilketLandSkalDuBoI'
+                                          )
                                 }
                                 validate={(country) =>
-                                    validateRequiredField(country, 'valideringsfeil.utenlandsopphold.landPåkrevd')
+                                    validateRequiredField(
+                                        country,
+                                        erFremtidigOpphold
+                                            ? 'valideringsfeil.leggTilUtenlandsopphold.landDuHarBoddIPåkrevd'
+                                            : 'valideringsfeil.leggTilUtenlandsopphold.landDuSkalBoIPåkreved'
+                                    )
                                 }
                                 useAlpha3Code={false}
                             />
