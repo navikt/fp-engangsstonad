@@ -18,7 +18,6 @@ import { useHistory } from 'react-router-dom';
 import { useEngangsstønadContext } from 'app/form/hooks/useEngangsstønadContext';
 
 import './velkommen.less';
-import getMessage from 'common/util/i18nUtils';
 
 interface Props {
     fornavn: string;
@@ -99,7 +98,7 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                             <Block padBottom="xl">
                                 <VelkommenFormComponents.ConfirmationCheckbox
                                     name={VelkommenFormField.harForståttRettigheterOgPlikter}
-                                    label={getMessage(intl, 'velkommen.text.samtykke')}
+                                    label={intlUtils(intl, 'velkommen.text.samtykke')}
                                     validate={(value) => {
                                         let result;
                                         if (value !== true) {
@@ -115,7 +114,7 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                                 </VelkommenFormComponents.ConfirmationCheckbox>
                             </Block>
                             <div className={bem.element('startSøknadKnapp')}>
-                                <Hovedknapp>{getMessage(intl, 'velkommen.button.startSøknad')}</Hovedknapp>
+                                <Hovedknapp>{intlUtils(intl, 'velkommen.button.startSøknad')}</Hovedknapp>
                             </div>
                         </div>
                     </VelkommenFormComponents.Form>
