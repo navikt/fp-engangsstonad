@@ -26,6 +26,8 @@
     "valideringsfeil.fraOgMedDato.gyldigDato": "From and including date must be a valid date in the format dd.mm.yyyy",
     "valideringsfeil.tilOgMedDato.gyldigDato": "Up to and including date must be a valid date in the format dd.mm.yyyy",
 
+    "valideringsfeil.utenlandsopphold.ikkeRegistrert": "You have not entered a stay abroad",
+
     "utenlandsopphold.leggTilUtenlandsopphold.tittel": "Add a new stay abroad",
     "utenlandsopphold.leggTilUtenlandsopphold.fraogmed": "As of",
     "utenlandsopphold.leggTilUtenlandsopphold.spørsmål.hvilketLandHarDuBoddI": "What country did you live in?",
