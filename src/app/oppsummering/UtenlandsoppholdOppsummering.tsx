@@ -86,8 +86,8 @@ const UtenlandsoppholdOppsummering: React.FunctionComponent<Props> = ({ barn, in
                             barn.fødselsdato!,
                             informasjonOmUtenlandsopphold
                         )
-                            ? getMessage(intl, 'medlemmskap.radiobutton.iUtlandet')
-                            : getMessage(intl, 'medlemmskap.radiobutton.iNorge')
+                            ? getMessage(intl, 'oppsummering.utenlandsopphold.iUtlandet')
+                            : getMessage(intl, 'oppsummering.utenlandsopphold.iNorge')
                     }
                 />
             )}

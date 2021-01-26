@@ -79,7 +79,7 @@ const Utenlandsopphold: React.FunctionComponent = () => {
                                     ? undefined
                                     : () => (
                                           <UnansweredQuestionsInfo>
-                                              {intlUtils(intl, 'steg.footer.spørsmålMåBesvares')}
+                                              {intlUtils(intl, 'søknad.footer.spørsmålMåBesvares')}
                                           </UnansweredQuestionsInfo>
                                       )
                             }

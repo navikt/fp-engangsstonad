@@ -26,7 +26,12 @@
     "valideringsfeil.fraOgMedDato.gyldigDato": "From and including date must be a valid date in the format dd.mm.yyyy",
     "valideringsfeil.tilOgMedDato.gyldigDato": "Up to and including date must be a valid date in the format dd.mm.yyyy",
 
-    "valideringsfeil.utenlandsopphold.ikkeRegistrert": "You have not entered a stay abroad",
+    "valideringsfeil.utenlandsopphold.ikkeRegistrert": "You have not entered a stay abroad for the last 12 months",
+
+    "valideringsfeil.utenlandsopphold.siste12Måneder.ikkeRegistrert": "You have not entered a stay abroad for the last 12 months",
+    "valideringsfeil.utenlandsopphold.neste12Måneder.ikkeRegistrert": "You have not entered a stay abroad for the next 12 months",
+
+    "valideringsfeil.utenlandsopphold.overlapp": "You have already booked a stay abroad during this period",
 
     "utenlandsopphold.leggTilUtenlandsopphold.tittel": "Add a new stay abroad",
     "utenlandsopphold.leggTilUtenlandsopphold.fraogmed": "As of",
@@ -46,6 +51,13 @@
     "søknad.terminbekreftelsesdato": "Deadline confirmation date",
     "søknad.utenlandsopphold": "Stays abroad",
     "søknad.footer.spørsmålMåBesvares": "To move forward, you must answer all of the above questions.",
+
+    "oppsummering.omBarnet.ettBarn": "one child",
+
+    "oppsummering.utenlandsopphold.boINorge": "only live in Norway",
+    "oppsummering.utenlandsopphold.boIUtlandet": "stay abroad in whole or in part",
+    "oppsummering.utenlandsopphold.iNorge": "in Norway",
+    "oppsummering.utenlandsopphold.iUtlandet": "abroad",
 
     "utenlandsopphold.knapp.leggTilLand": "Add a new stay abroad",
 

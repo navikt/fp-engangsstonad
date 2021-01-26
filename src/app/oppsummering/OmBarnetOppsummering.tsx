@@ -20,7 +20,7 @@ const OmBarnetOppsummering: React.FunctionComponent<Props> = ({ barn }) => {
 
     let antallBarnSummaryText;
     if (barn.antallBarn === '1') {
-        antallBarnSummaryText = getMessage(intl, 'relasjonBarn.radiobutton.ettbarn');
+        antallBarnSummaryText = getMessage(intl, 'oppsummering.omBarnet.ettBarn');
     } else if (barn.antallBarn === '2') {
         antallBarnSummaryText = getMessage(intl, 'relasjonBarn.radiobutton.tvillinger');
     } else {

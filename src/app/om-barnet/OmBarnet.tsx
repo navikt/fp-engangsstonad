@@ -25,7 +25,7 @@ const OmBarnet: React.FunctionComponent = () => {
     const intl = useIntl();
     const bem = bemUtils('omBarnet');
     const history = useHistory();
-    useDocumentTitle(intlUtils(intl, 'intro.standard.dokumenttittel'));
+    useDocumentTitle(intlUtils(intl, 'velkommen.standard.dokumenttittel'));
     const { state, dispatch } = useEngangsstønadContext();
     const initialValues = state.soknad.omBarnet;
 

@@ -239,7 +239,7 @@ export const validateYesOrNoIsAnswered = (answer: YesOrNo, errorIntlKey?: string
 
 export const validateUtenlandsoppholdSiste12Mnd = (utenlandsopphold: BostedUtland[]): SkjemaelementFeil => {
     if (utenlandsopphold.length === 0) {
-        return createFieldValidationError('valideringsfeil.utenlandsopphold_ikke_registrert');
+        return createFieldValidationError('valideringsfeil.utenlandsopphold.siste12Måneder.ikkeRegistrert');
     }
 
     const dateRanges = utenlandsopphold.map((u) => ({ from: dayjs(u.fom).toDate(), to: dayjs(u.tom).toDate() }));
@@ -256,7 +256,7 @@ export const validateUtenlandsoppholdSiste12Mnd = (utenlandsopphold: BostedUtlan
 
 export const validateUtenlandsoppholdNeste12Mnd = (utenlandsopphold: BostedUtland[]): SkjemaelementFeil => {
     if (utenlandsopphold.length === 0) {
-        return createFieldValidationError('valideringsfeil.utenlandsopphold_ikke_registrert');
+        return createFieldValidationError('valideringsfeil.utenlandsopphold.neste12Måneder.ikkeRegistrert');
     }
 
     const dateRanges = utenlandsopphold.map((u) => ({ from: dayjs(u.fom).toDate(), to: dayjs(u.tom).toDate() }));

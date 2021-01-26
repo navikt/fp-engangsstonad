@@ -28,6 +28,11 @@
 
     "valideringsfeil.utenlandsopphold.ikkeRegistrert": "Du har ikke lagt inn et utenlandsopphold",
 
+    "valideringsfeil.utenlandsopphold.siste12Måneder.ikkeRegistrert": "Du har ikke lagt inn et utenlandsopphold for de siste 12 månedene",
+    "valideringsfeil.utenlandsopphold.neste12Måneder.ikkeRegistrert": "Du har ikke lagt inn et utenlandsopphold for de neste 12 månedene",
+
+    "valideringsfeil.utenlandsopphold.overlapp": "Du har allerede lagt inn utenlandsopphold i denne perioden",
+
     "utenlandsopphold.leggTilUtenlandsopphold.fraogmed": "Fra og med",
     "utenlandsopphold.leggTilUtenlandsopphold.spørsmål.hvilketLandHarDuBoddI": "Hvilket land bodde du i?",
     "utenlandsopphold.leggTilUtenlandsopphold.spørsmål.hvilketLandSkalDuBoI": "Hvilket land skal du bo i?",
@@ -45,6 +50,18 @@
     "søknad.terminbekreftelsesdato": "Terminbekreftelsesdato",
     "søknad.utenlandsopphold": "Utenlandsopphold",
     "søknad.footer.spørsmålMåBesvares": "For å komme videre, må du svare på alle spørsmålene ovenfor.",
+
+    "oppsummering.omBarnet.ettBarn": "ett barn",
+
+    "oppsummering.utenlandsopphold.boINorge": "kun bo i Norge",
+    "oppsummering.utenlandsopphold.boIUtlandet": "bo i utlandet helt eller delvise",
+    "oppsummering.utenlandsopphold.iNorge": "i Norge",
+    "oppsummering.utenlandsopphold.iUtlandet": "i utlandet",
+
+    "medlemmskap.radiobutton.boNorge": "kun bo i Norge",
+    "medlemmskap.radiobutton.boUtlandet": "bo i utlandet helt eller delvis",
+    "medlemmskap.radiobutton.iNorge": "i Norge",
+    "medlemmskap.radiobutton.iUtlandet": "i utlandet",
 
     "utenlandsopphold.leggTilUtenlandsopphold.tittel": "Legg til utenlandsopphold",
     "utenlandsopphold.tittel.endre": "Endre utenlandsopphold",
@@ -222,7 +239,7 @@
     "valideringsfeil.utenlandsopphold.etterFraDato": "Du må legge inn en dato som er etter fra-datoen",
     "valideringsfeil.utenlandsopphold.førTilDato": "Du må legge inn en dato som er før til-datoen.",
     "valideringsfeil.utenlandsopphold_utenfor_periode": "Du kan ikke legge inn et utenlandsopphold i valgt tidsperiode",
-    "valideringsfeil.utenlandsopphold.overlapp": "Du har allerede lagt inn utenlandsopphold i denne perioden",
+
     "vedlegg.arialabel.slett": "Fjern vedlegg {navn}",
     "vedlegg.feilmelding.flereFeil": "{filename} - Ops noe gikk galt prøv igjen",
     "vedlegg.feilmelding.tittel.flereFeil": "Opplasting av vedlegg feilet for:",
