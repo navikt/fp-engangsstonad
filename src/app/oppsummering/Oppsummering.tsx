@@ -1,4 +1,4 @@
-import { bemUtils, Block, intlUtils, Step } from '@navikt/fp-common';
+import { bemUtils, Block, intlUtils, Locale, Step } from '@navikt/fp-common';
 import Veileder from '@navikt/fp-common/lib/components/veileder/Veileder';
 import SøkersPersonalia from 'app/components/søkers-personalia/SøkersPersonalia';
 import Veilederpanel from 'nav-frontend-veilederpanel';
@@ -24,15 +24,16 @@ import Api from 'app/api/api';
 
 interface Props {
     person: Person;
+    locale: Locale;
 }
 
-const Oppsummering: React.FunctionComponent<Props> = ({ person }) => {
+const Oppsummering: React.FunctionComponent<Props> = ({ person, locale }) => {
     const intl = useIntl();
     const bem = bemUtils('oppsummering');
     const { state } = useEngangsstønadContext();
 
     const sendSøknad = () => {
-        const søknadForInnsending: EngangsstønadSøknadDto = mapStateForInnsending(state);
+        const søknadForInnsending: EngangsstønadSøknadDto = mapStateForInnsending(state, locale);
         Api.sendSøknad(søknadForInnsending);
     };
 

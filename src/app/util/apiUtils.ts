@@ -9,6 +9,7 @@ import { UtenlandsoppholdFormData } from 'app/utenlandsopphold/utenlandsoppholdF
 import InformasjonOmUtenlandsopphold, { Utenlandsopphold } from 'app/types/domain/InformasjonOmUtenlandsopphold';
 import { BostedUtland } from 'app/utenlandsopphold/bostedUtlandListAndDialog/types';
 import dayjs from 'dayjs';
+import { Locale } from '@navikt/fp-common';
 
 const isArrayOfAttachments = (object: object) => {
     return Array.isArray(object) && object.some((element) => element.filename);
@@ -68,7 +69,7 @@ const mapUtenlandsoppholdForInnsending = (
     };
 };
 
-export const mapStateForInnsending = (state: EngangsstønadFormData): EngangsstønadSøknadDto => {
+export const mapStateForInnsending = (state: EngangsstønadFormData, locale: Locale): EngangsstønadSøknadDto => {
     const { omBarnet, utenlandsopphold } = state.søknad;
     const barn: FodtBarn | UfodtBarn = mapBarnForInnsending(omBarnet);
     const utenlandsoppholdDto = mapUtenlandsoppholdForInnsending(utenlandsopphold);
@@ -79,7 +80,7 @@ export const mapStateForInnsending = (state: EngangsstønadFormData): Engangsst�
         erEndringssøknad: false,
         informasjonOmUtenlandsopphold: utenlandsoppholdDto,
         søker: {
-            språkkode: 'NB',
+            språkkode: locale,
         },
         vedlegg: mapAttachments(state.søknad),
     };

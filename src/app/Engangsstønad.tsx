@@ -54,7 +54,10 @@ const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale
                         <>
                             <Route path="/soknad/om-barnet" component={() => <OmBarnet />} />
                             <Route path="/soknad/utenlandsopphold" component={() => <Utenlandsopphold />} />
-                            <Route path="/soknad/oppsummering" component={() => <Oppsummering person={data} />} />
+                            <Route
+                                path="/soknad/oppsummering"
+                                component={() => <Oppsummering person={data} locale={locale} />}
+                            />
                         </>
                     )}
                 </Router>
