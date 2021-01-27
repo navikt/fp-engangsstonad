@@ -1,5 +1,5 @@
 import React from 'react';
-import { BostedUtland } from 'app/utenlandsopphold/bostedUtlandListAndDialog/types';
+import { BostedUtland } from 'app/steps/utenlandsopphold/bostedUtlandListAndDialog/types';
 import { Element } from 'nav-frontend-typografi';
 import * as countries from 'i18n-iso-countries';
 

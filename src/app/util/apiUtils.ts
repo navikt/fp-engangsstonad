@@ -1,13 +1,13 @@
 import { Attachment } from 'common/storage/attachment/types/Attachment';
 import { isAttachmentWithError } from 'common/storage/attachment/components/util';
 import { EngangsstønadSøknadDto } from 'app/types/domain/EngangsstønadSøknad';
-import { EngangsstønadFormData } from 'app/form/EngangsstønadFormConfig';
+import { EngangsstønadContextState } from 'app/context/EngangsstønadContextConfig';
 import { YesOrNo } from '@navikt/sif-common-formik/lib';
 import { FodtBarn, UfodtBarn } from 'app/types/domain/Barn';
-import { OmBarnetFormData } from 'app/om-barnet/omBarnetFormConfig';
-import { UtenlandsoppholdFormData } from 'app/utenlandsopphold/utenlandsoppholdFormTypes';
+import { OmBarnetFormData } from 'app/steps/om-barnet/omBarnetFormConfig';
+import { UtenlandsoppholdFormData } from 'app/steps/utenlandsopphold/utenlandsoppholdFormTypes';
 import InformasjonOmUtenlandsopphold, { Utenlandsopphold } from 'app/types/domain/InformasjonOmUtenlandsopphold';
-import { BostedUtland } from 'app/utenlandsopphold/bostedUtlandListAndDialog/types';
+import { BostedUtland } from 'app/steps/utenlandsopphold/bostedUtlandListAndDialog/types';
 import dayjs from 'dayjs';
 import { Locale } from '@navikt/fp-common';
 
@@ -69,7 +69,7 @@ const mapUtenlandsoppholdForInnsending = (
     };
 };
 
-export const mapStateForInnsending = (state: EngangsstønadFormData, locale: Locale): EngangsstønadSøknadDto => {
+export const mapStateForInnsending = (state: EngangsstønadContextState, locale: Locale): EngangsstønadSøknadDto => {
     const { omBarnet, utenlandsopphold } = state.søknad;
     const barn: FodtBarn | UfodtBarn = mapBarnForInnsending(omBarnet);
     const utenlandsoppholdDto = mapUtenlandsoppholdForInnsending(utenlandsopphold);

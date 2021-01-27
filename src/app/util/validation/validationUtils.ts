@@ -1,5 +1,5 @@
 import { DateRange, NavFrontendSkjemaFeil, YesOrNo } from '@navikt/sif-common-formik/lib';
-import { BostedUtland } from 'app/utenlandsopphold/bostedUtlandListAndDialog/types';
+import { BostedUtland } from 'app/steps/utenlandsopphold/bostedUtlandListAndDialog/types';
 import dayjs from 'dayjs';
 import { IntlShape } from 'react-intl';
 import Person from '../../types/domain/Person';

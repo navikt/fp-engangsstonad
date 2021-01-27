@@ -1,18 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import IntlProvider from 'intl/IntlProvider';
-import Velkommen from './velkommen/Velkommen';
+import Velkommen from './pages/velkommen/Velkommen';
 import { useRequest } from './api/apiHooks';
 import Api from './api/api';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import Person from './types/domain/Person';
 import { Locale } from '@navikt/fp-common';
-import OmBarnet from './om-barnet/OmBarnet';
-import Utenlandsopphold from './utenlandsopphold/Utenlandsopphold';
-import Oppsummering from './oppsummering/Oppsummering';
-import { useEngangsstønadContext } from './form/hooks/useEngangsstønadContext';
+import OmBarnet from './steps/om-barnet/OmBarnet';
+import Utenlandsopphold from './steps/utenlandsopphold/Utenlandsopphold';
+import Oppsummering from './steps/oppsummering/Oppsummering';
+import { useEngangsstønadContext } from './context/hooks/useEngangsstønadContext';
 import { erMyndig } from './util/validation/validationUtils';
-import Umyndig from './umyndig/Umyndig';
+import Umyndig from './pages/umyndig/Umyndig';
 
 interface Props {
     locale: Locale;

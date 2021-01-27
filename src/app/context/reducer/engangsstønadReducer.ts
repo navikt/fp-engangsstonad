@@ -1,9 +1,12 @@
-import { EngangsstønadFormAction, EngangsstønadFormActionKeys } from '../action/actionCreator';
-import { EngangsstønadFormData } from '../EngangsstønadFormConfig';
+import { EngangsstønadContextAction, EngangsstønadContextActionKeys } from '../action/actionCreator';
+import { EngangsstønadContextState } from '../EngangsstønadContextConfig';
 
-const engangsstønadReducer = (state: EngangsstønadFormData, action: EngangsstønadFormAction): EngangsstønadFormData => {
+const engangsstønadReducer = (
+    state: EngangsstønadContextState,
+    action: EngangsstønadContextAction
+): EngangsstønadContextState => {
     switch (action.type) {
-        case EngangsstønadFormActionKeys.SET_VELKOMMEN: {
+        case EngangsstønadContextActionKeys.SET_VELKOMMEN: {
             return {
                 ...state,
                 søknad: {
@@ -19,7 +22,7 @@ const engangsstønadReducer = (state: EngangsstønadFormData, action: Engangsst�
                 },
             };
         }
-        case EngangsstønadFormActionKeys.SET_OM_BARNET: {
+        case EngangsstønadContextActionKeys.SET_OM_BARNET: {
             return {
                 ...state,
                 søknad: {
@@ -35,7 +38,7 @@ const engangsstønadReducer = (state: EngangsstønadFormData, action: Engangsst�
                 },
             };
         }
-        case EngangsstønadFormActionKeys.SET_UTENLANDSOPPHOLD: {
+        case EngangsstønadContextActionKeys.SET_UTENLANDSOPPHOLD: {
             return {
                 ...state,
                 søknad: {
@@ -49,6 +52,12 @@ const engangsstønadReducer = (state: EngangsstønadFormData, action: Engangsst�
                         ...action.payload,
                     },
                 },
+            };
+        }
+        case EngangsstønadContextActionKeys.SET_KVITTERING: {
+            return {
+                ...state,
+                kvittering: action.payload,
             };
         }
         default:

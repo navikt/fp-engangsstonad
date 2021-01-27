@@ -10,17 +10,19 @@ import { fullNameFormat } from 'app/util/formats/formatUtils';
 import OmBarnetOppsummering from './OmBarnetOppsummering';
 import UtenlandsoppholdOppsummering from './UtenlandsoppholdOppsummering';
 import stepConfig, { getPreviousStepHref } from 'app/step-config/stepConfig';
-import { useEngangsstønadContext } from 'app/form/hooks/useEngangsstønadContext';
+import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadContext';
 import { OppsummeringFormComponents, initialOppsummeringValues, OppsummeringFormField } from './oppsummeringFormConfig';
 import { commonFieldErrorRenderer } from 'app/util/validation/validationUtils';
 import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
-
-import './oppsummering.less';
 import oppsummeringQuestionsConfig from './oppsummeringQuestionsConfig';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { EngangsstønadSøknadDto } from 'app/types/domain/EngangsstønadSøknad';
 import { mapStateForInnsending } from 'app/util/apiUtils';
 import Api from 'app/api/api';
+import { useHistory } from 'react-router-dom';
+import actionCreator from 'app/context/action/actionCreator';
+
+import './oppsummering.less';
 
 interface Props {
     person: Person;
@@ -30,11 +32,19 @@ interface Props {
 const Oppsummering: React.FunctionComponent<Props> = ({ person, locale }) => {
     const intl = useIntl();
     const bem = bemUtils('oppsummering');
-    const { state } = useEngangsstønadContext();
+    const { state, dispatch } = useEngangsstønadContext();
+    const history = useHistory();
 
     const sendSøknad = () => {
         const søknadForInnsending: EngangsstønadSøknadDto = mapStateForInnsending(state, locale);
-        Api.sendSøknad(søknadForInnsending);
+        try {
+            const kvitteringResponse = Api.sendSøknad(søknadForInnsending);
+
+            kvitteringResponse.then((response) => {
+                dispatch(actionCreator.setKvittering(response.data));
+                history.push('/kvittering');
+            });
+        } catch (error) {}
     };
 
     return (

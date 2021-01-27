@@ -1,11 +1,11 @@
 import React, { createContext, Dispatch, FunctionComponent, ReactNode, useMemo, useReducer } from 'react';
-import { EngangsstønadFormAction } from './action/actionCreator';
-import { EngangsstønadFormData, engangsstønadInitialState } from './EngangsstønadFormConfig';
+import { EngangsstønadContextAction } from './action/actionCreator';
+import { EngangsstønadContextState, engangsstønadInitialState } from './EngangsstønadContextConfig';
 import engangsstønadReducer from './reducer/engangsstønadReducer';
 
 interface EngangsstønadContextData {
-    state: EngangsstønadFormData;
-    dispatch: Dispatch<EngangsstønadFormAction>;
+    state: EngangsstønadContextState;
+    dispatch: Dispatch<EngangsstønadContextAction>;
 }
 
 export const EngangsstønadContext = createContext<EngangsstønadContextData>(null!);

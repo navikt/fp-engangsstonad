@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { EtikettLiten } from 'nav-frontend-typografi';
 import { useIntl } from 'react-intl';
-import { UtenlandsoppholdFormData } from 'app/utenlandsopphold/utenlandsoppholdFormTypes';
+import { UtenlandsoppholdFormData } from 'app/steps/utenlandsopphold/utenlandsoppholdFormTypes';
 import dayjs from 'dayjs';
 import DisplayTextWithLabel from 'app/components/display-text-with-label/DisplayTextWithLabel';
 import getMessage from 'common/util/i18nUtils';
-import { OmBarnetFormData } from 'app/om-barnet/omBarnetFormConfig';
+import { OmBarnetFormData } from 'app/steps/om-barnet/omBarnetFormConfig';
 import { YesOrNo } from '@navikt/sif-common-formik/lib';
 import LandOppsummering from './LandOppsummering';
 import { Block } from '@navikt/fp-common';

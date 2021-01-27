@@ -3,7 +3,7 @@ import { FormikValidateFunction } from '@navikt/sif-common-formik/lib';
 import { ArrayHelpers, useFormikContext } from 'formik';
 import { Attachment, AttachmentType, Skjemanummer } from 'common/storage/attachment/types/Attachment';
 import FormikFileInput from '@navikt/sif-common-formik/lib/components/formik-file-input/FormikFileInput';
-import { OmBarnetFormData, OmBarnetFormField } from 'app/om-barnet/omBarnetFormConfig';
+import { OmBarnetFormData, OmBarnetFormField } from 'app/steps/om-barnet/omBarnetFormConfig';
 import { isAttachmentWithError, mapFileToAttachment } from 'common/storage/attachment/components/util';
 import AttachmentApi from 'common/storage/api/attachmentApi';
 import AttachmentList from 'common/storage/attachment/components/AttachmentList';

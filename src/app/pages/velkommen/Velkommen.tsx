@@ -13,9 +13,9 @@ import {
 } from './velkommenFormConfig';
 import { commonFieldErrorRenderer } from 'util/validation/validationUtils';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import actionCreator from 'app/form/action/actionCreator';
+import actionCreator from 'app/context/action/actionCreator';
 import { useHistory } from 'react-router-dom';
-import { useEngangsstønadContext } from 'app/form/hooks/useEngangsstønadContext';
+import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadContext';
 
 import './velkommen.less';
 
