@@ -1,6 +1,6 @@
 {
     "gcp" : "true",
-    "ingresses": ["https://engangsstonadny.dev.nav.no"],
+    "ingresses": ["https://engangsstonadny.dev.intern.nav.no"],
     "dekoratoren" : "dekoratoren.dev.nav.no",
     "nav" : "www.nav.no",
     "env": {
