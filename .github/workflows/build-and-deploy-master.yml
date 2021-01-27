@@ -101,8 +101,5 @@ jobs:
                       issue_number: response.data.number }
                      github.issues.createComment({...issue,
                             title: 'Deploy av ${{ env.TAG }}',
-                            body: '/promote dev-sbs '})
-                     github.issues.createComment({...issue,
-                            title: 'Deploy av ${{ env.TAG }}',
                             body: '/promote dev-gcp '})
                });

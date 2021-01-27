@@ -8,8 +8,11 @@ metadata:
 spec:
   accessPolicy:
     outbound:
+      rules:
+      - application:  {{api}}
       external:
       - host:  {{dekoratoren}}
+      - host:  {{loginservice}}
       - host:  {{nav}}
   image: {{image}}
   port: 8080
