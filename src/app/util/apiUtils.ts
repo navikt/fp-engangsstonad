@@ -76,7 +76,7 @@ export const mapStateForInnsending = (state: EngangsstønadContextState, locale:
 
     return {
         barn,
-        type: 'endringssøknad',
+        type: 'engangsstønad',
         erEndringssøknad: false,
         informasjonOmUtenlandsopphold: utenlandsoppholdDto,
         søker: {
