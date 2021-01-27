@@ -8,9 +8,8 @@ metadata:
 spec:
   accessPolicy:
     outbound:
-      rules:
-      - application:  {{api}}
       external:
+      - host:  {{api}}
       - host:  {{dekoratoren}}
       - host:  {{loginservice}}
       - host:  {{nav}}
