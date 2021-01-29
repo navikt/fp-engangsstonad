@@ -13,6 +13,7 @@ import Oppsummering from './steps/oppsummering/Oppsummering';
 import { useEngangsstønadContext } from './context/hooks/useEngangsstønadContext';
 import { erMyndig } from './util/validation/validationUtils';
 import Umyndig from './pages/umyndig/Umyndig';
+import SøknadSendt from './pages/søknad-sendt/SøknadSendt';
 
 interface Props {
     locale: Locale;
@@ -48,7 +49,7 @@ const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale
                             <Velkommen fornavn={data.fornavn} locale={locale} onChangeLocale={onChangeLocale} />
                         )}
                     />
-                    {!state.søknad.velkommen.harForståttRettigheterOgPlikter ? (
+                    {state.søknad.velkommen.harForståttRettigheterOgPlikter ? (
                         <Redirect to="/" exact={true} />
                     ) : (
                         <>
@@ -60,6 +61,7 @@ const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale
                             />
                         </>
                     )}
+                    <Route path="/kvittering" component={() => <SøknadSendt person={data} />} />
                 </Router>
             )}
         </IntlProvider>

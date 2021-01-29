@@ -80,7 +80,7 @@ export const mapStateForInnsending = (state: EngangsstønadContextState, locale:
         erEndringssøknad: false,
         informasjonOmUtenlandsopphold: utenlandsoppholdDto,
         søker: {
-            språkkode: 'NB',
+            språkkode: locale,
         },
         vedlegg: mapAttachments(state.søknad),
     };

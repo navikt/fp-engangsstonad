@@ -11,4 +11,5 @@ export const lenker = {
     plikter: 'https://nav.no/rettOgPlikt',
     søknadsveileder: 'https://www.nav.no/soknader/nb/person/familie/foreldrepenger-og-engangsstonad',
     veiviser: 'https://familie.nav.no/veiviser',
+    innsyn: 'https://foreldrepenger.nav.no',
 };
