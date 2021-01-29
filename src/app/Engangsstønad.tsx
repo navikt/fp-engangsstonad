@@ -49,7 +49,7 @@ const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale
                             <Velkommen fornavn={data.fornavn} locale={locale} onChangeLocale={onChangeLocale} />
                         )}
                     />
-                    {state.søknad.velkommen.harForståttRettigheterOgPlikter ? (
+                    {!state.søknad.velkommen.harForståttRettigheterOgPlikter ? (
                         <Redirect to="/" exact={true} />
                     ) : (
                         <>
