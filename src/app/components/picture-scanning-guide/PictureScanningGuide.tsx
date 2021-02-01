@@ -17,71 +17,71 @@ const PictureScanningGuide = () => {
     return (
         <div className={bem.className}>
             <Systemtittel className={bem.element('title')}>
-                <FormattedMessage id="psg.innholdstittel" />
+                <FormattedMessage id="taBildeAvVedlegg.innholdstittel" />
             </Systemtittel>
 
             <Undertittel className={bem.element('title')}>
-                <FormattedMessage id="psg.section1.tittel" />
+                <FormattedMessage id="taBildeAvVedlegg.section1.tittel" />
             </Undertittel>
             <ul>
-                <FormattedMessage tagName="li" id="psg.section1.liste.punkt1" />
+                <FormattedMessage tagName="li" id="taBildeAvVedlegg.section1.liste.punkt1" />
                 <FormattedMessage
                     tagName="li"
-                    id="psg.section1.liste.punkt2"
+                    id="taBildeAvVedlegg.section1.liste.punkt2"
                     values={{
                         i: (msg: any) => <i>{msg}</i>,
                     }}
                 />
-                <FormattedMessage tagName="li" id="psg.section1.liste.punkt3" />
+                <FormattedMessage tagName="li" id="taBildeAvVedlegg.section1.liste.punkt3" />
             </ul>
             <Undertittel className={bem.element('title')}>
-                <FormattedMessage id="psg.section2.tittel" />
+                <FormattedMessage id="taBildeAvVedlegg.section2.tittel" />
             </Undertittel>
             <ul>
-                <FormattedMessage tagName="li" id="psg.section2.liste.punkt1" />
-                <FormattedMessage tagName="li" id="psg.section2.liste.punkt2" />
-                <FormattedMessage tagName="li" id="psg.section2.liste.punkt3" />
+                <FormattedMessage tagName="li" id="taBildeAvVedlegg.section2.liste.punkt1" />
+                <FormattedMessage tagName="li" id="taBildeAvVedlegg.section2.liste.punkt2" />
+                <FormattedMessage tagName="li" id="taBildeAvVedlegg.section2.liste.punkt3" />
             </ul>
             <div className={bem.element('examples')}>
                 <Undertittel tag="h3" className={bem.element('title')}>
-                    <FormattedMessage id="psg.icon.heading" />
+                    <FormattedMessage id="taBildeAvVedlegg.icon.heading" />
                 </Undertittel>
                 <div className={bem.element('body')}>
                     <div className={bem.element('cell')}>
                         <PictureScanningExample
                             image={<ScanningIkon status="good" height={svgIconHeight} />}
                             status="suksess"
-                            statusText={getMessage(intl, 'psg.good')}
-                            description={getMessage(intl, 'psg.icon.label.good')}
+                            statusText={getMessage(intl, 'taBildeAvVedlegg.good')}
+                            description={getMessage(intl, 'taBildeAvVedlegg.icon.label.good')}
                         />
                     </div>
                     <div className={bem.element('cell')}>
                         <PictureScanningExample
                             image={<ScanningIkon status="keystone" height={svgIconHeight} />}
                             status="feil"
-                            statusText={getMessage(intl, 'psg.bad')}
-                            description={getMessage(intl, 'psg.icon.label.keystone')}
+                            statusText={getMessage(intl, 'taBildeAvVedlegg.bad')}
+                            description={getMessage(intl, 'taBildeAvVedlegg.icon.label.keystone')}
                         />
                     </div>
                     <div className={bem.element('cell')}>
                         <PictureScanningExample
                             image={<ScanningIkon status="horizontal" height={svgIconHeight} />}
                             status="feil"
-                            statusText={getMessage(intl, 'psg.bad')}
-                            description={getMessage(intl, 'psg.icon.label.horizontal')}
+                            statusText={getMessage(intl, 'taBildeAvVedlegg.bad')}
+                            description={getMessage(intl, 'taBildeAvVedlegg.icon.label.horizontal')}
                         />
                     </div>
                     <div className={bem.element('cell')}>
                         <PictureScanningExample
                             image={<ScanningIkon status="shadow" height={svgIconHeight} />}
                             status="feil"
-                            statusText={getMessage(intl, 'psg.bad')}
-                            description={getMessage(intl, 'psg.icon.label.shadow')}
+                            statusText={getMessage(intl, 'taBildeAvVedlegg.bad')}
+                            description={getMessage(intl, 'taBildeAvVedlegg.icon.label.shadow')}
                         />
                     </div>
                 </div>
-                <Lenke target="_blank" href={getMessage(intl, 'psg.lenkepanel.url')}>
-                    <FormattedMessage id="psg.lenkepanel.text" />
+                <Lenke target="_blank" href={getMessage(intl, 'taBildeAvVedlegg.lenkepanel.url')}>
+                    <FormattedMessage id="taBildeAvVedlegg.lenkepanel.text" />
                 </Lenke>
             </div>
         </div>
