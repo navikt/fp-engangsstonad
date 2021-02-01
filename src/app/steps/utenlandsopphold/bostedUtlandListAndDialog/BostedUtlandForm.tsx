@@ -4,8 +4,8 @@ import { getTypedFormComponents, ISOStringToDate } from '@navikt/sif-common-form
 import { Systemtittel } from 'nav-frontend-typografi';
 import getMessage from 'common/util/i18nUtils';
 import { BostedUtland, isValidBostedUtland } from './types';
-import { Block } from '@navikt/fp-common';
-import { commonFieldErrorRenderer, dateRangeValidation, validateRequiredField } from 'util/validation/validationUtils';
+import { Block, commonFieldErrorRenderer, validateRequiredField } from '@navikt/fp-common';
+import { dateRangeValidation } from '../utenlandsoppholdValidering';
 
 export interface BostedUtlandFormLabels {
     tittel: string;

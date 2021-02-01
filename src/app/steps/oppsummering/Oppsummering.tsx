@@ -1,4 +1,4 @@
-import { bemUtils, Block, intlUtils, Locale, Step } from '@navikt/fp-common';
+import { bemUtils, Block, commonFieldErrorRenderer, intlUtils, Locale, Step } from '@navikt/fp-common';
 import Veileder from '@navikt/fp-common/lib/components/veileder/Veileder';
 import SøkersPersonalia from 'app/components/søkers-personalia/SøkersPersonalia';
 import Veilederpanel from 'nav-frontend-veilederpanel';
@@ -12,7 +12,6 @@ import UtenlandsoppholdOppsummering from './UtenlandsoppholdOppsummering';
 import stepConfig, { getPreviousStepHref } from 'app/step-config/stepConfig';
 import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadContext';
 import { OppsummeringFormComponents, initialOppsummeringValues, OppsummeringFormField } from './oppsummeringFormConfig';
-import { commonFieldErrorRenderer } from 'app/util/validation/validationUtils';
 import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
 import oppsummeringQuestionsConfig from './oppsummeringQuestionsConfig';
 import { Hovedknapp } from 'nav-frontend-knapper';

@@ -2,8 +2,8 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { getCountryName } from '@navikt/sif-common-formik';
 import { BostedUtland } from './types';
-import { ActionLink, bemUtils, ItemList } from '@navikt/fp-common';
-import { prettifyDateExtended } from 'util/validation/validationUtils';
+import { ActionLink, bemUtils, formatDateExtended, ItemList } from '@navikt/fp-common';
+
 import dayjs from 'dayjs';
 
 import './bostedUtlandList.less';
@@ -27,8 +27,8 @@ const BostedUtlandList: React.FunctionComponent<Props> = ({ bosteder, onDelete, 
                     {!onEdit && <span>{navn}</span>}
                 </span>
                 <span className={bem.element('dato')}>
-                    {prettifyDateExtended(dayjs(opphold.fom).toDate())} -{' '}
-                    {prettifyDateExtended(dayjs(opphold.tom).toDate())}
+                    {formatDateExtended(dayjs(opphold.fom).toDate())} -{' '}
+                    {formatDateExtended(dayjs(opphold.tom).toDate())}
                 </span>
             </div>
         );

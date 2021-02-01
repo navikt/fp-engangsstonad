@@ -3,7 +3,7 @@ import { FormikModalFormAndList, FormikValidateFunction, ModalFormAndListLabels 
 import BostedUtlandForm from './BostedUtlandForm';
 import BostedUtlandListe from './BostedUtlandList';
 import { BostedUtland } from './types';
-import { sortItemsByFom } from 'util/validation/validationUtils';
+import { sortItemsByFom } from '@navikt/fp-common';
 
 interface Props<FieldNames> {
     name: FieldNames;

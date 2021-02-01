@@ -1,5 +1,15 @@
 import React from 'react';
-import { bemUtils, Block, intlUtils, Step } from '@navikt/fp-common';
+import {
+    bemUtils,
+    Block,
+    commonFieldErrorRenderer,
+    date1YearAgo,
+    date1YearFromNow,
+    dateToday,
+    intlUtils,
+    Step,
+    validateYesOrNoIsAnswered,
+} from '@navikt/fp-common';
 import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
 import UtvidetInformasjon from 'components/utvidet-informasjon/UtvidetInformasjon';
 import {
@@ -13,21 +23,13 @@ import actionCreator from 'app/context/action/actionCreator';
 import { useHistory } from 'react-router-dom';
 import stepConfig, { getPreviousStepHref } from 'app/step-config/stepConfig';
 import { utenlandsoppholdFormQuestions } from './utenlandsoppholdFormQuestions';
-import {
-    commonFieldErrorRenderer,
-    date1YearAgo,
-    date1YearFromNow,
-    dateToday,
-    validateUtenlandsoppholdNeste12Mnd,
-    validateUtenlandsoppholdSiste12Mnd,
-    validateYesOrNoIsAnswered,
-} from 'app/util/validation/validationUtils';
 import BostedUtlandListAndDialog from './bostedUtlandListAndDialog/BostedUtlandListAndDialog';
 import { utenlandsoppholdFormCleanup } from './utenlandsoppholdFormUtils';
 import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadContext';
 
 import './utenlandsopphold.less';
 import getMessage from 'common/util/i18nUtils';
+import { validateUtenlandsoppholdNeste12Mnd } from './utenlandsoppholdValidering';
 
 const Utenlandsopphold: React.FunctionComponent = () => {
     const intl = useIntl();
@@ -169,7 +171,7 @@ const Utenlandsopphold: React.FunctionComponent = () => {
                                                 modalTitle: 'Utenlandsopphold neste 12 måneder',
                                             }}
                                             erFremtidigOpphold={false}
-                                            validate={validateUtenlandsoppholdSiste12Mnd}
+                                            validate={validateUtenlandsoppholdNeste12Mnd}
                                         />
                                     </Block>
                                 )}

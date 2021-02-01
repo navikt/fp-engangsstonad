@@ -1,7 +1,7 @@
-import { bemUtils, Block, intlUtils, Step, useDocumentTitle } from '@navikt/fp-common';
+import { bemUtils, Block, commonFieldErrorRenderer, intlUtils, Step, useDocumentTitle } from '@navikt/fp-common';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { commonFieldErrorRenderer } from 'util/validation/validationUtils';
+
 import { OmBarnetFormComponents, OmBarnetFormField, OmBarnetFormData } from './omBarnetFormConfig';
 import omBarnetQuestionsConfig from './omBarnetQuestionsConfig';
 import Veilederpanel from 'nav-frontend-veilederpanel';
@@ -18,6 +18,7 @@ import actionCreator from 'app/context/action/actionCreator';
 import stepConfig from 'app/step-config/stepConfig';
 import { cleanupOmBarnet } from './omBarnetUtils';
 import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadContext';
+import { validateAttachmentSize } from 'common/storage/attachment/components/attachmentValidering';
 
 import './omBarnet.less';
 
@@ -42,6 +43,8 @@ const OmBarnet: React.FunctionComponent = () => {
         );
         history.push('/soknad/utenlandsopphold');
     };
+
+    console.log('terminbekreftelse', initialValues.terminbekreftelse);
 
     return (
         <OmBarnetFormComponents.FormikWrapper
@@ -129,6 +132,8 @@ const OmBarnet: React.FunctionComponent = () => {
                                         <OmBarnetFormComponents.DatePicker
                                             name={OmBarnetFormField.fødselsdato}
                                             label={getMessage(intl, 'søknad.fødselsdato')}
+                                            minDate={dayjs().subtract(6, 'month').toDate()}
+                                            maxDate={dayjs().toDate()}
                                         />
                                     </Block>
                                 )}
@@ -153,8 +158,11 @@ const OmBarnet: React.FunctionComponent = () => {
                                             <FormikFileUploader
                                                 label={getMessage(intl, 'vedlegg.lastoppknapp.label')}
                                                 name={OmBarnetFormField.terminbekreftelse}
+                                                validate={validateAttachmentSize}
                                             />
-                                            <UtvidetInformasjon apneLabel={<FormattedMessage id="psg.åpneLabel" />}>
+                                            <UtvidetInformasjon
+                                                apneLabel={<FormattedMessage id="taBildeAvVedlegg.åpneLabel" />}
+                                            >
                                                 <PictureScanningGuide />
                                             </UtvidetInformasjon>
                                         </Block>
