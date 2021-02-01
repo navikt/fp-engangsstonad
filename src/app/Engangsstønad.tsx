@@ -12,6 +12,7 @@ import Utenlandsopphold from './steps/utenlandsopphold/Utenlandsopphold';
 import Oppsummering from './steps/oppsummering/Oppsummering';
 import { useEngangsstønadContext } from './context/hooks/useEngangsstønadContext';
 import Umyndig from './pages/umyndig/Umyndig';
+import SøknadSendt from './pages/søknad-sendt/SøknadSendt';
 
 interface Props {
     locale: Locale;
@@ -59,6 +60,7 @@ const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale
                             />
                         </>
                     )}
+                    <Route path="/kvittering" component={() => <SøknadSendt person={data} />} />
                 </Router>
             )}
         </IntlProvider>
