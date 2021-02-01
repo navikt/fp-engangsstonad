@@ -29,7 +29,7 @@ import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadCon
 
 import './utenlandsopphold.less';
 import getMessage from 'common/util/i18nUtils';
-import { validateUtenlandsoppholdNeste12Mnd } from './utenlandsoppholdValidering';
+import { validateUtenlandsoppholdNeste12Mnd, validateUtenlandsoppholdSiste12Mnd } from './utenlandsoppholdValidering';
 
 const Utenlandsopphold: React.FunctionComponent = () => {
     const intl = useIntl();
@@ -168,10 +168,10 @@ const Utenlandsopphold: React.FunctionComponent = () => {
                                             name={UtenlandsoppholdFieldNames.utenlandsoppholdSiste12Mnd}
                                             labels={{
                                                 addLabel: intlUtils(intl, 'utenlandsopphold.knapp.leggTilLand'),
-                                                modalTitle: 'Utenlandsopphold neste 12 måneder',
+                                                modalTitle: 'Utenlandsopphold siste 12 måneder',
                                             }}
                                             erFremtidigOpphold={false}
-                                            validate={validateUtenlandsoppholdNeste12Mnd}
+                                            validate={validateUtenlandsoppholdSiste12Mnd}
                                         />
                                     </Block>
                                 )}
