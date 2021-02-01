@@ -1,8 +1,8 @@
-import { bemUtils, Block, intlUtils, Locale, Step } from '@navikt/fp-common';
+import { bemUtils, Block, commonFieldErrorRenderer, intlUtils, Locale, Step } from '@navikt/fp-common';
 import Veileder from '@navikt/fp-common/lib/components/veileder/Veileder';
 import SøkersPersonalia from 'app/components/søkers-personalia/SøkersPersonalia';
 import Veilederpanel from 'nav-frontend-veilederpanel';
-import React from 'react';
+import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
 import Oppsummeringspunkt from './Oppsummeringspunkt';
 import Person from 'app/types/domain/Person';
@@ -12,7 +12,6 @@ import UtenlandsoppholdOppsummering from './UtenlandsoppholdOppsummering';
 import stepConfig, { getPreviousStepHref } from 'app/step-config/stepConfig';
 import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadContext';
 import { OppsummeringFormComponents, initialOppsummeringValues, OppsummeringFormField } from './oppsummeringFormConfig';
-import { commonFieldErrorRenderer } from 'app/util/validation/validationUtils';
 import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
 import oppsummeringQuestionsConfig from './oppsummeringQuestionsConfig';
 import { Hovedknapp } from 'nav-frontend-knapper';
@@ -34,17 +33,23 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person, locale }) => {
     const bem = bemUtils('oppsummering');
     const { state, dispatch } = useEngangsstønadContext();
     const history = useHistory();
+    const [isSending, setIsSending] = useState(false);
 
     const sendSøknad = () => {
         const søknadForInnsending: EngangsstønadSøknadDto = mapStateForInnsending(state, locale);
         try {
+            setIsSending(true);
             const kvitteringResponse = Api.sendSøknad(søknadForInnsending);
 
             kvitteringResponse.then((response) => {
                 dispatch(actionCreator.setKvittering(response.data));
                 history.push('/kvittering');
             });
-        } catch (error) {}
+        } catch (error) {
+            history.push('/kvittering');
+        } finally {
+            setIsSending(false);
+        }
     };
 
     return (
@@ -114,7 +119,9 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person, locale }) => {
                             {allQuestionsAnswered && (
                                 <Block margin="xl">
                                     <div className={bem.element('sendSøknadKnapp')}>
-                                        <Hovedknapp>{intlUtils(intl, 'velkommen.button.startSøknad')}</Hovedknapp>
+                                        <Hovedknapp disabled={isSending} spinner={isSending}>
+                                            {intlUtils(intl, 'oppsummering.button.sendSøknad')}
+                                        </Hovedknapp>
                                     </div>
                                 </Block>
                             )}

@@ -6,13 +6,13 @@ import { useRequest } from './api/apiHooks';
 import Api from './api/api';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import Person from './types/domain/Person';
-import { Locale } from '@navikt/fp-common';
+import { erMyndig, Locale } from '@navikt/fp-common';
 import OmBarnet from './steps/om-barnet/OmBarnet';
 import Utenlandsopphold from './steps/utenlandsopphold/Utenlandsopphold';
 import Oppsummering from './steps/oppsummering/Oppsummering';
 import { useEngangsstønadContext } from './context/hooks/useEngangsstønadContext';
-import { erMyndig } from './util/validation/validationUtils';
 import Umyndig from './pages/umyndig/Umyndig';
+import SøknadSendt from './pages/søknad-sendt/SøknadSendt';
 
 interface Props {
     locale: Locale;
@@ -37,7 +37,7 @@ const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale
 
     return (
         <IntlProvider språkkode={locale}>
-            {!erMyndig(data) ? (
+            {!erMyndig(data.fødselsdato) ? (
                 <Umyndig person={data} />
             ) : (
                 <Router>
@@ -60,6 +60,7 @@ const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale
                             />
                         </>
                     )}
+                    <Route path="/kvittering" component={() => <SøknadSendt person={data} />} />
                 </Router>
             )}
         </IntlProvider>

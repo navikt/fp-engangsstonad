@@ -28,6 +28,9 @@ const Attachment: React.FunctionComponent<Props> = ({ attachment, showFileSize, 
         [BEM.modifier('pending')]: attachment.pending,
     });
 
+    console.log('showFileSize', attachment.filesize);
+    console.log('showFileSize', bytesString(attachment.filesize));
+
     return (
         <div className={cls}>
             {attachment.pending && (

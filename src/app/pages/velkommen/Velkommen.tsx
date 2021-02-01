@@ -1,7 +1,16 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Ingress, Innholdstittel } from 'nav-frontend-typografi';
-import { bemUtils, LanguageToggle, intlUtils, Block, Locale, useDocumentTitle, Sidebanner } from '@navikt/fp-common';
+import {
+    bemUtils,
+    LanguageToggle,
+    intlUtils,
+    Block,
+    Locale,
+    useDocumentTitle,
+    Sidebanner,
+    commonFieldErrorRenderer,
+} from '@navikt/fp-common';
 import Veiviser from 'components/veiviser/VeiviserSvg';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import { lenker } from 'util/lenker';
@@ -11,13 +20,15 @@ import {
     VelkommenFormData,
     VelkommenFormField,
 } from './velkommenFormConfig';
-import { commonFieldErrorRenderer } from 'util/validation/validationUtils';
+
 import { Hovedknapp } from 'nav-frontend-knapper';
 import actionCreator from 'app/context/action/actionCreator';
 import { useHistory } from 'react-router-dom';
 import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadContext';
 
 import './velkommen.less';
+import Personopplysninger from 'app/components/modal-content/Personopplysninger';
+import Modal from 'nav-frontend-modal';
 
 interface Props {
     fornavn: string;
@@ -40,6 +51,8 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
         );
         history.push('/soknad/om-barnet');
     };
+
+    const [PersonopplysningerModalOpen, setPersonopplysningerModalOpen] = useState<boolean>(false);
 
     return (
         <VelkommenFormComponents.FormikWrapper
@@ -113,9 +126,30 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                                     <FormattedMessage id="velkommen.text.samtykkeIntro" />
                                 </VelkommenFormComponents.ConfirmationCheckbox>
                             </Block>
-                            <div className={bem.element('startSøknadKnapp')}>
-                                <Hovedknapp>{intlUtils(intl, 'velkommen.button.startSøknad')}</Hovedknapp>
-                            </div>
+                            <Block padBottom="xl">
+                                <div className={bem.element('startSøknadKnapp')}>
+                                    <Hovedknapp>{intlUtils(intl, 'velkommen.button.startSøknad')}</Hovedknapp>
+                                </div>
+                            </Block>
+                            <Block>
+                                <div className={bem.element('personopplysningLenke')}>
+                                    <a
+                                        className="lenke"
+                                        href="#"
+                                        onClick={(e) => setPersonopplysningerModalOpen(!PersonopplysningerModalOpen)}
+                                    >
+                                        <FormattedMessage id="velkommen.text.personopplysningene.link" />
+                                    </a>
+                                </div>
+                                <Modal
+                                    isOpen={PersonopplysningerModalOpen}
+                                    closeButton={true}
+                                    onRequestClose={() => setPersonopplysningerModalOpen(!PersonopplysningerModalOpen)}
+                                    contentLabel="rettigheter og plikter"
+                                >
+                                    <Personopplysninger />
+                                </Modal>
+                            </Block>
                         </div>
                     </VelkommenFormComponents.Form>
                 );

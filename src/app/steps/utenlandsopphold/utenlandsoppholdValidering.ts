@@ -86,7 +86,7 @@ export const validateUtenlandsoppholdNeste12Mnd = (utenlandsopphold: BostedUtlan
         return createFieldValidationError('valideringsfeil.utenlandsopphold.overlapp');
     }
     if (dateRangesExceedsRange(dateRanges, { from: new Date(), to: date1YearFromNow })) {
-        return createFieldValidationError('valideringsfeil.utenlandsopphold_utenfor_periode');
+        return createFieldValidationError('valideringsfeil.utenlandsoppholdUtenforPeriode');
     }
     return undefined;
 };
@@ -102,7 +102,7 @@ export const validateUtenlandsoppholdSiste12Mnd = (utenlandsopphold: BostedUtlan
         return createFieldValidationError('valideringsfeil.utenlandsopphold.overlapp');
     }
     if (dateRangesExceedsRange(dateRanges, { from: date1YearAgo, to: new Date() })) {
-        return createFieldValidationError('valideringsfeil.utenlandsopphold_utenfor_periode');
+        return createFieldValidationError('valideringsfeil.utenlandsoppholdUtenforPeriode');
     }
 
     return undefined;
