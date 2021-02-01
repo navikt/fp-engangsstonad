@@ -160,9 +160,7 @@ const OmBarnet: React.FunctionComponent = () => {
                                                 name={OmBarnetFormField.terminbekreftelse}
                                                 validate={validateAttachmentSize}
                                             />
-                                            <UtvidetInformasjon
-                                                apneLabel={<FormattedMessage id="taBildeAvVedlegg.åpneLabel" />}
-                                            >
+                                            <UtvidetInformasjon apneLabel={<FormattedMessage id="psg.åpneLabel" />}>
                                                 <PictureScanningGuide />
                                             </UtvidetInformasjon>
                                         </Block>
