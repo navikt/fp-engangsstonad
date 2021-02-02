@@ -35,20 +35,20 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person, locale }) => {
     const history = useHistory();
     const [isSending, setIsSending] = useState(false);
 
-    const sendSøknad = () => {
+    const sendSøknad = async () => {
         const søknadForInnsending: EngangsstønadSøknadDto = mapStateForInnsending(state, locale);
+        setIsSending(true);
+
         try {
-            setIsSending(true);
             const kvitteringResponse = Api.sendSøknad(søknadForInnsending);
 
             kvitteringResponse.then((response) => {
                 dispatch(actionCreator.setKvittering(response.data));
                 history.push('/kvittering');
+                setIsSending(false);
             });
         } catch (error) {
             history.push('/kvittering');
-        } finally {
-            setIsSending(false);
         }
     };
 

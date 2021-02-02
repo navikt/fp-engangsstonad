@@ -44,8 +44,6 @@ const OmBarnet: React.FunctionComponent = () => {
         history.push('/soknad/utenlandsopphold');
     };
 
-    console.log('terminbekreftelse', initialValues.terminbekreftelse);
-
     return (
         <OmBarnetFormComponents.FormikWrapper
             initialValues={initialValues}
