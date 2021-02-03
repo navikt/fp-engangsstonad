@@ -3,12 +3,11 @@ import { EtikettLiten } from 'nav-frontend-typografi';
 import { useIntl } from 'react-intl';
 import { UtenlandsoppholdFormData } from 'app/steps/utenlandsopphold/utenlandsoppholdFormTypes';
 import dayjs from 'dayjs';
-import DisplayTextWithLabel from 'app/components/display-text-with-label/DisplayTextWithLabel';
 import getMessage from 'common/util/i18nUtils';
 import { OmBarnetFormData } from 'app/steps/om-barnet/omBarnetFormConfig';
 import { YesOrNo } from '@navikt/sif-common-formik/lib';
 import LandOppsummering from './LandOppsummering';
-import { Block } from '@navikt/fp-common';
+import { Block, DisplayTextWithLabel } from '@navikt/fp-common';
 
 interface Props {
     barn: OmBarnetFormData;
