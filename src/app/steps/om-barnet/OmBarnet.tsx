@@ -32,7 +32,7 @@ const OmBarnet: React.FunctionComponent = () => {
     const history = useHistory();
     useDocumentTitle(intlUtils(intl, 'velkommen.standard.dokumenttittel'));
     const { state, dispatch } = useEngangsstønadContext();
-    const initialValues = state.søknad.omBarnet;
+    const omBarnetValues = state.søknad.omBarnet;
 
     const onValidSubmit = (values: Partial<OmBarnetFormData>) => {
         dispatch(
@@ -50,7 +50,7 @@ const OmBarnet: React.FunctionComponent = () => {
 
     return (
         <OmBarnetFormComponents.FormikWrapper
-            initialValues={initialValues}
+            initialValues={omBarnetValues}
             onSubmit={(values) => onValidSubmit(values)}
             renderForm={({ values: formValues }) => {
                 const visibility = omBarnetQuestionsConfig.getVisbility(formValues);
@@ -174,9 +174,17 @@ const OmBarnet: React.FunctionComponent = () => {
                                         <OmBarnetFormComponents.DatePicker
                                             name={OmBarnetFormField.terminbekreftelsedato}
                                             label={getMessage(intl, 'søknad.terminbekreftelsesdato')}
-                                            minDate={dayjs(initialValues.termindato).subtract(16, 'week').toDate()}
+                                            minDate={dayjs(formValues.termindato)
+                                                .subtract(18, 'week')
+                                                .subtract(3, 'day')
+                                                .toDate()}
                                             maxDate={dayjs().toDate()}
-                                            validate={valideringAvTerminbekreftelsesdato}
+                                            validate={(terminBekreftelseDato) =>
+                                                valideringAvTerminbekreftelsesdato(
+                                                    terminBekreftelseDato,
+                                                    formValues.termindato
+                                                )
+                                            }
                                         />
                                     </Block>
                                 )}
