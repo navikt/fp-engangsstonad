@@ -22,6 +22,7 @@ import { useHistory } from 'react-router-dom';
 import actionCreator from 'app/context/action/actionCreator';
 
 import './oppsummering.less';
+import { onAvbrytSøknad } from 'app/util/globalUtil';
 
 interface Props {
     person: Person;
@@ -67,7 +68,7 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person, locale }) => {
                         pageTitle={intlUtils(intl, 'søknad.oppsummering')}
                         stepTitle={intlUtils(intl, 'søknad.oppsummering')}
                         backLinkHref={getPreviousStepHref('oppsummering')}
-                        onCancel={() => null}
+                        onCancel={() => onAvbrytSøknad(dispatch, history)}
                         steps={stepConfig}
                         kompakt={true}
                     >

@@ -8,7 +8,16 @@ export enum EngangsstønadContextActionKeys {
     'SET_UTENLANDSOPPHOLD' = 'setUtenlandsopphold',
     'SET_VELKOMMEN' = 'setVelkommen',
     'SET_KVITTERING' = 'setKvittering',
+    'AVBRYT_SØKNAD' = 'avbrytSøknad',
 }
+
+interface AvbrytSøknad {
+    type: EngangsstønadContextActionKeys.AVBRYT_SØKNAD;
+}
+
+const avbrytSøknad = (): AvbrytSøknad => ({
+    type: EngangsstønadContextActionKeys.AVBRYT_SØKNAD,
+});
 
 interface SetKvittering {
     type: EngangsstønadContextActionKeys.SET_KVITTERING;
@@ -50,11 +59,17 @@ const setOmBarnet = (payload: OmBarnetFormData): SetOmBarnet => ({
     payload,
 });
 
-export type EngangsstønadContextAction = SetOmBarnet | SetUtenlandsopphold | SetVelkommen | SetKvittering;
+export type EngangsstønadContextAction =
+    | SetOmBarnet
+    | SetUtenlandsopphold
+    | SetVelkommen
+    | SetKvittering
+    | AvbrytSøknad;
 
 export default {
     setVelkommen,
     setOmBarnet,
     setUtenlandsopphold,
     setKvittering,
+    avbrytSøknad,
 };

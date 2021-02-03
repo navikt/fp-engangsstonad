@@ -21,6 +21,7 @@ import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadCon
 import { validateAttachmentSize } from 'common/storage/attachment/components/attachmentValidering';
 
 import './omBarnet.less';
+import { onAvbrytSøknad } from 'app/util/globalUtil';
 
 const OmBarnet: React.FunctionComponent = () => {
     const intl = useIntl();
@@ -58,7 +59,7 @@ const OmBarnet: React.FunctionComponent = () => {
                         activeStepId="omBarnet"
                         pageTitle={getMessage(intl, 'søknad.omBarnet')}
                         stepTitle={getMessage(intl, 'søknad.omBarnet')}
-                        onCancel={() => null}
+                        onCancel={() => onAvbrytSøknad(dispatch, history)}
                         steps={stepConfig}
                         kompakt={true}
                     >
