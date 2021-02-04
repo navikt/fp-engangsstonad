@@ -2,12 +2,16 @@ import {
     createFieldValidationError,
     erMindreEnn3UkerSiden,
     etterDagensDato,
+    hasValue,
     sisteDatoBarnetKanVæreFødt,
     sisteMuligeTermindato,
     utstedtDatoErIUke22,
 } from '@navikt/fp-common';
 
 export const validateFødselDate = (dato: string) => {
+    if (!hasValue(dato)) {
+        return createFieldValidationError('valideringsfeil.omBarnet.fodselsdato.duMåOppgi');
+    }
     if (etterDagensDato(dato)) {
         return createFieldValidationError('valideringsfeil.omBarnet.fodselsdato.måVæreIdagEllerTidligere');
     }
@@ -18,6 +22,9 @@ export const validateFødselDate = (dato: string) => {
 };
 
 export const validateTerminDate = (dato: string) => {
+    if (!hasValue(dato)) {
+        return createFieldValidationError('valideringsfeil.omBarnet.termindato.duMåOppgi');
+    }
     if (!erMindreEnn3UkerSiden(dato)) {
         return createFieldValidationError('valideringsfeil.omBarnet.termindato.termindatoKanIkkeVære3UkerFraIdag');
     }
@@ -28,6 +35,9 @@ export const validateTerminDate = (dato: string) => {
 };
 
 export const valideringAvTerminbekreftelsesdato = (dato: string | undefined, termindato: string | undefined) => {
+    if (!hasValue(dato)) {
+        return createFieldValidationError('valideringsfeil.omBarnet.terminbekreftelseDato.duMåOppgi');
+    }
     if (!dato || !termindato) {
         return undefined;
     }
