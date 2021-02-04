@@ -29,6 +29,8 @@ import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadCon
 import './velkommen.less';
 import Personopplysninger from 'app/components/modal-content/Personopplysninger';
 import Modal from 'nav-frontend-modal';
+import Plikter from 'app/components/modal-content/Plikter';
+import UtvidetInformasjon from 'app/components/utvidet-informasjon/UtvidetInformasjon';
 
 interface Props {
     fornavn: string;
@@ -123,7 +125,16 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                                         return result;
                                     }}
                                 >
-                                    <FormattedMessage id="velkommen.text.samtykkeIntro" />
+                                    <>
+                                        <Block padBottom="l">
+                                            <FormattedMessage id="velkommen.text.samtykkeIntro" />
+                                        </Block>
+                                        <UtvidetInformasjon
+                                            apneLabel={intlUtils(intl, 'velkommen.text.plikter.apneLabel')}
+                                        >
+                                            <Plikter />
+                                        </UtvidetInformasjon>
+                                    </>
                                 </VelkommenFormComponents.ConfirmationCheckbox>
                             </Block>
                             <Block padBottom="xl">

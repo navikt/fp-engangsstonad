@@ -5,11 +5,10 @@ import { useIntl } from 'react-intl';
 import { isAttachmentWithError } from 'common/storage/attachment/components/util';
 import { ISODateToMaskedInput } from 'util/date/dateUtils';
 import AttachmentList from 'common/storage/attachment/components/AttachmentList';
-import DisplayTextWithLabel from 'components/display-text-with-label/DisplayTextWithLabel';
 import getMessage from 'common/util/i18nUtils';
 import { OmBarnetFormData } from 'app/steps/om-barnet/omBarnetFormConfig';
 import { YesOrNo } from '@navikt/sif-common-formik/lib';
-import { Block } from '@navikt/fp-common';
+import { Block, DisplayTextWithLabel } from '@navikt/fp-common';
 
 interface Props {
     barn: OmBarnetFormData;

@@ -30,6 +30,7 @@ import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadCon
 import './utenlandsopphold.less';
 import getMessage from 'common/util/i18nUtils';
 import { validateUtenlandsoppholdNeste12Mnd, validateUtenlandsoppholdSiste12Mnd } from './utenlandsoppholdValidering';
+import { onAvbrytSøknad } from 'app/util/globalUtil';
 
 const Utenlandsopphold: React.FunctionComponent = () => {
     const intl = useIntl();
@@ -65,7 +66,7 @@ const Utenlandsopphold: React.FunctionComponent = () => {
                         pageTitle={getMessage(intl, 'søknad.utenlandsopphold')}
                         stepTitle={getMessage(intl, 'søknad.utenlandsopphold')}
                         backLinkHref={getPreviousStepHref('utenlandsopphold')}
-                        onCancel={() => null}
+                        onCancel={() => onAvbrytSøknad(dispatch, history)}
                         steps={stepConfig}
                         kompakt={true}
                     >

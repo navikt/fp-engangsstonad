@@ -1,5 +1,5 @@
 import { EngangsstønadContextAction, EngangsstønadContextActionKeys } from '../action/actionCreator';
-import { EngangsstønadContextState } from '../EngangsstønadContextConfig';
+import { EngangsstønadContextState, engangsstønadInitialState } from '../EngangsstønadContextConfig';
 
 const engangsstønadReducer = (
     state: EngangsstønadContextState,
@@ -58,6 +58,11 @@ const engangsstønadReducer = (
             return {
                 ...state,
                 kvittering: action.payload,
+            };
+        }
+        case EngangsstønadContextActionKeys.AVBRYT_SØKNAD: {
+            return {
+                ...engangsstønadInitialState,
             };
         }
         default:

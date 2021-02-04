@@ -22,6 +22,7 @@ import { useHistory } from 'react-router-dom';
 import actionCreator from 'app/context/action/actionCreator';
 
 import './oppsummering.less';
+import { onAvbrytSøknad } from 'app/util/globalUtil';
 
 interface Props {
     person: Person;
@@ -35,20 +36,20 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person, locale }) => {
     const history = useHistory();
     const [isSending, setIsSending] = useState(false);
 
-    const sendSøknad = () => {
+    const sendSøknad = async () => {
         const søknadForInnsending: EngangsstønadSøknadDto = mapStateForInnsending(state, locale);
+        setIsSending(true);
+
         try {
-            setIsSending(true);
             const kvitteringResponse = Api.sendSøknad(søknadForInnsending);
 
             kvitteringResponse.then((response) => {
                 dispatch(actionCreator.setKvittering(response.data));
                 history.push('/kvittering');
+                setIsSending(false);
             });
         } catch (error) {
             history.push('/kvittering');
-        } finally {
-            setIsSending(false);
         }
     };
 
@@ -67,7 +68,7 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person, locale }) => {
                         pageTitle={intlUtils(intl, 'søknad.oppsummering')}
                         stepTitle={intlUtils(intl, 'søknad.oppsummering')}
                         backLinkHref={getPreviousStepHref('oppsummering')}
-                        onCancel={() => null}
+                        onCancel={() => onAvbrytSøknad(dispatch, history)}
                         steps={stepConfig}
                         kompakt={true}
                     >
