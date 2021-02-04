@@ -18,7 +18,11 @@ import actionCreator from 'app/context/action/actionCreator';
 import stepConfig from 'app/step-config/stepConfig';
 import { cleanupOmBarnet } from './omBarnetUtils';
 import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadContext';
-import { validateAttachmentSize } from 'common/storage/attachment/components/attachmentValidering';
+import {
+    validateFødselDate,
+    validateTerminDate,
+    valideringAvTerminbekreftelsesdato,
+} from 'app/steps/om-barnet/omBarnetValidering';
 
 import './omBarnet.less';
 import { onAvbrytSøknad } from 'app/util/globalUtil';
@@ -29,7 +33,7 @@ const OmBarnet: React.FunctionComponent = () => {
     const history = useHistory();
     useDocumentTitle(intlUtils(intl, 'velkommen.standard.dokumenttittel'));
     const { state, dispatch } = useEngangsstønadContext();
-    const initialValues = state.søknad.omBarnet;
+    const omBarnetValues = state.søknad.omBarnet;
 
     const onValidSubmit = (values: Partial<OmBarnetFormData>) => {
         dispatch(
@@ -47,7 +51,7 @@ const OmBarnet: React.FunctionComponent = () => {
 
     return (
         <OmBarnetFormComponents.FormikWrapper
-            initialValues={initialValues}
+            initialValues={omBarnetValues}
             onSubmit={(values) => onValidSubmit(values)}
             renderForm={({ values: formValues }) => {
                 const visibility = omBarnetQuestionsConfig.getVisbility(formValues);
@@ -133,6 +137,7 @@ const OmBarnet: React.FunctionComponent = () => {
                                             label={getMessage(intl, 'søknad.fødselsdato')}
                                             minDate={dayjs().subtract(6, 'month').toDate()}
                                             maxDate={dayjs().toDate()}
+                                            validate={validateFødselDate}
                                         />
                                     </Block>
                                 )}
@@ -141,8 +146,9 @@ const OmBarnet: React.FunctionComponent = () => {
                                         <OmBarnetFormComponents.DatePicker
                                             name={OmBarnetFormField.termindato}
                                             label={getMessage(intl, 'søknad.termindato')}
-                                            minDate={dayjs().toDate()}
-                                            maxDate={dayjs().add(9, 'month').toDate()}
+                                            minDate={dayjs().subtract(3, 'week').toDate()}
+                                            maxDate={dayjs().add(17, 'weeks').toDate()}
+                                            validate={validateTerminDate}
                                         />
                                     </Block>
                                 )}
@@ -157,7 +163,6 @@ const OmBarnet: React.FunctionComponent = () => {
                                             <FormikFileUploader
                                                 label={getMessage(intl, 'vedlegg.lastoppknapp.label')}
                                                 name={OmBarnetFormField.terminbekreftelse}
-                                                validate={validateAttachmentSize}
                                             />
                                             <UtvidetInformasjon apneLabel={<FormattedMessage id="psg.åpneLabel" />}>
                                                 <PictureScanningGuide />
@@ -170,6 +175,17 @@ const OmBarnet: React.FunctionComponent = () => {
                                         <OmBarnetFormComponents.DatePicker
                                             name={OmBarnetFormField.terminbekreftelsedato}
                                             label={getMessage(intl, 'søknad.terminbekreftelsesdato')}
+                                            minDate={dayjs(formValues.termindato)
+                                                .subtract(18, 'week')
+                                                .subtract(3, 'day')
+                                                .toDate()}
+                                            maxDate={dayjs().toDate()}
+                                            validate={(terminBekreftelseDato) =>
+                                                valideringAvTerminbekreftelsesdato(
+                                                    terminBekreftelseDato,
+                                                    formValues.termindato
+                                                )
+                                            }
                                         />
                                     </Block>
                                 )}
