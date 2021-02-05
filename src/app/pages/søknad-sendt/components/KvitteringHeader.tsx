@@ -3,10 +3,9 @@ import Lenke from 'nav-frontend-lenker';
 import { Sidetittel, EtikettLiten } from 'nav-frontend-typografi';
 import { FormattedMessage } from 'react-intl';
 import dayjs from 'dayjs';
-import VedleggIkon from 'common/components/ikoner/VedleggIkon';
 import Person from 'app/types/domain/Person';
 import Kvittering from 'app/types/services/Kvittering';
-import { bemUtils, Block } from '@navikt/fp-common';
+import { bemUtils, Block, VedleggIkon } from '@navikt/fp-common';
 import { openPdfPreview } from 'app/util/pdfUtils';
 import SpotlightLetter from '../assets/SpotlightLetter';
 

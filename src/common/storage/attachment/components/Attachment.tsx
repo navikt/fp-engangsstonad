@@ -8,8 +8,7 @@ import NavFrontendSpinner from 'nav-frontend-spinner';
 import Lenke from 'nav-frontend-lenker';
 import { Attachment } from 'common/storage/attachment/types/Attachment';
 import { bytesString } from 'common/util/filesize';
-import BEMHelper from 'common/util/bem';
-import VedleggIkon from 'common/components/ikoner/VedleggIkon';
+import { bemUtils, VedleggIkon } from '@navikt/fp-common';
 
 import './attachment.less';
 
@@ -23,20 +22,20 @@ type Props = OwnProps;
 
 const Attachment: React.FunctionComponent<Props> = ({ attachment, showFileSize, onDelete }) => {
     const intl = useIntl();
-    const BEM = BEMHelper('attachment');
-    const cls = classnames(BEM.className, {
-        [BEM.modifier('pending')]: attachment.pending,
+    const bem = bemUtils('attachment');
+    const cls = classnames(bem.block, {
+        [bem.modifier('pending')]: attachment.pending,
     });
 
     return (
         <div className={cls}>
             {attachment.pending && (
-                <div className={BEM.element('spinner')}>
+                <div className={bem.element('spinner')}>
                     <NavFrontendSpinner type="S" />
                 </div>
             )}
-            <VedleggIkon className={BEM.element('icon')} width={20} height={20} />
-            <div className={BEM.element('filename')}>
+            <VedleggIkon className={bem.element('icon')} width={20} height={20} />
+            <div className={bem.element('filename')}>
                 {attachment.url ? (
                     <Lenke href={attachment.url} target="_blank">
                         {attachment.filename}
@@ -47,7 +46,7 @@ const Attachment: React.FunctionComponent<Props> = ({ attachment, showFileSize, 
                 {showFileSize && <div>{bytesString(attachment.filesize)}</div>}
             </div>
             {onDelete && (
-                <span className={BEM.element('deleteButton')}>
+                <span className={bem.element('deleteButton')}>
                     <SlettKnapp
                         onClick={() => onDelete(attachment)}
                         ariaLabel={intl.formatMessage({ id: 'vedlegg.arialabel.slett' }, { navn: attachment.filename })}

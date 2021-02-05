@@ -8,10 +8,10 @@ import {
     dateToday,
     intlUtils,
     Step,
+    UtvidetInformasjon,
     validateYesOrNoIsAnswered,
 } from '@navikt/fp-common';
 import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
-import UtvidetInformasjon from 'components/utvidet-informasjon/UtvidetInformasjon';
 import {
     UtenlandsoppholdFieldNames,
     UtenlandsoppholdFormComponents,
@@ -26,11 +26,11 @@ import { utenlandsoppholdFormQuestions } from './utenlandsoppholdFormQuestions';
 import BostedUtlandListAndDialog from './bostedUtlandListAndDialog/BostedUtlandListAndDialog';
 import { utenlandsoppholdFormCleanup } from './utenlandsoppholdFormUtils';
 import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadContext';
-
-import './utenlandsopphold.less';
+import { onAvbrytSøknad } from 'app/util/globalUtil';
 import getMessage from 'common/util/i18nUtils';
 import { validateUtenlandsoppholdNeste12Mnd, validateUtenlandsoppholdSiste12Mnd } from './utenlandsoppholdValidering';
-import { onAvbrytSøknad } from 'app/util/globalUtil';
+
+import './utenlandsopphold.less';
 
 const Utenlandsopphold: React.FunctionComponent = () => {
     const intl = useIntl();
