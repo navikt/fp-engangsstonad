@@ -101,7 +101,7 @@
     "oppsummering.text.lesNoye": "Les gjennom heile oppsummeringa før du sender inn søknaden. Dersom du treng å gjere endringar, kan du gå tilbake.",
     "oppsummering.text.medFødselsdato": "Med fødselsdato",
     "oppsummering.text.medTermindato": "med termindato den",
-    "oppsummering.text.neste12mnd": "Dei neste tolv månadene skal eg",
+    "oppsummering.text.neste12mnd": "Dei neste tolv månadene skal eg bo i",
     "oppsummering.text.ogKommerPåFødselstidspunktet": "og kjem på fødselstidspunktet til å",
     "oppsummering.text.samtykke": "Dei opplysningane eg har gitt, er rette, og eg har ikkje halde tilbake opplysningar som har noko å seie for retten min til eingongsstønad.",
     "oppsummering.text.soknadenGjelder": "Søknaden gjeld",
@@ -201,5 +201,8 @@
 
     "velkommen.button.fortsettSøknad": "Fortsett med søknaden",
 
-    "medlemmskap.radiobutton.boNorge": "kun bo i Norge"
+    "medlemmskap.radiobutton.boNorge": "kun bo i Norge",
+    "intro.generellFeil.ingress": "Noko gjekk dessverre gale. Ver vennleg og prøv igjen seinare. Dersom det framleis oppstår feil kontakt brukarstøtte.",
+    "intro.generellFeil.tittel": "Oops,",
+    "intro.generellFeil.brukerstøtte": "Kontakt brukarstøtte her"
 }

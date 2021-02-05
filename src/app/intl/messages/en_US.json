@@ -113,7 +113,7 @@
     "oppsummering.text.lesNoye": "Please review the summary before submitting your application. If you need to make changes you can go back.",
     "oppsummering.text.medFødselsdato": "With Date of birth",
     "oppsummering.text.medTermindato": "with expected date of delivery on",
-    "oppsummering.text.neste12mnd": "The next 12 months I will",
+    "oppsummering.text.neste12mnd": "The next 12 months I will live in",
     "oppsummering.text.ogKommerPåFødselstidspunktet": "and at the time of the birth will",
     "oppsummering.text.samtykke": "The information I have provided is correct and I have not withheld information that is of importance to my entitlement to the lump-sum grant.",
     "oppsummering.text.soknadenGjelder": "The application applies to",
@@ -200,5 +200,8 @@
     "søknadSendt.status.undertittel": "Information about your case",
     "søknadSendt.status.status": "Being processed",
 
-    "medlemmskap.radiobutton.boNorge": "kun bo i Norge"
+    "medlemmskap.radiobutton.boNorge": "kun bo i Norge",
+    "intro.generellFeil.ingress": "Unfortunately, something went wrong. Please try again later. If there are still errors please contact support.",
+    "intro.generellFeil.tittel": "Oops,",
+    "intro.generellFeil.brukerstøtte": "Contact support here"
 }

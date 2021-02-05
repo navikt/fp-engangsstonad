@@ -4,7 +4,9 @@ import Lenke from 'nav-frontend-lenker';
 import { Innholdstittel, Ingress } from 'nav-frontend-typografi';
 import { Språkkode } from 'intl/types';
 import { VeilederProps } from '@navikt/fp-common/lib/components/veileder/Veileder';
-import { LanguageToggle, Sidebanner } from '@navikt/fp-common';
+import { bemUtils, Block, LanguageToggle, Sidebanner } from '@navikt/fp-common';
+
+import './feilside.less';
 
 export interface Props {
     containerId?: string;
@@ -33,8 +35,10 @@ const Feilside: React.FunctionComponent<Props> = ({
     språkkode,
     setLanguage,
 }) => {
+    const bem = bemUtils('feilside');
+
     return (
-        <div id={containerId}>
+        <>
             <DocumentTitle title={dokumenttittel} />
             {setLanguage && språkkode && (
                 <LanguageToggle locale={språkkode} availableLocales={['en', 'nb', 'nn']} toggle={setLanguage} />
@@ -45,27 +49,29 @@ const Feilside: React.FunctionComponent<Props> = ({
                     dialog={{
                         title: illustrasjon.tittel,
                         text: (
-                            <div>
-                                <div>{illustrasjon.tekst}</div>
+                            <>
+                                <Block padBottom="m">{illustrasjon.tekst}</Block>
                                 {illustrasjon.lenke && (
                                     <Lenke className="intro-snakkelenke" href={illustrasjon.lenke.url}>
                                         {illustrasjon.lenke.tekst}
                                     </Lenke>
                                 )}
-                            </div>
+                            </>
                         ),
                     }}
                 />
             )}
-            <div className="responsiveContainer">
-                <div className="blokk-s">
-                    <Innholdstittel>{tittel}</Innholdstittel>
-                </div>
-                <div className="blokk-l">
-                    <Ingress>{ingress}</Ingress>
+            <div id={containerId} className={bem.block}>
+                <div className="responsiveContainer">
+                    <div className="blokk-s">
+                        <Innholdstittel>{tittel}</Innholdstittel>
+                    </div>
+                    <div className="blokk-l">
+                        <Ingress>{ingress}</Ingress>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
