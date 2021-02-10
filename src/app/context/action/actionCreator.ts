@@ -43,12 +43,12 @@ const setVelkommen = (payload: VelkommenFormData): SetVelkommen => ({
     payload,
 });
 
-interface setSøkersituasjon {
+interface SetSøkersituasjon {
     type: EngangsstønadContextActionKeys.SET_SØKERSITUASJON;
     payload: SøkersituasjonFormData;
 }
 
-const setSøkersituasjon = (payload: SøkersituasjonFormData): setSøkersituasjon => ({
+const setSøkersituasjon = (payload: SøkersituasjonFormData): SetSøkersituasjon => ({
     type: EngangsstønadContextActionKeys.SET_SØKERSITUASJON,
     payload,
 });
@@ -86,7 +86,7 @@ const setAdopsjonOmBarnet = (payload: AdopsjonOmBarnetFormData): SetAdopsjonOmBa
 export type EngangsstønadContextAction =
     | SetOmBarnet
     | SetAdopsjonOmBarnet
-    | setSøkersituasjon
+    | SetSøkersituasjon
     | SetUtenlandsopphold
     | SetVelkommen
     | SetKvittering
