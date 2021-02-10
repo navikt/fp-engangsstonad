@@ -1,4 +1,13 @@
-import { bemUtils, Block, commonFieldErrorRenderer, intlUtils, Step, useDocumentTitle } from '@navikt/fp-common';
+import {
+    bemUtils,
+    Block,
+    commonFieldErrorRenderer,
+    intlUtils,
+    PictureScanningGuide,
+    Step,
+    useDocumentTitle,
+    UtvidetInformasjon,
+} from '@navikt/fp-common';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -7,8 +16,6 @@ import omBarnetQuestionsConfig from './omBarnetQuestionsConfig';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import Veileder from '@navikt/fp-common/lib/components/veileder/Veileder';
 import getMessage from 'common/util/i18nUtils';
-import UtvidetInformasjon from 'components/utvidet-informasjon/UtvidetInformasjon';
-import PictureScanningGuide from 'components/picture-scanning-guide/PictureScanningGuide';
 import FormikFileUploader from 'components/formik-file-uploader/FormikFileUploader';
 import dayjs from 'dayjs';
 import { Hovedknapp } from 'nav-frontend-knapper';

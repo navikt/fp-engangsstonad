@@ -10,6 +10,7 @@ import {
     useDocumentTitle,
     Sidebanner,
     commonFieldErrorRenderer,
+    UtvidetInformasjon,
 } from '@navikt/fp-common';
 import Veiviser from 'components/veiviser/VeiviserSvg';
 import Veilederpanel from 'nav-frontend-veilederpanel';
@@ -20,17 +21,15 @@ import {
     VelkommenFormData,
     VelkommenFormField,
 } from './velkommenFormConfig';
-
 import { Hovedknapp } from 'nav-frontend-knapper';
 import actionCreator from 'app/context/action/actionCreator';
 import { useHistory } from 'react-router-dom';
 import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadContext';
-
-import './velkommen.less';
 import Personopplysninger from 'app/components/modal-content/Personopplysninger';
 import Modal from 'nav-frontend-modal';
 import Plikter from 'app/components/modal-content/Plikter';
-import UtvidetInformasjon from 'app/components/utvidet-informasjon/UtvidetInformasjon';
+
+import './velkommen.less';
 
 interface Props {
     fornavn: string;

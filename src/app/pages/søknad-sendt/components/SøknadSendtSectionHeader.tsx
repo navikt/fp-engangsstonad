@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { bemUtils } from '@navikt/fp-common';
+import { bemUtils, UtvidetInformasjon } from '@navikt/fp-common';
 import { Element } from 'nav-frontend-typografi';
 import SøknadSendtIkon, { OppsummeringIkonType } from './SøknadSendtIkon';
-import UtvidetInformasjon from 'app/components/utvidet-informasjon/UtvidetInformasjon';
 
 import './søknadSendtSectionHeader.less';
 

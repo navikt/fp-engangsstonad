@@ -1,9 +1,8 @@
 import React from 'react';
 import { Attachment, AttachmentType, Skjemanummer } from 'common/storage/attachment/types/Attachment';
 import AttachmentOverview from 'common/storage/attachment/components/AttachmentOverview';
-import UtvidetInformasjon from 'components/utvidet-informasjon/UtvidetInformasjon';
-import PictureScanningGuide from 'components/picture-scanning-guide/PictureScanningGuide';
 import { FormattedMessage } from 'react-intl';
+import { PictureScanningGuide, UtvidetInformasjon } from '@navikt/fp-common';
 
 export interface AttachmentsUploaderProps {
     attachments: Attachment[];

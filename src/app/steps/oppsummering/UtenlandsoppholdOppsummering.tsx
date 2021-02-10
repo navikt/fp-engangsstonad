@@ -57,7 +57,7 @@ const UtenlandsoppholdOppsummering: React.FunctionComponent<Props> = ({ barn, in
             ) : (
                 <div className="textWithLabel">
                     <EtikettLiten className="textWithLabel__label">
-                        {getMessage(intl, 'medlemmskap.text.oppsummering.neste12mnd')}
+                        {getMessage(intl, 'oppsummering.text.neste12mnd')}
                     </EtikettLiten>
                     <LandOppsummering
                         utenlandsoppholdListe={informasjonOmUtenlandsopphold.utenlandsoppholdNeste12Mnd}

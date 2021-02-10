@@ -2,13 +2,13 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Systemtittel, Normaltekst } from 'nav-frontend-typografi';
-import AdvarselIkon from '../advarsel-ikon/AdvarselIkon';
 import BEMHelper from 'common/util/bem';
 import getMessage from 'common/util/i18nUtils';
 import Knappelenke from '../knappelenke/Knappelenke';
 import Modal from 'nav-frontend-modal';
 import { redirectToLogin } from 'util/login';
 import { lenker } from 'util/lenker';
+import { AdvarselIkon } from '@navikt/fp-common';
 
 import './utløptSesjonModal.less';
 
