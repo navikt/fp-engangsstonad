@@ -8,13 +8,14 @@ import { isAttachmentWithError, mapFileToAttachment } from 'common/storage/attac
 import AttachmentApi from 'common/storage/api/attachmentApi';
 import AttachmentList from 'common/storage/attachment/components/AttachmentList';
 import { Block } from '@navikt/fp-common';
+import { AdopsjonOmBarnetFormField } from 'app/steps/adopsjon/adopsjonOmBarnetFormConfig';
 
 export type FieldArrayReplaceFn = (index: number, value: any) => void;
 export type FieldArrayPushFn = (obj: any) => void;
 export type FieldArrayRemoveFn = (index: number) => undefined;
 
 interface Props {
-    name: OmBarnetFormField;
+    name: OmBarnetFormField | AdopsjonOmBarnetFormField;
     label: string;
     validate?: FormikValidateFunction;
     onFileInputClick?: () => void;

@@ -2,8 +2,12 @@ import { OmBarnetFormData } from 'app/steps/om-barnet/omBarnetFormConfig';
 import Kvittering from 'app/types/services/Kvittering';
 import { UtenlandsoppholdFormData } from 'app/steps/utenlandsopphold/utenlandsoppholdFormTypes';
 import { VelkommenFormData } from 'app/pages/velkommen/velkommenFormConfig';
+import { SøkersituasjonFormData } from 'app/steps/søkersituasjon/søkersituasjonFormConfig';
+import { AdopsjonOmBarnetFormData } from 'app/steps/adopsjon/adopsjonOmBarnetFormConfig';
 
 export enum EngangsstønadContextActionKeys {
+    'SET_SØKERSITUASJON' = 'setSøkersituasjon',
+    'SET_ADOPSJON_OM_BARNET' = 'setAdopsjonOmBarnet',
     'SET_OM_BARNET' = 'setOmBarnet',
     'SET_UTENLANDSOPPHOLD' = 'setUtenlandsopphold',
     'SET_VELKOMMEN' = 'setVelkommen',
@@ -39,6 +43,16 @@ const setVelkommen = (payload: VelkommenFormData): SetVelkommen => ({
     payload,
 });
 
+interface setSøkersituasjon {
+    type: EngangsstønadContextActionKeys.SET_SØKERSITUASJON;
+    payload: SøkersituasjonFormData;
+}
+
+const setSøkersituasjon = (payload: SøkersituasjonFormData): setSøkersituasjon => ({
+    type: EngangsstønadContextActionKeys.SET_SØKERSITUASJON,
+    payload,
+});
+
 interface SetUtenlandsopphold {
     type: EngangsstønadContextActionKeys.SET_UTENLANDSOPPHOLD;
     payload: UtenlandsoppholdFormData;
@@ -59,8 +73,20 @@ const setOmBarnet = (payload: OmBarnetFormData): SetOmBarnet => ({
     payload,
 });
 
+interface SetAdopsjonOmBarnet {
+    type: EngangsstønadContextActionKeys.SET_ADOPSJON_OM_BARNET;
+    payload: AdopsjonOmBarnetFormData;
+}
+
+const setAdopsjonOmBarnet = (payload: AdopsjonOmBarnetFormData): SetAdopsjonOmBarnet => ({
+    type: EngangsstønadContextActionKeys.SET_ADOPSJON_OM_BARNET,
+    payload,
+});
+
 export type EngangsstønadContextAction =
     | SetOmBarnet
+    | SetAdopsjonOmBarnet
+    | setSøkersituasjon
     | SetUtenlandsopphold
     | SetVelkommen
     | SetKvittering
@@ -68,6 +94,8 @@ export type EngangsstønadContextAction =
 
 export default {
     setVelkommen,
+    setSøkersituasjon,
+    setAdopsjonOmBarnet,
     setOmBarnet,
     setUtenlandsopphold,
     setKvittering,
