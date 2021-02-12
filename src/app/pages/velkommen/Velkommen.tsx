@@ -30,6 +30,7 @@ import Modal from 'nav-frontend-modal';
 import Plikter from 'app/components/modal-content/Plikter';
 
 import './velkommen.less';
+import { logAmplitudeEvent } from 'app/amplitude/amplitude';
 
 interface Props {
     fornavn: string;
@@ -43,6 +44,11 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
     const history = useHistory();
     useDocumentTitle(intlUtils(intl, 'velkommen.standard.dokumenttittel'));
     const { dispatch } = useEngangsstønadContext();
+
+    logAmplitudeEvent('Startet engangsstønad', {
+        app: 'engangsstønad',
+        team: 'foreldrepenger',
+    });
 
     const onValidSubmit = (values: Partial<VelkommenFormData>) => {
         dispatch(

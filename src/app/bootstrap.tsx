@@ -6,6 +6,7 @@ import * as countries from 'i18n-iso-countries';
 import ErrorBoundary from './ErrorBoundary';
 import ModalWrapper from 'nav-frontend-modal';
 import AppContainer from './AppContainer';
+import { initAmplitude } from './amplitude/amplitude';
 
 import './styles/globals.less';
 
@@ -23,6 +24,8 @@ if (process.env.NODE_ENV !== 'development') {
         integrations: [new Sentry.Integrations.Breadcrumbs({ console: false })],
     });
 }
+
+initAmplitude();
 
 const root = document.getElementById('app');
 render(
