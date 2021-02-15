@@ -13,10 +13,14 @@ import './kvitteringHeader.less';
 
 interface Props {
     søker: Person;
-    kvittering: Kvittering;
+    kvittering: Kvittering | undefined;
 }
 
 const KvitteringHeader: React.FunctionComponent<Props> = ({ søker, kvittering }) => {
+    if (!kvittering) {
+        return null;
+    }
+
     const { pdf, mottattDato } = kvittering;
     const bem = bemUtils('kvitteringHeader');
 
