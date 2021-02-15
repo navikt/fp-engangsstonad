@@ -50,7 +50,7 @@ const SøknadSendt: React.FunctionComponent<Props> = () => {
     useDocumentTitle(intlUtils(intl, 'søknadSendt.dokumenttittel'));
 
     logAmplitudeEvent('sidevisning', {
-        app: 'engangsstønad',
+        app: 'engangsstonadny',
         team: 'foreldrepenger',
         pageKey: PageKeys.SøknadSendt,
     });

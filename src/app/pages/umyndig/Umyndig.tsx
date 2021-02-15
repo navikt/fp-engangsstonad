@@ -20,7 +20,7 @@ const Umyndig: React.FunctionComponent<Props> = ({ person }) => {
     useDocumentTitle(intlUtils(intl, 'velkommen.standard.dokumenttittel'));
 
     logAmplitudeEvent('sidevisning', {
-        app: 'engangsstønad',
+        app: 'engangsstonadny',
         team: 'foreldrepenger',
         pageKey: PageKeys.Umyndig,
     });

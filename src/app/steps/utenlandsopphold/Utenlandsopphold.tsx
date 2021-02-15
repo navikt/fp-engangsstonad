@@ -43,7 +43,7 @@ const Utenlandsopphold: React.FunctionComponent = () => {
     const initialValues = state.søknad.utenlandsopphold;
 
     logAmplitudeEvent('sidevisning', {
-        app: 'engangsstønad',
+        app: 'engangsstonadny',
         team: 'foreldrepenger',
         pageKey: PageKeys.Utenlandsopphold,
     });

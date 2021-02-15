@@ -47,7 +47,7 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
     const { dispatch } = useEngangsstønadContext();
 
     logAmplitudeEvent('sidevisning', {
-        app: 'engangsstønad',
+        app: 'engangsstonadny',
         team: 'foreldrepenger',
         pageKey: PageKeys.Velkommen,
     });

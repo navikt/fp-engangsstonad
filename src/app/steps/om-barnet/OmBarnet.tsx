@@ -45,7 +45,7 @@ const OmBarnet: React.FunctionComponent = () => {
     const omBarnetValues = state.søknad.omBarnet;
 
     logAmplitudeEvent('sidevisning', {
-        app: 'engangsstønad',
+        app: 'engangsstonadny',
         team: 'foreldrepenger',
         pageKey: PageKeys.OmBarnet,
     });

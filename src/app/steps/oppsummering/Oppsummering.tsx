@@ -39,7 +39,7 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person, locale }) => {
     const [isSending, setIsSending] = useState(false);
 
     logAmplitudeEvent('sidevisning', {
-        app: 'engangsstønad',
+        app: 'engangsstonadny',
         team: 'foreldrepenger',
         pageKey: PageKeys.Oppsummering,
     });
