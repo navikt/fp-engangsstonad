@@ -28,9 +28,10 @@ import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadCon
 import Personopplysninger from 'app/components/modal-content/Personopplysninger';
 import Modal from 'nav-frontend-modal';
 import Plikter from 'app/components/modal-content/Plikter';
+import { logAmplitudeEvent } from 'app/amplitude/amplitude';
 
 import './velkommen.less';
-import { logAmplitudeEvent } from 'app/amplitude/amplitude';
+import { PageKeys } from 'app/types/PageKeys';
 
 interface Props {
     fornavn: string;
@@ -45,9 +46,10 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
     useDocumentTitle(intlUtils(intl, 'velkommen.standard.dokumenttittel'));
     const { dispatch } = useEngangsstønadContext();
 
-    logAmplitudeEvent('Startet engangsstønad', {
+    logAmplitudeEvent('sidevisning', {
         app: 'engangsstønad',
         team: 'foreldrepenger',
+        pageKey: PageKeys.Velkommen,
     });
 
     const onValidSubmit = (values: Partial<VelkommenFormData>) => {

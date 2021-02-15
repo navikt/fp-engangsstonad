@@ -33,6 +33,8 @@ import {
 
 import './omBarnet.less';
 import { onAvbrytSøknad } from 'app/util/globalUtil';
+import { logAmplitudeEvent } from 'app/amplitude/amplitude';
+import { PageKeys } from 'app/types/PageKeys';
 
 const OmBarnet: React.FunctionComponent = () => {
     const intl = useIntl();
@@ -41,6 +43,12 @@ const OmBarnet: React.FunctionComponent = () => {
     useDocumentTitle(intlUtils(intl, 'velkommen.standard.dokumenttittel'));
     const { state, dispatch } = useEngangsstønadContext();
     const omBarnetValues = state.søknad.omBarnet;
+
+    logAmplitudeEvent('sidevisning', {
+        app: 'engangsstønad',
+        team: 'foreldrepenger',
+        pageKey: PageKeys.OmBarnet,
+    });
 
     const onValidSubmit = (values: Partial<OmBarnetFormData>) => {
         dispatch(

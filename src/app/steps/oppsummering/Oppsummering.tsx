@@ -23,6 +23,8 @@ import actionCreator from 'app/context/action/actionCreator';
 
 import './oppsummering.less';
 import { onAvbrytSøknad } from 'app/util/globalUtil';
+import { logAmplitudeEvent } from 'app/amplitude/amplitude';
+import { PageKeys } from 'app/types/PageKeys';
 
 interface Props {
     person: Person;
@@ -35,6 +37,12 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person, locale }) => {
     const { state, dispatch } = useEngangsstønadContext();
     const history = useHistory();
     const [isSending, setIsSending] = useState(false);
+
+    logAmplitudeEvent('sidevisning', {
+        app: 'engangsstønad',
+        team: 'foreldrepenger',
+        pageKey: PageKeys.Oppsummering,
+    });
 
     const sendSøknad = async () => {
         const søknadForInnsending: EngangsstønadSøknadDto = mapStateForInnsending(state, locale);

@@ -1,5 +1,7 @@
 import { bemUtils, intlUtils, Sidebanner, useDocumentTitle } from '@navikt/fp-common';
+import { logAmplitudeEvent } from 'app/amplitude/amplitude';
 import Person from 'app/types/domain/Person';
+import { PageKeys } from 'app/types/PageKeys';
 import { lenker } from 'app/util/lenker';
 import Lenke from 'nav-frontend-lenker';
 import { Innholdstittel } from 'nav-frontend-typografi';
@@ -16,6 +18,12 @@ const Umyndig: React.FunctionComponent<Props> = ({ person }) => {
     const bem = bemUtils('umyndig');
     const intl = useIntl();
     useDocumentTitle(intlUtils(intl, 'velkommen.standard.dokumenttittel'));
+
+    logAmplitudeEvent('sidevisning', {
+        app: 'engangsstønad',
+        team: 'foreldrepenger',
+        pageKey: PageKeys.Umyndig,
+    });
 
     return (
         <div className={bem.block}>

@@ -13,6 +13,8 @@ import SøknadSendtSectionHeader from './components/SøknadSendtSectionHeader';
 
 import './søknadSendt.less';
 import SøknadSendtTittel from './components/SøknadtSendtTittel';
+import { logAmplitudeEvent } from 'app/amplitude/amplitude';
+import { PageKeys } from 'app/types/PageKeys';
 
 interface Props {
     person: Person;
@@ -46,12 +48,12 @@ const SøknadSendt: React.FunctionComponent<Props> = () => {
     const bem = bemUtils('søknadSendt');
     const intl = useIntl();
     useDocumentTitle(intlUtils(intl, 'søknadSendt.dokumenttittel'));
-    // const { state } = useEngangsstønadContext();
-    // const { kvittering } = state;
 
-    // if (!kvittering) {
-    //     return null;
-    // }
+    logAmplitudeEvent('sidevisning', {
+        app: 'engangsstønad',
+        team: 'foreldrepenger',
+        pageKey: PageKeys.SøknadSendt,
+    });
 
     return (
         <>
