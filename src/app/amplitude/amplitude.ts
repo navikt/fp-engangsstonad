@@ -19,6 +19,7 @@ export const logAmplitudeEvent = (eventName: string, eventData?: any) => {
                 amplitude.getInstance().logEvent(eventName, eventData);
             }
         } catch (error) {
+            // tslint:disable-next-line
             console.error(error);
         }
     });

@@ -56,6 +56,11 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person, locale }) => {
                 history.push('/kvittering');
                 setIsSending(false);
             });
+
+            logAmplitudeEvent('skjema fullført', {
+                app: 'engangsstonadny',
+                team: 'foreldrepenger',
+            });
         } catch (error) {
             history.push('/kvittering');
         }
