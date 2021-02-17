@@ -13,7 +13,6 @@ import { useEngangsstønadContext } from './context/hooks/useEngangsstønadConte
 import Umyndig from './pages/umyndig/Umyndig';
 import SøknadSendt from './pages/søknad-sendt/SøknadSendt';
 import Søkersituasjon from './steps/søkersituasjon/Søkersituasjon';
-import AdopsjonOmBarnet from './steps/adopsjon/AdopsjonOmBarnet';
 import Feilside from './components/feilside/Feilside';
 import { useIntl } from 'react-intl';
 import { lenker } from './util/lenker';
@@ -74,7 +73,6 @@ const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale
                     ) : (
                         <>
                             <Route path="/soknad/søkersituasjon" component={() => <Søkersituasjon />} />
-                            <Route path="/soknad/adopsjon" component={() => <AdopsjonOmBarnet />} />
                             <Route path="/soknad/om-barnet" component={() => <OmBarnet />} />
                             <Route path="/soknad/utenlandsopphold" component={() => <Utenlandsopphold />} />
                             <Route

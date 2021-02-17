@@ -1,18 +1,12 @@
 import { assertUnreachable } from 'app/util/globalUtil';
 
 type SøkersituasjonId = 'søkersituasjon';
-type AdopsjonOmBarnetId = 'adopsjonOmBarnet';
 type OmBarnetStepId = 'omBarnet';
 type AnnenForelderStepId = 'annenForelder';
 type UtenlandsoppholdStepId = 'utenlandsopphold';
 type OppsummeringStepId = 'oppsummering';
 
-type StepIdWithBackHref =
-    | SøkersituasjonId
-    | AdopsjonOmBarnetId
-    | AnnenForelderStepId
-    | UtenlandsoppholdStepId
-    | OppsummeringStepId;
+type StepIdWithBackHref = SøkersituasjonId | AnnenForelderStepId | UtenlandsoppholdStepId | OppsummeringStepId;
 
 export type StepId = OmBarnetStepId | StepIdWithBackHref;
 
@@ -27,11 +21,6 @@ const stepConfig: StepConfig[] = [
         id: 'søkersituasjon',
         index: 0,
         label: 'Fyll ut informasjon om valg',
-    },
-    {
-        id: 'adopsjonOmBarnet',
-        index: 1,
-        label: 'Fyll ut informasjon om Adopsjon',
     },
     {
         id: 'omBarnet',
@@ -61,9 +50,6 @@ export const getPreviousStepHref = (id: StepIdWithBackHref): string => {
     switch (id) {
         case 'søkersituasjon':
             href = '/soknad/søkersituasjon';
-            break;
-        case 'adopsjonOmBarnet':
-            href = '/soknad/adopsjon';
             break;
         case 'annenForelder':
             href = '/soknad/om-barnet';

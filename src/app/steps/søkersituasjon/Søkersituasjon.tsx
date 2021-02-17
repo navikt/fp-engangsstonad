@@ -30,12 +30,7 @@ const Søkersituasjon: React.FunctionComponent = () => {
                 situasjon: values.situasjon,
             })
         );
-        if (values.situasjon === 'adopsjon') {
-            history.push('/soknad/adopsjon');
-        }
-        if (values.situasjon === 'fødsel') {
-            history.push('/soknad/om-barnet');
-        }
+        history.push('/soknad/om-barnet');
     };
 
     return (

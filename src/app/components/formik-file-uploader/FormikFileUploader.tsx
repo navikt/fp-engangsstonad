@@ -8,14 +8,14 @@ import { isAttachmentWithError, mapFileToAttachment } from 'common/storage/attac
 import AttachmentApi from 'common/storage/api/attachmentApi';
 import AttachmentList from 'common/storage/attachment/components/AttachmentList';
 import { Block } from '@navikt/fp-common';
-import { AdopsjonOmBarnetFormField } from 'app/steps/adopsjon/adopsjonOmBarnetFormConfig';
 
 export type FieldArrayReplaceFn = (index: number, value: any) => void;
 export type FieldArrayPushFn = (obj: any) => void;
 export type FieldArrayRemoveFn = (index: number) => undefined;
 
 interface Props {
-    name: OmBarnetFormField | AdopsjonOmBarnetFormField;
+    attachments: Attachment[];
+    name: OmBarnetFormField;
     label: string;
     validate?: FormikValidateFunction;
     onFileInputClick?: () => void;
@@ -23,11 +23,15 @@ interface Props {
 
 const VALID_EXTENSIONS = ['.pdf', '.jpeg', '.jpg', '.png'];
 
-const getAttachmentFromFile = (file: File): Attachment =>
-    mapFileToAttachment(file, AttachmentType.TERMINBEKREFTELSE, Skjemanummer.TERMINBEKREFTELSE);
+const getAttachmentFromFile = (file: File, name: string): Attachment => {
+    if (name === OmBarnetFormField.terminbekreftelse) {
+        return mapFileToAttachment(file, AttachmentType.TERMINBEKREFTELSE, Skjemanummer.TERMINBEKREFTELSE);
+    }
+    return mapFileToAttachment(file, AttachmentType.ADOPSJONBEKREFTELSE, Skjemanummer.ADOPSJONBEKREFTELSE);
+};
 
-const getPendingAttachmentFromFile = (file: File): Attachment => {
-    const newAttachment = getAttachmentFromFile(file);
+const getPendingAttachmentFromFile = (file: File, name: string): Attachment => {
+    const newAttachment = getAttachmentFromFile(file, name);
     newAttachment.pending = true;
     return newAttachment;
 };
@@ -42,7 +46,7 @@ const fileExtensionIsValid = (filename: string): boolean => {
 
 let removeFn: FieldArrayRemoveFn;
 
-const FormikFileUploader: React.FunctionComponent<Props> = ({ name, onFileInputClick, ...otherProps }) => {
+const FormikFileUploader: React.FunctionComponent<Props> = ({ attachments, name, onFileInputClick, ...otherProps }) => {
     const { values } = useFormikContext<OmBarnetFormData>();
 
     async function uploadAttachment(attachment: Attachment) {
@@ -77,12 +81,8 @@ const FormikFileUploader: React.FunctionComponent<Props> = ({ name, onFileInputC
         });
     }
 
-    function updateAttachmentListElement(
-        attachments: Attachment[],
-        attachment: Attachment,
-        replaceFn: FieldArrayReplaceFn
-    ) {
-        replaceFn(attachments.indexOf(attachment), attachment);
+    function updateAttachmentListElement(atts: Attachment[], attachment: Attachment, replaceFn: FieldArrayReplaceFn) {
+        replaceFn(atts.indexOf(attachment), attachment);
     }
 
     function setAttachmentPendingToFalse(attachment: Attachment) {
@@ -91,7 +91,7 @@ const FormikFileUploader: React.FunctionComponent<Props> = ({ name, onFileInputC
     }
 
     function addPendingAttachmentToFieldArray(file: File, pushFn: FieldArrayPushFn) {
-        const attachment = getPendingAttachmentFromFile(file);
+        const attachment = getPendingAttachmentFromFile(file, name);
         pushFn(attachment);
         return attachment;
     }
@@ -103,18 +103,18 @@ const FormikFileUploader: React.FunctionComponent<Props> = ({ name, onFileInputC
                 acceptedExtensions={VALID_EXTENSIONS.join(', ')}
                 onFilesSelect={async (files: File[], { push, replace, remove }: ArrayHelpers) => {
                     removeFn = remove;
-                    const attachments = files.map((file) => addPendingAttachmentToFieldArray(file, push));
-                    await uploadAttachments([...(values as any)[name], ...attachments], replace);
+                    const atts = files.map((file) => addPendingAttachmentToFieldArray(file, push));
+                    await uploadAttachments([...(values as any)[name], ...atts], replace);
                 }}
                 onClick={onFileInputClick}
                 {...otherProps}
             />
             <Block margin="xl">
                 <AttachmentList
-                    attachments={values.terminbekreftelse.filter((a) => !isAttachmentWithError(a))}
+                    attachments={attachments.filter((a) => !isAttachmentWithError(a))}
                     showFileSize={true}
                     onDelete={(file: Attachment) => {
-                        removeFn(values.terminbekreftelse.indexOf(file));
+                        removeFn(attachments.indexOf(file));
                     }}
                 />
             </Block>

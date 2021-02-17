@@ -32,8 +32,13 @@
     "omBarnet.adopsjon.spørsmål.overtaomsorgdato": "Når overtar du omsorgen?",
     "omBarnet.adopsjon.spørsmål.stebarnsadopsjon": "Gjelder søknaden din stebarnsadopsjon?",
     "omBarnet.adopsjon.spørsmål.stebarnsadopsjondato": "Oppgi datoen for stebarnsadopsjon?",
+    "omBarnet.adopsjon.spørsmål.antallBarnAdoptert": "Hvor mange barn adopterer du?",
+    "ombarnet.adopsjon.spørsmål.adoptertFraUtland": "Adopterer du fra utlandet?",
+    "ombarnet.adopsjon.spørsmål.nårKommerBarnetDato": "Når kommer barnet til Norge?",
     "omBarnet.adopsjon.text.stebarnsadopsjon.ja": "Ja",
     "omBarnet.adopsjon.text.stebarnsadopsjon.nei": "Nei",
+    "omBarnet.adopsjon.veilederpanel.stebarnadopsjon.text": "Du må laste opp dokumentasjon på stebarnsadopsjonen og bekreftelse på dato for stebarnsadopsjonen.",
+    "omBarnet.adopsjon.veilederpanel.adopsjonsbevillingen.text": "Du må legge ved adopsjonsbevillingen og bekreftelse på datoen du overtok omsorgen.",
 
     "omBarnet.radiobutton.ettbarn": "ett barn",
     "omBarnet.radiobutton.flere": "flere barn",

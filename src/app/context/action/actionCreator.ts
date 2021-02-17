@@ -3,11 +3,9 @@ import Kvittering from 'app/types/services/Kvittering';
 import { UtenlandsoppholdFormData } from 'app/steps/utenlandsopphold/utenlandsoppholdFormTypes';
 import { VelkommenFormData } from 'app/pages/velkommen/velkommenFormConfig';
 import { SøkersituasjonFormData } from 'app/steps/søkersituasjon/søkersituasjonFormConfig';
-import { AdopsjonOmBarnetFormData } from 'app/steps/adopsjon/adopsjonOmBarnetFormConfig';
 
 export enum EngangsstønadContextActionKeys {
     'SET_SØKERSITUASJON' = 'setSøkersituasjon',
-    'SET_ADOPSJON_OM_BARNET' = 'setAdopsjonOmBarnet',
     'SET_OM_BARNET' = 'setOmBarnet',
     'SET_UTENLANDSOPPHOLD' = 'setUtenlandsopphold',
     'SET_VELKOMMEN' = 'setVelkommen',
@@ -73,19 +71,8 @@ const setOmBarnet = (payload: OmBarnetFormData): SetOmBarnet => ({
     payload,
 });
 
-interface SetAdopsjonOmBarnet {
-    type: EngangsstønadContextActionKeys.SET_ADOPSJON_OM_BARNET;
-    payload: AdopsjonOmBarnetFormData;
-}
-
-const setAdopsjonOmBarnet = (payload: AdopsjonOmBarnetFormData): SetAdopsjonOmBarnet => ({
-    type: EngangsstønadContextActionKeys.SET_ADOPSJON_OM_BARNET,
-    payload,
-});
-
 export type EngangsstønadContextAction =
     | SetOmBarnet
-    | SetAdopsjonOmBarnet
     | SetSøkersituasjon
     | SetUtenlandsopphold
     | SetVelkommen
@@ -95,7 +82,6 @@ export type EngangsstønadContextAction =
 export default {
     setVelkommen,
     setSøkersituasjon,
-    setAdopsjonOmBarnet,
     setOmBarnet,
     setUtenlandsopphold,
     setKvittering,
