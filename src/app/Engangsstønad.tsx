@@ -33,7 +33,7 @@ const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale
     const intl = useIntl();
 
     if (error !== null) {
-        if (error.response?.status === 403) {
+        if (error.response?.status === 401 || error.response?.status === 403) {
             return renderSpinner();
         }
 
