@@ -21,12 +21,22 @@ interface Props {
     onChangeLocale: (locale: Locale) => void;
 }
 
+const renderSpinner = () => (
+    <div style={{ textAlign: 'center', padding: '12rem 0' }}>
+        <NavFrontendSpinner type="XXL" />
+    </div>
+);
+
 const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale }) => {
     const { data, loading, error } = useRequest<Person>(Api.getPerson());
     const { state } = useEngangsstønadContext();
     const intl = useIntl();
 
-    if (error) {
+    if (error !== null) {
+        if (error.response?.status === 403) {
+            return renderSpinner();
+        }
+
         return (
             <Feilside
                 dokumenttittel="NAV Engangsstønad"
@@ -47,11 +57,7 @@ const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale
     }
 
     if (loading || !data) {
-        return (
-            <div style={{ textAlign: 'center', padding: '12rem 0' }}>
-                <NavFrontendSpinner type="XXL" />
-            </div>
-        );
+        return renderSpinner();
     }
 
     return (

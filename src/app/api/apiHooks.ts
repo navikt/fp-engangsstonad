@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { AxiosResponse } from 'axios';
+import { AxiosResponse, AxiosError } from 'axios';
 
 export const useRequest = <T>(request: Promise<AxiosResponse<any>>) => {
     const [data, setData] = useState<T>();
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<AxiosError<any> | null>(null);
 
     useEffect(() => {
         let ignore = false;
