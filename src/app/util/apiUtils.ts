@@ -10,6 +10,9 @@ import InformasjonOmUtenlandsopphold, { Utenlandsopphold } from 'app/types/domai
 import { BostedUtland } from 'app/steps/utenlandsopphold/bostedUtlandListAndDialog/types';
 import dayjs from 'dayjs';
 import { Locale } from '@navikt/fp-common';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
 
 const isArrayOfAttachments = (attachment: Attachment) => {
     return Array.isArray(attachment) && attachment.some((element: Attachment) => element.filename);
@@ -38,13 +41,13 @@ const mapBarnForInnsending = (omBarnet: OmBarnetFormData): FodtBarn | UfodtBarn 
         ? {
               antallBarn: parseInt(omBarnet.antallBarn!, 10),
               erBarnetFødt: true,
-              fødselsdatoer: [dayjs(omBarnet.fødselsdato!).toDate()],
+              fødselsdatoer: [dayjs.utc(omBarnet.fødselsdato!).toDate()],
           }
         : {
               antallBarn: parseInt(omBarnet.antallBarn!, 10),
               erBarnetFødt: false,
-              termindato: dayjs(omBarnet.termindato).toDate(),
-              terminbekreftelseDato: dayjs(omBarnet.terminbekreftelsedato).toDate(),
+              termindato: dayjs.utc(omBarnet.termindato).toDate(),
+              terminbekreftelseDato: dayjs.utc(omBarnet.terminbekreftelsedato).toDate(),
           };
 };
 
@@ -52,8 +55,8 @@ const mapBostedUtlandTilUtenlandsopphold = (bostedUtland: BostedUtland[]): Utenl
     return bostedUtland.map((bosted) => ({
         land: bosted.landkode,
         tidsperiode: {
-            fom: dayjs(bosted.fom).toDate(),
-            tom: dayjs(bosted.tom).toDate(),
+            fom: dayjs.utc(bosted.fom).toDate(),
+            tom: dayjs.utc(bosted.tom).toDate(),
         },
     }));
 };
