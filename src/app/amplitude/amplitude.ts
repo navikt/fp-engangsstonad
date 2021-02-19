@@ -12,7 +12,11 @@ export const initAmplitude = () => {
     }
 };
 
-export const logAmplitudeEvent = (eventName: string, eventData?: any) => {
+export const logAmplitudeEvent = (eventName: string, eventData?: any, logToConsoleOnly = false) => {
+    if (logToConsoleOnly) {
+        return;
+    }
+
     setTimeout(() => {
         try {
             if (amplitude) {

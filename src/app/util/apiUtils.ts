@@ -11,8 +11,8 @@ import { BostedUtland } from 'app/steps/utenlandsopphold/bostedUtlandListAndDial
 import dayjs from 'dayjs';
 import { Locale } from '@navikt/fp-common';
 
-const isArrayOfAttachments = (object: object) => {
-    return Array.isArray(object) && object.some((element) => element.filename);
+const isArrayOfAttachments = (attachment: Attachment) => {
+    return Array.isArray(attachment) && attachment.some((element: Attachment) => element.filename);
 };
 
 const removeAttachmentsWithUploadError = (attachments: Attachment[]) =>
@@ -82,6 +82,6 @@ export const mapStateForInnsending = (state: EngangsstønadContextState, locale:
         søker: {
             språkkode: locale,
         },
-        vedlegg: mapAttachments(state.søknad),
+        vedlegg: mapAttachments(JSON.parse(JSON.stringify(state.søknad))),
     };
 };
