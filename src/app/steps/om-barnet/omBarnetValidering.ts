@@ -7,6 +7,19 @@ import {
     sisteMuligeTermindato,
     utstedtDatoErIUke22,
 } from '@navikt/fp-common';
+export const validateAdopsjonDate = (dato: string) => {
+    if (!hasValue(dato)) {
+        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.duMåOppgi');
+    }
+    return undefined;
+};
+
+export const validateNårKommerBarnetDate = (dato: string) => {
+    if (!hasValue(dato)) {
+        return createFieldValidationError('valideringsfeil.omBarnet.nårKommerBarnetDato.duMåOppgi');
+    }
+    return undefined;
+};
 
 export const validateFødselDate = (dato: string) => {
     if (!hasValue(dato)) {

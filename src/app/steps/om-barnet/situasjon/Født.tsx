@@ -16,7 +16,7 @@ interface Fødtprops {
 const Født: React.FunctionComponent<Fødtprops> = ({ visibility, formValues }) => {
     const intl = useIntl();
 
-    if (formValues.erBarnetFødt === YesOrNo.NO) {
+    if (formValues.erBarnetFødt === YesOrNo.NO || formValues.erBarnetFødt === YesOrNo.UNANSWERED) {
         return null;
     }
     return (

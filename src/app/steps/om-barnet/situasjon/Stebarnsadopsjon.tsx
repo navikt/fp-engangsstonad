@@ -5,11 +5,13 @@ import { QuestionVisibility } from '@navikt/sif-common-question-config/lib';
 import FormikFileUploader from 'app/components/formik-file-uploader/FormikFileUploader';
 import getMessage from 'common/util/i18nUtils';
 import dayjs from 'dayjs';
+import { FieldArray } from 'formik';
+//import { get } from 'lodash';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { OmBarnetFormComponents, OmBarnetFormData, OmBarnetFormField } from '../omBarnetFormConfig';
-import { validateFødselDate } from '../omBarnetValidering';
+import { validateAdopsjonDate, validateFødselDate } from '../omBarnetValidering';
 
 interface Fødtprops {
     formValues: OmBarnetFormData;
@@ -19,27 +21,27 @@ interface Fødtprops {
 const Stebarnsadopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues }) => {
     const intl = useIntl();
 
-    if (formValues.stebarnsadopsjon === YesOrNo.NO) {
+    if (formValues.stebarnsadopsjon === YesOrNo.NO || formValues.stebarnsadopsjon === YesOrNo.UNANSWERED) {
         return null;
     }
     return (
         <>
-            {visibility.isVisible(OmBarnetFormField.stebarnsadopsjondato) && (
+            {visibility.isVisible(OmBarnetFormField.adopsjonsdato) && (
                 <Block margin="xl">
                     <OmBarnetFormComponents.DatePicker
-                        name={OmBarnetFormField.stebarnsadopsjondato}
+                        name={OmBarnetFormField.adopsjonsdato}
                         label={getMessage(intl, 'omBarnet.adopsjon.spørsmål.stebarnsadopsjondato')}
                         minDate={dayjs().subtract(6, 'month').toDate()}
                         maxDate={dayjs().toDate()}
-                        validate={validateFødselDate}
+                        validate={validateAdopsjonDate}
                     />
                 </Block>
             )}
-            {visibility.isVisible(OmBarnetFormField.antallBarnAdoptert) && (
+            {visibility.isVisible(OmBarnetFormField.antallBarn) && (
                 <>
                     <Block margin="xl">
                         <OmBarnetFormComponents.RadioPanelGroup
-                            name={OmBarnetFormField.antallBarnAdoptert}
+                            name={OmBarnetFormField.antallBarn}
                             radios={[
                                 {
                                     label: intlUtils(intl, 'omBarnet.radiobutton.ettbarn'),
@@ -58,9 +60,9 @@ const Stebarnsadopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, for
                             legend={getMessage(intl, 'omBarnet.adopsjon.spørsmål.antallBarnAdoptert')}
                         />
                     </Block>
-                    {formValues.antallBarnAdoptert && parseInt(formValues.antallBarnAdoptert, 10) >= 3 && (
+                    {formValues.antallBarn && parseInt(formValues.antallBarn, 10) >= 3 && (
                         <Block margin="xl">
-                            <OmBarnetFormComponents.Select name={OmBarnetFormField.antallBarnAdoptert}>
+                            <OmBarnetFormComponents.Select name={OmBarnetFormField.antallBarn}>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
@@ -73,14 +75,28 @@ const Stebarnsadopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, for
                     )}
                 </>
             )}
-            {visibility.isVisible(OmBarnetFormField.adoptertFødselsDato) && (
+            {visibility.isVisible(OmBarnetFormField.fødselsdato) && (
                 <Block margin="xl">
-                    <OmBarnetFormComponents.DatePicker
-                        name={OmBarnetFormField.adoptertFødselsDato}
-                        label={getMessage(intl, 'omBarnet.adopsjon.spørsmål.fødselsdato')}
-                        minDate={dayjs().subtract(6, 'month').toDate()}
-                        maxDate={dayjs().toDate()}
-                        validate={validateFødselDate}
+                    <FieldArray
+                        name={OmBarnetFormField.fødselsdato}
+                        render={() =>
+                            [...Array(parseInt(formValues.antallBarn!, 10))].map((_, index) => {
+                                return (
+                                    <Block padBottom="l">
+                                        <OmBarnetFormComponents.DatePicker
+                                            name={`${OmBarnetFormField.fødselsdato}.${index}` as OmBarnetFormField}
+                                            label={getMessage(
+                                                intl,
+                                                `omBarnet.adopsjon.spørsmål.fødselsdato.${index + 1}`
+                                            )}
+                                            minDate={dayjs().subtract(6, 'month').toDate()}
+                                            maxDate={dayjs().toDate()}
+                                            validate={validateFødselDate}
+                                        />
+                                    </Block>
+                                );
+                            })
+                        }
                     />
                 </Block>
             )}
@@ -103,7 +119,8 @@ const Stebarnsadopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, for
                     </Block>
                 </>
             )}
-            {visibility.isVisible(OmBarnetFormField.adopsjonsbevillingen) && (
+            {/*
+            {visibility.isVisible(OmBarnetFormField.adopsjonsbevilling) && (
                 <>
                     <Block margin="xl">
                         <Veilederpanel kompakt={true} svg={<Veileder />}>
@@ -114,7 +131,7 @@ const Stebarnsadopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, for
                         <FormikFileUploader
                             attachments={formValues.adopsjonBekreftelse || []}
                             label={getMessage(intl, 'vedlegg.lastoppknapp.label')}
-                            name={OmBarnetFormField.adopsjonsbevillingen}
+                            name={OmBarnetFormField.adopsjonsbevilling}
                         />
                         <UtvidetInformasjon apneLabel={<FormattedMessage id="psg.åpneLabel" />}>
                             <PictureScanningGuide />
@@ -122,6 +139,7 @@ const Stebarnsadopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, for
                     </Block>
                 </>
             )}
+            */}
         </>
     );
 };

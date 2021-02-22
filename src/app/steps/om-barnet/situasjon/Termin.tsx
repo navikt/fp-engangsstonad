@@ -9,7 +9,7 @@ import Veilederpanel from 'nav-frontend-veilederpanel';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { OmBarnetFormComponents, OmBarnetFormData, OmBarnetFormField } from '../omBarnetFormConfig';
-import { validateFødselDate, valideringAvTerminbekreftelsesdato } from '../omBarnetValidering';
+import { validateTerminDate, valideringAvTerminbekreftelsesdato } from '../omBarnetValidering';
 
 interface Fødtprops {
     formValues: OmBarnetFormData;
@@ -19,7 +19,7 @@ interface Fødtprops {
 const Termin: React.FunctionComponent<Fødtprops> = ({ visibility, formValues }) => {
     const intl = useIntl();
 
-    if (formValues.erBarnetFødt === YesOrNo.YES) {
+    if (formValues.erBarnetFødt === YesOrNo.YES || formValues.erBarnetFødt === YesOrNo.UNANSWERED) {
         return null;
     }
     return (
@@ -67,9 +67,9 @@ const Termin: React.FunctionComponent<Fødtprops> = ({ visibility, formValues })
                     <OmBarnetFormComponents.DatePicker
                         name={OmBarnetFormField.termindato}
                         label={getMessage(intl, 'søknad.termindato')}
-                        minDate={dayjs().subtract(6, 'month').toDate()}
-                        maxDate={dayjs().toDate()}
-                        validate={validateFødselDate}
+                        minDate={dayjs().subtract(3, 'week').toDate()}
+                        maxDate={dayjs().add(17, 'weeks').toDate()}
+                        validate={validateTerminDate}
                     />
                 </Block>
             )}

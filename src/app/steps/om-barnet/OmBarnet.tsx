@@ -30,20 +30,19 @@ const OmBarnet: React.FunctionComponent = () => {
     const onValidSubmit = (values: Partial<OmBarnetFormData>) => {
         dispatch(
             actionCreator.setOmBarnet({
-                antallBarn: values.antallBarn,
                 erBarnetFødt: values.erBarnetFødt!,
+                stebarnsadopsjon: values.stebarnsadopsjon!,
+                antallBarn: values.antallBarn,
+                adopsjonsdato: values.adopsjonsdato,
+                fødselsdato: values.fødselsdato,
+                termindato: values.termindato,
+
                 terminbekreftelse: values.terminbekreftelse || [],
                 adopsjonBekreftelse: values.adopsjonBekreftelse || [],
                 terminbekreftelsedato: values.terminbekreftelsedato,
-                fødselsdato: values.fødselsdato,
                 adoptertFraUtland: values.adoptertFraUtland!,
-                termindato: values.termindato,
-                stebarnsadopsjon: values.stebarnsadopsjon!,
-                stebarnsadopsjondato: values.stebarnsadopsjondato,
-                overtaomsorgdato: values.overtaomsorgdato,
-                antallBarnAdoptert: values.antallBarnAdoptert,
                 nårKommerBarnetDato: values.nårKommerBarnetDato,
-                adopsjonsbevillingen: values.adopsjonsbevillingen || [],
+                adopsjonsbevilling: values.adopsjonsbevilling || [],
             })
         );
         history.push('/soknad/utenlandsopphold');
