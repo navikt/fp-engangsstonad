@@ -8,7 +8,7 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
 import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
 import actionCreator from 'app/context/action/actionCreator';
-import stepConfig from 'app/step-config/stepConfig';
+import stepConfig, { getPreviousStepHref } from 'app/step-config/stepConfig';
 import { cleanupOmBarnet } from './omBarnetUtils';
 import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadContext';
 import Født from './situasjon/Født';
@@ -36,7 +36,6 @@ const OmBarnet: React.FunctionComponent = () => {
                 adopsjonsdato: values.adopsjonsdato,
                 fødselsdato: values.fødselsdato,
                 termindato: values.termindato,
-
                 terminbekreftelse: values.terminbekreftelse || [],
                 adopsjonBekreftelse: values.adopsjonBekreftelse || [],
                 terminbekreftelsedato: values.terminbekreftelsedato,
@@ -64,6 +63,7 @@ const OmBarnet: React.FunctionComponent = () => {
                         activeStepId="omBarnet"
                         pageTitle={getMessage(intl, 'søknad.omBarnet')}
                         stepTitle={getMessage(intl, 'søknad.omBarnet')}
+                        backLinkHref={getPreviousStepHref('søkersituasjon')}
                         onCancel={() => null}
                         steps={stepConfig}
                         kompakt={true}

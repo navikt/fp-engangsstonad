@@ -80,10 +80,13 @@ const OvertoOmsorg: React.FunctionComponent<Fødtprops> = ({ visibility, formVal
                         render={() =>
                             [...Array(parseInt(formValues.antallBarn!, 10))].map((_, index) => {
                                 return (
-                                    <Block padBottom="l">
+                                    <Block padBottom="l" key={`${index}`}>
                                         <OmBarnetFormComponents.DatePicker
                                             name={`${OmBarnetFormField.fødselsdato}.${index}` as OmBarnetFormField}
-                                            label={getMessage(intl, `omBarnet.adopsjon.spørsmål.fødselsdato.${index}`)}
+                                            label={getMessage(
+                                                intl,
+                                                `omBarnet.adopsjon.spørsmål.fødselsdato.${index + 1}`
+                                            )}
                                             minDate={dayjs().subtract(6, 'month').toDate()}
                                             maxDate={dayjs().toDate()}
                                             validate={validateFødselDate}

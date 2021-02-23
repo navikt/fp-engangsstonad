@@ -6,7 +6,6 @@ import FormikFileUploader from 'app/components/formik-file-uploader/FormikFileUp
 import getMessage from 'common/util/i18nUtils';
 import dayjs from 'dayjs';
 import { FieldArray } from 'formik';
-//import { get } from 'lodash';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -82,7 +81,7 @@ const Stebarnsadopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, for
                         render={() =>
                             [...Array(parseInt(formValues.antallBarn!, 10))].map((_, index) => {
                                 return (
-                                    <Block padBottom="l">
+                                    <Block padBottom="l" key={`${index}`}>
                                         <OmBarnetFormComponents.DatePicker
                                             name={`${OmBarnetFormField.fødselsdato}.${index}` as OmBarnetFormField}
                                             label={getMessage(

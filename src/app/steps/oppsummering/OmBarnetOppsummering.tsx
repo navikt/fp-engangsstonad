@@ -9,6 +9,7 @@ import getMessage from 'common/util/i18nUtils';
 import { OmBarnetFormData } from 'app/steps/om-barnet/omBarnetFormConfig';
 import { YesOrNo } from '@navikt/sif-common-formik/lib';
 import { Block, DisplayTextWithLabel } from '@navikt/fp-common';
+import { FieldArray } from 'formik';
 
 interface Props {
     barn: OmBarnetFormData;
@@ -34,6 +35,41 @@ const OmBarnetOppsummering: React.FunctionComponent<Props> = ({ barn }) => {
                 label={getMessage(intl, 'oppsummering.text.soknadenGjelder')}
                 text={antallBarnSummaryText}
             />
+            {barn.stebarnsadopsjon === YesOrNo.YES && (
+                <div>
+                    <DisplayTextWithLabel
+                        label={getMessage(intl, 'oppsummering.text.medAdopsjonsdato')}
+                        text={ISODateToMaskedInput(barn.adopsjonsdato!)}
+                    />
+                    <FieldArray
+                        name={'slødkf'}
+                        render={() =>
+                            [...Array(parseInt(barn.antallBarn!, 10))].map((_, index) => {
+                                return (
+                                    <DisplayTextWithLabel
+                                        key={`${index}`}
+                                        label={getMessage(intl, 'oppsummering.text.medFødselsdato')}
+                                        text={ISODateToMaskedInput(barn.fødselsdato![index])}
+                                    />
+                                );
+                            })
+                        }
+                    />
+
+                    <DisplayTextWithLabel
+                        label={getMessage(intl, 'oppsummering.text.medFødselsdato')}
+                        text={ISODateToMaskedInput(barn.fødselsdato!)}
+                    />
+                    <div className="oppsummering__attachments">
+                        <EtikettLiten className="textWithLabel__label">
+                            {getMessage(intl, 'oppsummering.text.vedlagtTerminbekreftelse')}
+                        </EtikettLiten>
+                        <AttachmentList
+                            attachments={barn.adopsjonBekreftelse.filter((a: Attachment) => !isAttachmentWithError(a))}
+                        />
+                    </div>
+                </div>
+            )}
             {barn.erBarnetFødt === YesOrNo.YES && (
                 <DisplayTextWithLabel
                     label={getMessage(intl, 'oppsummering.text.medFødselsdato')}
