@@ -14,59 +14,62 @@ const OmBarnetFormConfig: QuestionConfig<OmBarnetQuestionPayload, OmBarnetFormFi
             erBarnetFødt !== YesOrNo.UNANSWERED ||
             (stebarnsadopsjon !== YesOrNo.UNANSWERED && adopsjonsdato !== undefined),
     },
+    [OmBarnetFormField.stebarnsadopsjon]: {
+        isIncluded: ({ situasjon }) => situasjon === 'adopsjon',
+        isAnswered: ({ stebarnsadopsjon }) => stebarnsadopsjon !== YesOrNo.UNANSWERED,
+        visibilityFilter: ({ situasjon }) => situasjon === 'adopsjon',
+    },
+    [OmBarnetFormField.erBarnetFødt]: {
+        isIncluded: ({ situasjon }) => situasjon === 'fødsel',
+        isAnswered: ({ erBarnetFødt }) => erBarnetFødt !== YesOrNo.UNANSWERED,
+        visibilityFilter: ({ situasjon }) => situasjon === 'fødsel',
+    },
     [OmBarnetFormField.adopsjonsdato]: {
         isIncluded: ({ stebarnsadopsjon }) => stebarnsadopsjon !== YesOrNo.UNANSWERED,
         isAnswered: ({ adopsjonsdato }) => adopsjonsdato !== undefined,
-        visibilityFilter: ({ situasjon, stebarnsadopsjon }) =>
-            situasjon === 'adopsjon' && stebarnsadopsjon !== YesOrNo.UNANSWERED,
+        visibilityFilter: ({ stebarnsadopsjon }) => stebarnsadopsjon !== YesOrNo.UNANSWERED,
     },
     [OmBarnetFormField.fødselsdato]: {
-        isIncluded: ({ antallBarn, erBarnetFødt, stebarnsadopsjon }) =>
-            (antallBarn !== undefined && erBarnetFødt === YesOrNo.YES) || stebarnsadopsjon !== undefined,
+        isIncluded: ({ erBarnetFødt, stebarnsadopsjon }) =>
+            erBarnetFødt === YesOrNo.YES || stebarnsadopsjon !== undefined,
         isAnswered: ({ fødselsdato }) => fødselsdato !== undefined,
-        visibilityFilter: ({ erBarnetFødt, antallBarn, adopsjonsdato }) =>
-            erBarnetFødt === YesOrNo.YES || (adopsjonsdato !== undefined && antallBarn !== undefined),
-    },
-    [OmBarnetFormField.termindato]: {
-        isIncluded: ({ situasjon, erBarnetFødt, antallBarn }) =>
-            situasjon === 'fødsel' && erBarnetFødt === YesOrNo.NO && antallBarn !== undefined,
-        isAnswered: ({ termindato }) => termindato !== undefined,
-        visibilityFilter: ({ situasjon, erBarnetFødt }) => situasjon === 'fødsel' && erBarnetFødt === YesOrNo.NO,
+        visibilityFilter: ({ antallBarn }) => antallBarn !== undefined,
     },
     [OmBarnetFormField.adopsjonBekreftelse]: {
-        isIncluded: ({ stebarnsadopsjon, antallBarn }) =>
-            stebarnsadopsjon !== YesOrNo.UNANSWERED && antallBarn !== undefined,
+        isIncluded: ({ stebarnsadopsjon }) => stebarnsadopsjon === YesOrNo.YES,
         isAnswered: ({ adopsjonBekreftelse }) => adopsjonBekreftelse.length > 0,
-        visibilityFilter: ({ stebarnsadopsjon }) => stebarnsadopsjon === YesOrNo.YES,
+        visibilityFilter: ({ antallBarn }) => antallBarn !== undefined,
     },
     [OmBarnetFormField.adoptertFraUtland]: {
         isIncluded: ({ stebarnsadopsjon }) => stebarnsadopsjon === YesOrNo.NO,
         isAnswered: ({ adoptertFraUtland }) => adoptertFraUtland !== YesOrNo.UNANSWERED,
-        visibilityFilter: ({ stebarnsadopsjon, antallBarn }) =>
-            stebarnsadopsjon === YesOrNo.NO && antallBarn !== undefined,
+        visibilityFilter: ({ antallBarn }) => antallBarn !== undefined,
     },
     [OmBarnetFormField.nårKommerBarnetDato]: {
         isIncluded: ({ stebarnsadopsjon }) => stebarnsadopsjon === YesOrNo.NO,
         isAnswered: ({ nårKommerBarnetDato }) => nårKommerBarnetDato !== undefined,
-        visibilityFilter: ({ stebarnsadopsjon, adoptertFraUtland }) =>
-            stebarnsadopsjon === YesOrNo.NO && adoptertFraUtland === YesOrNo.YES,
+        visibilityFilter: ({ adoptertFraUtland }) => adoptertFraUtland === YesOrNo.YES,
     },
     [OmBarnetFormField.adopsjonsbevilling]: {
         isIncluded: ({ stebarnsadopsjon }) => stebarnsadopsjon === YesOrNo.NO,
         isAnswered: ({ adopsjonsbevilling }) => adopsjonsbevilling.length > 0,
-        visibilityFilter: ({ stebarnsadopsjon, nårKommerBarnetDato, adoptertFraUtland }) =>
-            stebarnsadopsjon === YesOrNo.NO && (nårKommerBarnetDato !== undefined || adoptertFraUtland === YesOrNo.NO),
+        visibilityFilter: ({ nårKommerBarnetDato, adoptertFraUtland }) =>
+            nårKommerBarnetDato !== undefined || adoptertFraUtland === YesOrNo.NO,
+    },
+    [OmBarnetFormField.termindato]: {
+        isIncluded: ({ erBarnetFødt }) => erBarnetFødt === YesOrNo.NO,
+        isAnswered: ({ termindato }) => termindato !== undefined,
+        visibilityFilter: ({ antallBarn }) => antallBarn !== undefined,
     },
     [OmBarnetFormField.terminbekreftelse]: {
-        isIncluded: ({ erBarnetFødt, termindato }) => erBarnetFødt === YesOrNo.NO && termindato !== undefined,
+        isIncluded: ({ erBarnetFødt }) => erBarnetFødt === YesOrNo.NO,
         isAnswered: ({ terminbekreftelse }) => terminbekreftelse.length > 0,
-        visibilityFilter: ({ termindato, erBarnetFødt }) => termindato !== undefined && erBarnetFødt === YesOrNo.NO,
+        visibilityFilter: ({ termindato }) => termindato !== undefined,
     },
     [OmBarnetFormField.terminbekreftelsedato]: {
-        isIncluded: ({ termindato }) => termindato !== undefined,
+        isIncluded: ({ erBarnetFødt }) => erBarnetFødt === YesOrNo.NO,
         isAnswered: ({ terminbekreftelsedato }) => terminbekreftelsedato !== undefined,
-        visibilityFilter: ({ termindato, terminbekreftelse, erBarnetFødt }) =>
-            termindato !== undefined && terminbekreftelse.length > 0 && erBarnetFødt === YesOrNo.NO,
+        visibilityFilter: ({ terminbekreftelse }) => terminbekreftelse.length > 0,
     },
 };
 
