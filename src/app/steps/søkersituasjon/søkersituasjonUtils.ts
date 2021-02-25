@@ -6,7 +6,7 @@ export const cleanupSøkersituasjon = (formData: SøkersituasjonFormData): Søke
 
     return cleanedData as SøkersituasjonFormData;
 };
-
+/*
 export const dataSøkersituasjonIsValid = (dataSøkersituasjo: SøkersituasjonFormData): boolean => {
     if (dataSøkersituasjo.situasjon === 'adopsjon') {
         return dataSøkersituasjo.situasjon !== undefined;
@@ -16,3 +16,4 @@ export const dataSøkersituasjonIsValid = (dataSøkersituasjo: SøkersituasjonFo
     }
     return false;
 };
+*/

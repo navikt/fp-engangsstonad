@@ -1,12 +1,12 @@
 import { bemUtils, Block, commonFieldErrorRenderer, intlUtils, Step, useDocumentTitle } from '@navikt/fp-common';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { OmBarnetFormComponents, OmBarnetFormField, OmBarnetFormData } from './omBarnetFormConfig';
 import omBarnetQuestionsConfig from './omBarnetQuestionsConfig';
 import getMessage from 'common/util/i18nUtils';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
-import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
+import { UnansweredQuestionsInfo, YesOrNo } from '@navikt/sif-common-formik/lib';
 import actionCreator from 'app/context/action/actionCreator';
 import stepConfig, { getPreviousStepHref } from 'app/step-config/stepConfig';
 import { cleanupOmBarnet } from './omBarnetUtils';
@@ -24,8 +24,32 @@ const OmBarnet: React.FunctionComponent = () => {
     const history = useHistory();
     useDocumentTitle(intlUtils(intl, 'velkommen.standard.dokumenttittel'));
     const { state, dispatch } = useEngangsstønadContext();
-    const omBarnetValues = state.søknad.omBarnet;
     const søkersituasjonValues = state.søknad.søkersituasjon;
+    const omBarnetValues = state.søknad.omBarnet;
+
+    const clearValues = () => {
+        omBarnetValues.erBarnetFødt = YesOrNo.UNANSWERED;
+        omBarnetValues.stebarnsadopsjon = YesOrNo.UNANSWERED;
+        omBarnetValues.adoptertFraUtland = YesOrNo.UNANSWERED;
+        omBarnetValues.antallBarn = undefined;
+        omBarnetValues.adopsjonsdato = undefined;
+        omBarnetValues.fødselsdato = undefined;
+        omBarnetValues.termindato = undefined;
+        omBarnetValues.terminbekreftelsedato = undefined;
+        omBarnetValues.nårKommerBarnetDato = undefined;
+        omBarnetValues.adopsjonBekreftelse = [];
+        omBarnetValues.adopsjonsbevilling = [];
+        omBarnetValues.terminbekreftelse = [];
+    };
+
+    useEffect(() => {
+        if (
+            (søkersituasjonValues.situasjon === 'adopsjon' && omBarnetValues.erBarnetFødt !== YesOrNo.UNANSWERED) ||
+            (søkersituasjonValues.situasjon === 'fødsel' && omBarnetValues.stebarnsadopsjon !== YesOrNo.UNANSWERED)
+        ) {
+            clearValues();
+        }
+    }, [søkersituasjonValues.situasjon!]);
 
     const onValidSubmit = (values: Partial<OmBarnetFormData>) => {
         dispatch(
@@ -63,7 +87,7 @@ const OmBarnet: React.FunctionComponent = () => {
                         activeStepId="omBarnet"
                         pageTitle={getMessage(intl, 'søknad.omBarnet')}
                         stepTitle={getMessage(intl, 'søknad.omBarnet')}
-                        backLinkHref={getPreviousStepHref('søkersituasjon')}
+                        backLinkHref={getPreviousStepHref('omBarnet')}
                         onCancel={() => null}
                         steps={stepConfig}
                         kompakt={true}

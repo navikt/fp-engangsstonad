@@ -44,21 +44,16 @@ const OmBarnetOppsummering: React.FunctionComponent<Props> = ({ barn }) => {
                     <FieldArray
                         name={'slødkf'}
                         render={() =>
-                            [...Array(parseInt(barn.antallBarn!, 10))].map((_, index) => {
+                            [...Array(parseInt(barn.antallBarn!, 9))].map((_, index) => {
                                 return (
                                     <DisplayTextWithLabel
                                         key={`${index}`}
-                                        label={getMessage(intl, 'oppsummering.text.medFødselsdato')}
+                                        label={getMessage(intl, `oppsummering.text.medFødselsdato.${index + 1}`)}
                                         text={ISODateToMaskedInput(barn.fødselsdato![index])}
                                     />
                                 );
                             })
                         }
-                    />
-
-                    <DisplayTextWithLabel
-                        label={getMessage(intl, 'oppsummering.text.medFødselsdato')}
-                        text={ISODateToMaskedInput(barn.fødselsdato!)}
                     />
                     <div className="oppsummering__attachments">
                         <EtikettLiten className="textWithLabel__label">
