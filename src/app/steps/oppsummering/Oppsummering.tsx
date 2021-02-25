@@ -23,6 +23,8 @@ import actionCreator from 'app/context/action/actionCreator';
 
 import './oppsummering.less';
 import { onAvbrytSøknad } from 'app/util/globalUtil';
+import { logAmplitudeEvent } from 'app/amplitude/amplitude';
+import { PageKeys } from 'app/types/PageKeys';
 
 interface Props {
     person: Person;
@@ -36,6 +38,12 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person, locale }) => {
     const history = useHistory();
     const [isSending, setIsSending] = useState(false);
 
+    logAmplitudeEvent('sidevisning', {
+        app: 'engangsstonadny',
+        team: 'foreldrepenger',
+        pageKey: PageKeys.Oppsummering,
+    });
+
     const sendSøknad = async () => {
         const søknadForInnsending: EngangsstønadSøknadDto = mapStateForInnsending(state, locale);
         setIsSending(true);
@@ -47,6 +55,11 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person, locale }) => {
                 dispatch(actionCreator.setKvittering(response.data));
                 history.push('/kvittering');
                 setIsSending(false);
+            });
+
+            logAmplitudeEvent('skjema fullført', {
+                app: 'engangsstonadny',
+                team: 'foreldrepenger',
             });
         } catch (error) {
             history.push('/kvittering');

@@ -1,7 +1,12 @@
 import { bemUtils, Block, commonFieldErrorRenderer, intlUtils, Step, useDocumentTitle } from '@navikt/fp-common';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useIntl } from 'react-intl';
-import { OmBarnetFormComponents, OmBarnetFormField, OmBarnetFormData } from './omBarnetFormConfig';
+import {
+    OmBarnetFormComponents,
+    OmBarnetFormField,
+    OmBarnetFormData,
+    initialOmBarnetValues,
+} from './omBarnetFormConfig';
 import omBarnetQuestionsConfig from './omBarnetQuestionsConfig';
 import getMessage from 'common/util/i18nUtils';
 import { Hovedknapp } from 'nav-frontend-knapper';
@@ -17,6 +22,20 @@ import OvertaOmsorg from './situasjon/OvertaOmsorg';
 import Stebarnsadopsjon from './situasjon/Stebarnsadopsjon';
 
 import './omBarnet.less';
+import { onAvbrytSøknad } from 'app/util/globalUtil';
+import { logAmplitudeEvent } from 'app/amplitude/amplitude';
+import { PageKeys } from 'app/types/PageKeys';
+
+const shouldResetInitialValues = (situasjon: string, erBarnetFødt: YesOrNo, stebarnsadopsjon: YesOrNo): boolean => {
+    if (
+        (situasjon === 'adopsjon' && erBarnetFødt !== YesOrNo.UNANSWERED) ||
+        (situasjon === 'fødsel' && stebarnsadopsjon !== YesOrNo.UNANSWERED)
+    ) {
+        return true;
+    }
+
+    return false;
+};
 
 const OmBarnet: React.FunctionComponent = () => {
     const intl = useIntl();
@@ -25,31 +44,17 @@ const OmBarnet: React.FunctionComponent = () => {
     useDocumentTitle(intlUtils(intl, 'velkommen.standard.dokumenttittel'));
     const { state, dispatch } = useEngangsstønadContext();
     const søkersituasjonValues = state.søknad.søkersituasjon;
-    const omBarnetValues = state.søknad.omBarnet;
+    const { omBarnet } = state.søknad;
+    const { situasjon } = søkersituasjonValues;
+    const initialValues = shouldResetInitialValues(situasjon!, omBarnet.erBarnetFødt, omBarnet.stebarnsadopsjon)
+        ? initialOmBarnetValues
+        : omBarnet;
 
-    const clearValues = () => {
-        omBarnetValues.erBarnetFødt = YesOrNo.UNANSWERED;
-        omBarnetValues.stebarnsadopsjon = YesOrNo.UNANSWERED;
-        omBarnetValues.adoptertFraUtland = YesOrNo.UNANSWERED;
-        omBarnetValues.antallBarn = undefined;
-        omBarnetValues.adopsjonsdato = undefined;
-        omBarnetValues.fødselsdato = undefined;
-        omBarnetValues.termindato = undefined;
-        omBarnetValues.terminbekreftelsedato = undefined;
-        omBarnetValues.nårKommerBarnetDato = undefined;
-        omBarnetValues.adopsjonBekreftelse = [];
-        omBarnetValues.adopsjonsbevilling = [];
-        omBarnetValues.terminbekreftelse = [];
-    };
-
-    useEffect(() => {
-        if (
-            (søkersituasjonValues.situasjon === 'adopsjon' && omBarnetValues.erBarnetFødt !== YesOrNo.UNANSWERED) ||
-            (søkersituasjonValues.situasjon === 'fødsel' && omBarnetValues.stebarnsadopsjon !== YesOrNo.UNANSWERED)
-        ) {
-            clearValues();
-        }
-    }, [søkersituasjonValues.situasjon!]);
+    logAmplitudeEvent('sidevisning', {
+        app: 'engangsstonadny',
+        team: 'foreldrepenger',
+        pageKey: PageKeys.OmBarnet,
+    });
 
     const onValidSubmit = (values: Partial<OmBarnetFormData>) => {
         dispatch(
@@ -73,7 +78,7 @@ const OmBarnet: React.FunctionComponent = () => {
 
     return (
         <OmBarnetFormComponents.FormikWrapper
-            initialValues={omBarnetValues}
+            initialValues={initialValues}
             onSubmit={(values) => onValidSubmit(values)}
             renderForm={({ values: formValues }) => {
                 const visibility = omBarnetQuestionsConfig.getVisbility({
@@ -88,7 +93,7 @@ const OmBarnet: React.FunctionComponent = () => {
                         pageTitle={getMessage(intl, 'søknad.omBarnet')}
                         stepTitle={getMessage(intl, 'søknad.omBarnet')}
                         backLinkHref={getPreviousStepHref('omBarnet')}
-                        onCancel={() => null}
+                        onCancel={() => onAvbrytSøknad(dispatch, history)}
                         steps={stepConfig}
                         kompakt={true}
                     >

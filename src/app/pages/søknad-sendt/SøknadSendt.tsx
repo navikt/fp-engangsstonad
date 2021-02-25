@@ -7,51 +7,31 @@ import StatusBoks from './components/StatusBoks';
 import Person from 'app/types/domain/Person';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { lenker } from 'app/util/lenker';
-// import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadContext';
+import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadContext';
 import KvitteringSuksess from './components/KvitteringSuksess';
 import SøknadSendtSectionHeader from './components/SøknadSendtSectionHeader';
 
 import './søknadSendt.less';
 import SøknadSendtTittel from './components/SøknadtSendtTittel';
+import { logAmplitudeEvent } from 'app/amplitude/amplitude';
+import { PageKeys } from 'app/types/PageKeys';
 
 interface Props {
     person: Person;
 }
 
-const person: Person = {
-    fnr: '123123123',
-    fornavn: 'Henrikke',
-    mellomnavn: 'Store',
-    etternavn: 'Ibsen',
-    adresse: 'Maridalsveien 227B',
-    kjønn: 'K',
-    fødselsdato: '01-01-2020',
-    ikkeNordiskEøsLand: false,
-    bankkonto: {
-        kontonummer: '49875234987',
-        banknavn: 'Storebank',
-    },
-};
-
-const kvittering = {
-    journalId: 'Journal ID 123123',
-    leveranseStatus: 'PÅ_VENT',
-    mottattDato: '01-29-2021',
-    referanseId: 'Referanse ID 12785',
-    saksNr: '340983405',
-    pdf: 'gibberish',
-};
-
-const SøknadSendt: React.FunctionComponent<Props> = () => {
+const SøknadSendt: React.FunctionComponent<Props> = ({ person }) => {
     const bem = bemUtils('søknadSendt');
     const intl = useIntl();
     useDocumentTitle(intlUtils(intl, 'søknadSendt.dokumenttittel'));
-    // const { state } = useEngangsstønadContext();
-    // const { kvittering } = state;
+    const { state } = useEngangsstønadContext();
+    const { kvittering } = state;
 
-    // if (!kvittering) {
-    //     return null;
-    // }
+    logAmplitudeEvent('sidevisning', {
+        app: 'engangsstonadny',
+        team: 'foreldrepenger',
+        pageKey: PageKeys.SøknadSendt,
+    });
 
     return (
         <>
@@ -101,7 +81,7 @@ const SøknadSendt: React.FunctionComponent<Props> = () => {
                     </SøknadSendtSectionHeader>
                 </Block>
                 <Block margin="l">
-                    <StatusBoks saksNr={kvittering.saksNr} />
+                    <StatusBoks saksNr={kvittering?.saksNr || ''} />
                 </Block>
             </div>
         </>

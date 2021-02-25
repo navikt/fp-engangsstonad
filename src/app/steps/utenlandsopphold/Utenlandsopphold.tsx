@@ -31,6 +31,8 @@ import getMessage from 'common/util/i18nUtils';
 import { validateUtenlandsoppholdNeste12Mnd, validateUtenlandsoppholdSiste12Mnd } from './utenlandsoppholdValidering';
 
 import './utenlandsopphold.less';
+import { logAmplitudeEvent } from 'app/amplitude/amplitude';
+import { PageKeys } from 'app/types/PageKeys';
 
 const Utenlandsopphold: React.FunctionComponent = () => {
     const intl = useIntl();
@@ -39,6 +41,12 @@ const Utenlandsopphold: React.FunctionComponent = () => {
 
     const { state, dispatch } = useEngangsstønadContext();
     const initialValues = state.søknad.utenlandsopphold;
+
+    logAmplitudeEvent('sidevisning', {
+        app: 'engangsstonadny',
+        team: 'foreldrepenger',
+        pageKey: PageKeys.Utenlandsopphold,
+    });
 
     const onValidSubmit = (values: Partial<UtenlandsoppholdFormData>) => {
         dispatch(
