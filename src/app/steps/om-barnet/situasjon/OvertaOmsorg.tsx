@@ -10,7 +10,7 @@ import Veilederpanel from 'nav-frontend-veilederpanel';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { OmBarnetFormComponents, OmBarnetFormData, OmBarnetFormField } from '../omBarnetFormConfig';
-import { validateAdopsjonDate, validateFødselDate, validateNårKommerBarnetDate } from '../omBarnetValidering';
+import { validateAdopsjonDate, validateAdopsjonFødselDate, validateNårKommerBarnetDate } from '../omBarnetValidering';
 
 interface Fødtprops {
     formValues: OmBarnetFormData;
@@ -87,9 +87,9 @@ const OvertoOmsorg: React.FunctionComponent<Fødtprops> = ({ visibility, formVal
                                                 intl,
                                                 `omBarnet.adopsjon.spørsmål.fødselsdato.${index + 1}`
                                             )}
-                                            minDate={dayjs().subtract(6, 'month').toDate()}
+                                            minDate={dayjs().subtract(15, 'year').subtract(6, 'month').toDate()}
                                             maxDate={dayjs().toDate()}
-                                            validate={validateFødselDate}
+                                            validate={validateAdopsjonFødselDate}
                                         />
                                     </Block>
                                 );

@@ -68,6 +68,20 @@ const OmBarnetOppsummering: React.FunctionComponent<Props> = ({ barn }) => {
             )}
             {barn.stebarnsadopsjon === YesOrNo.NO && (
                 <div>
+                    <DisplayTextWithLabel
+                        label={getMessage(intl, 'oppsummering.text.adoptertFraUtland')}
+                        text={
+                            barn.adoptertFraUtland === YesOrNo.YES
+                                ? getMessage(intl, 'oppsummering.text.adoptertFraUtland.Ja')
+                                : getMessage(intl, 'oppsummering.text.adoptertFraUtland.Nei')
+                        }
+                    />
+                    {barn.adoptertFraUtland === YesOrNo.YES && (
+                        <DisplayTextWithLabel
+                            label={getMessage(intl, 'oppsummering.text.nårKommerBarnetDato')}
+                            text={formatDate(barn.nårKommerBarnetDato!)}
+                        />
+                    )}
                     <div className="oppsummering__attachments">
                         <EtikettLiten className="textWithLabel__label">
                             {getMessage(intl, 'oppsummering.text.vedlagtAdopsjonsBevilling')}
