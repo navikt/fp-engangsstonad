@@ -1,30 +1,25 @@
 import { assertUnreachable } from 'app/util/globalUtil';
-
+type SøkersituasjonStepId = 'søkersituasjon';
 type OmBarnetStepId = 'omBarnet';
-type AnnenForelderStepId = 'annenForelder';
 type UtenlandsoppholdStepId = 'utenlandsopphold';
 type OppsummeringStepId = 'oppsummering';
-
-type StepIdWithBackHref = AnnenForelderStepId | UtenlandsoppholdStepId | OppsummeringStepId;
-
-export type StepId = OmBarnetStepId | StepIdWithBackHref;
-
+type StepIdWithBackHref = OmBarnetStepId | UtenlandsoppholdStepId | OppsummeringStepId;
+export type StepId = SøkersituasjonStepId | StepIdWithBackHref;
 interface StepConfig {
     id: StepId;
     index: number;
     label: string;
 }
-
 const stepConfig: StepConfig[] = [
     {
-        id: 'omBarnet',
+        id: 'søkersituasjon',
         index: 0,
         label: 'Fyll ut informasjon om barnet',
     },
     {
-        id: 'annenForelder',
+        id: 'omBarnet',
         index: 1,
-        label: 'Fyll ut informasjon om annen forelder',
+        label: 'Fyll ut informasjon om barnet',
     },
     {
         id: 'utenlandsopphold',
@@ -37,13 +32,11 @@ const stepConfig: StepConfig[] = [
         label: 'Oppsummering',
     },
 ];
-
 export const getPreviousStepHref = (id: StepIdWithBackHref): string => {
     let href;
-
     switch (id) {
-        case 'annenForelder':
-            href = '/soknad/om-barnet';
+        case 'omBarnet':
+            href = '/soknad/søkersituasjon';
             break;
         case 'utenlandsopphold':
             href = '/soknad/om-barnet';
@@ -54,8 +47,6 @@ export const getPreviousStepHref = (id: StepIdWithBackHref): string => {
         default:
             return assertUnreachable(id);
     }
-
     return href;
 };
-
 export default stepConfig;

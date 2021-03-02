@@ -58,7 +58,7 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                 harForståttRettigheterOgPlikter: values.harForståttRettigheterOgPlikter!!,
             })
         );
-        history.push('/soknad/om-barnet');
+        history.push('/soknad/søkersituasjon');
     };
 
     const [PersonopplysningerModalOpen, setPersonopplysningerModalOpen] = useState<boolean>(false);

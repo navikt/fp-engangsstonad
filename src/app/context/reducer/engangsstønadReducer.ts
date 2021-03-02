@@ -13,6 +13,28 @@ const engangsstønadReducer = (
                     velkommen: {
                         ...action.payload,
                     },
+                    søkersituasjon: {
+                        ...state.søknad.søkersituasjon,
+                    },
+                    utenlandsopphold: {
+                        ...state.søknad.utenlandsopphold,
+                    },
+                    omBarnet: {
+                        ...state.søknad.omBarnet,
+                    },
+                },
+            };
+        }
+        case EngangsstønadContextActionKeys.SET_SØKERSITUASJON: {
+            return {
+                ...state,
+                søknad: {
+                    velkommen: {
+                        ...state.søknad.velkommen,
+                    },
+                    søkersituasjon: {
+                        ...action.payload,
+                    },
                     utenlandsopphold: {
                         ...state.søknad.utenlandsopphold,
                     },
@@ -29,6 +51,9 @@ const engangsstønadReducer = (
                     velkommen: {
                         ...state.søknad.velkommen,
                     },
+                    søkersituasjon: {
+                        ...state.søknad.søkersituasjon,
+                    },
                     utenlandsopphold: {
                         ...state.søknad.utenlandsopphold,
                     },
@@ -44,6 +69,9 @@ const engangsstønadReducer = (
                 søknad: {
                     velkommen: {
                         ...state.søknad.velkommen,
+                    },
+                    søkersituasjon: {
+                        ...state.søknad.søkersituasjon,
                     },
                     omBarnet: {
                         ...state.søknad.omBarnet,

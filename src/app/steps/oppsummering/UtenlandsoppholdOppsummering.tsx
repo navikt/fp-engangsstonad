@@ -79,7 +79,7 @@ const UtenlandsoppholdOppsummering: React.FunctionComponent<Props> = ({ barn, in
                     label={getMessage(intl, 'oppsummering.text.varPåFødselstidspunktet')}
                     text={
                         erFamiliehendelsedatoIEnUtenlandsoppholdPeriode(
-                            barn.fødselsdato!,
+                            barn.fødselsdatoer[0],
                             informasjonOmUtenlandsopphold
                         )
                             ? getMessage(intl, 'oppsummering.utenlandsopphold.iUtlandet')

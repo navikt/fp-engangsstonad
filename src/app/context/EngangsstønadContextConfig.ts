@@ -5,10 +5,12 @@ import {
     UtenlandsoppholdFormData,
 } from 'app/steps/utenlandsopphold/utenlandsoppholdFormTypes';
 import { initialVelkommenValues, VelkommenFormData } from 'app/pages/velkommen/velkommenFormConfig';
+import { initialSøkersituasjonValues, SøkersituasjonFormData } from 'app/steps/søkersituasjon/søkersituasjonFormConfig';
 
 export interface EngangsstønadContextState {
     søknad: {
         velkommen: VelkommenFormData;
+        søkersituasjon: SøkersituasjonFormData;
         omBarnet: OmBarnetFormData;
         utenlandsopphold: UtenlandsoppholdFormData;
     };
@@ -18,6 +20,7 @@ export interface EngangsstønadContextState {
 export const engangsstønadInitialState: EngangsstønadContextState = {
     søknad: {
         velkommen: initialVelkommenValues,
+        søkersituasjon: initialSøkersituasjonValues,
         omBarnet: initialOmBarnetValues,
         utenlandsopphold: initialUtenlandsoppholdFormData,
     },

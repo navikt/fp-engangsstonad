@@ -2,8 +2,10 @@ import { OmBarnetFormData } from 'app/steps/om-barnet/omBarnetFormConfig';
 import Kvittering from 'app/types/services/Kvittering';
 import { UtenlandsoppholdFormData } from 'app/steps/utenlandsopphold/utenlandsoppholdFormTypes';
 import { VelkommenFormData } from 'app/pages/velkommen/velkommenFormConfig';
+import { SøkersituasjonFormData } from 'app/steps/søkersituasjon/søkersituasjonFormConfig';
 
 export enum EngangsstønadContextActionKeys {
+    'SET_SØKERSITUASJON' = 'setSøkersituasjon',
     'SET_OM_BARNET' = 'setOmBarnet',
     'SET_UTENLANDSOPPHOLD' = 'setUtenlandsopphold',
     'SET_VELKOMMEN' = 'setVelkommen',
@@ -39,6 +41,16 @@ const setVelkommen = (payload: VelkommenFormData): SetVelkommen => ({
     payload,
 });
 
+interface SetSøkersituasjon {
+    type: EngangsstønadContextActionKeys.SET_SØKERSITUASJON;
+    payload: SøkersituasjonFormData;
+}
+
+const setSøkersituasjon = (payload: SøkersituasjonFormData): SetSøkersituasjon => ({
+    type: EngangsstønadContextActionKeys.SET_SØKERSITUASJON,
+    payload,
+});
+
 interface SetUtenlandsopphold {
     type: EngangsstønadContextActionKeys.SET_UTENLANDSOPPHOLD;
     payload: UtenlandsoppholdFormData;
@@ -61,6 +73,7 @@ const setOmBarnet = (payload: OmBarnetFormData): SetOmBarnet => ({
 
 export type EngangsstønadContextAction =
     | SetOmBarnet
+    | SetSøkersituasjon
     | SetUtenlandsopphold
     | SetVelkommen
     | SetKvittering
@@ -68,6 +81,7 @@ export type EngangsstønadContextAction =
 
 export default {
     setVelkommen,
+    setSøkersituasjon,
     setOmBarnet,
     setUtenlandsopphold,
     setKvittering,

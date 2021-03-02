@@ -10,6 +10,7 @@ import InformasjonOmUtenlandsopphold, { Utenlandsopphold } from 'app/types/domai
 import { BostedUtland } from 'app/steps/utenlandsopphold/bostedUtlandListAndDialog/types';
 import dayjs from 'dayjs';
 import { Locale } from '@navikt/fp-common';
+import { OvertaOmsorg, Stebarn } from 'app/types/domain/Adopsjon';
 import utc from 'dayjs/plugin/utc';
 
 dayjs.extend(utc);
@@ -36,12 +37,41 @@ export const mapAttachments = (object: object): Attachment[] => {
     return foundAttachments;
 };
 
-const mapBarnForInnsending = (omBarnet: OmBarnetFormData): FodtBarn | UfodtBarn => {
+const mapBarnForInnsending = (omBarnet: OmBarnetFormData): FodtBarn | UfodtBarn | Stebarn | OvertaOmsorg => {
+    if (omBarnet.stebarnsadopsjon !== YesOrNo.UNANSWERED) {
+        if (omBarnet.stebarnsadopsjon === YesOrNo.YES) {
+            return {
+                stebarnsadopsjon: true,
+                adopsjonsdato: dayjs(omBarnet.adopsjonsdato).toDate(),
+                antallBarn: parseInt(omBarnet.antallBarn!, 10),
+                fødselsdatoer: [dayjs(omBarnet.fødselsdatoer![0]).toDate()],
+            };
+        }
+        if (omBarnet.stebarnsadopsjon === YesOrNo.NO && omBarnet.adoptertFraUtland === YesOrNo.YES) {
+            return {
+                stebarnsadopsjon: false,
+                adopsjonsdato: dayjs(omBarnet.adopsjonsdato).toDate(),
+                antallBarn: parseInt(omBarnet.antallBarn!, 10),
+                fødselsdatoer: [dayjs(omBarnet.fødselsdatoer![0]).toDate()],
+                adoptertFraUtland: true,
+                nårKommerBarnetDato: dayjs(omBarnet.nårKommerBarnetDato).toDate(),
+            };
+        }
+        if (omBarnet.stebarnsadopsjon === YesOrNo.NO && omBarnet.adoptertFraUtland === YesOrNo.NO) {
+            return {
+                stebarnsadopsjon: false,
+                adopsjonsdato: dayjs(omBarnet.adopsjonsdato).toDate(),
+                antallBarn: parseInt(omBarnet.antallBarn!, 10),
+                fødselsdatoer: [dayjs(omBarnet.fødselsdatoer![0]).toDate()],
+                adoptertFraUtland: false,
+            };
+        }
+    }
     return omBarnet.erBarnetFødt === YesOrNo.YES
         ? {
               antallBarn: parseInt(omBarnet.antallBarn!, 10),
               erBarnetFødt: true,
-              fødselsdatoer: [dayjs.utc(omBarnet.fødselsdato!).toDate()],
+              fødselsdatoer: [dayjs.utc(omBarnet.fødselsdatoer![0]).toDate()],
           }
         : {
               antallBarn: parseInt(omBarnet.antallBarn!, 10),
@@ -74,7 +104,7 @@ const mapUtenlandsoppholdForInnsending = (
 
 export const mapStateForInnsending = (state: EngangsstønadContextState, locale: Locale): EngangsstønadSøknadDto => {
     const { omBarnet, utenlandsopphold } = state.søknad;
-    const barn: FodtBarn | UfodtBarn = mapBarnForInnsending(omBarnet);
+    const barn: FodtBarn | UfodtBarn | Stebarn | OvertaOmsorg = mapBarnForInnsending(omBarnet);
     const utenlandsoppholdDto = mapUtenlandsoppholdForInnsending(utenlandsopphold);
 
     return {
