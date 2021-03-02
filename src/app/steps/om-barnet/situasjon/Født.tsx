@@ -3,6 +3,7 @@ import { YesOrNo } from '@navikt/sif-common-formik/lib';
 import { QuestionVisibility } from '@navikt/sif-common-question-config/lib';
 import getMessage from 'common/util/i18nUtils';
 import dayjs from 'dayjs';
+import { FieldArray } from 'formik';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { OmBarnetFormComponents, OmBarnetFormData, OmBarnetFormField } from '../omBarnetFormConfig';
@@ -59,14 +60,19 @@ const Født: React.FunctionComponent<Fødtprops> = ({ visibility, formValues }) 
                     )}
                 </>
             )}
-            {visibility.isVisible(OmBarnetFormField.fødselsdato) && (
+            {visibility.isVisible(OmBarnetFormField.fødselsdatoer) && (
                 <Block margin="xl">
-                    <OmBarnetFormComponents.DatePicker
-                        name={OmBarnetFormField.fødselsdato}
-                        label={getMessage(intl, 'søknad.fødselsdato')}
-                        minDate={dayjs().subtract(6, 'month').toDate()}
-                        maxDate={dayjs().toDate()}
-                        validate={validateFødselDate}
+                    <FieldArray
+                        name={OmBarnetFormField.fødselsdatoer}
+                        render={() => [
+                            <OmBarnetFormComponents.DatePicker
+                                name={`${OmBarnetFormField.fødselsdatoer}.0` as OmBarnetFormField}
+                                label={getMessage(intl, 'søknad.fødselsdato')}
+                                minDate={dayjs().subtract(6, 'month').toDate()}
+                                maxDate={dayjs().toDate()}
+                                validate={validateFødselDate}
+                            />,
+                        ]}
                     />
                 </Block>
             )}

@@ -63,7 +63,7 @@ const OmBarnet: React.FunctionComponent = () => {
                 stebarnsadopsjon: values.stebarnsadopsjon!,
                 antallBarn: values.antallBarn,
                 adopsjonsdato: values.adopsjonsdato,
-                fødselsdato: values.fødselsdato,
+                fødselsdatoer: values.fødselsdatoer || [],
                 termindato: values.termindato,
                 terminbekreftelse: values.terminbekreftelse || [],
                 adopsjonBekreftelse: values.adopsjonBekreftelse || [],

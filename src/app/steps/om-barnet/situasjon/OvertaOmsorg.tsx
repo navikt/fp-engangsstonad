@@ -73,16 +73,16 @@ const OvertoOmsorg: React.FunctionComponent<Fødtprops> = ({ visibility, formVal
                     )}
                 </>
             )}
-            {visibility.isVisible(OmBarnetFormField.fødselsdato) && (
+            {visibility.isVisible(OmBarnetFormField.fødselsdatoer) && (
                 <Block margin="xl">
                     <FieldArray
-                        name={OmBarnetFormField.fødselsdato}
+                        name={OmBarnetFormField.fødselsdatoer}
                         render={() =>
                             [...Array(parseInt(formValues.antallBarn!, 10))].map((_, index) => {
                                 return (
                                     <Block padBottom="l" key={`${index}`}>
                                         <OmBarnetFormComponents.DatePicker
-                                            name={`${OmBarnetFormField.fødselsdato}.${index}` as OmBarnetFormField}
+                                            name={`${OmBarnetFormField.fødselsdatoer}.${index}` as OmBarnetFormField}
                                             label={getMessage(
                                                 intl,
                                                 `omBarnet.adopsjon.spørsmål.fødselsdato.${index + 1}`

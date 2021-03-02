@@ -44,7 +44,7 @@ const mapBarnForInnsending = (omBarnet: OmBarnetFormData): FodtBarn | UfodtBarn 
                 stebarnsadopsjon: true,
                 adopsjonsdato: dayjs(omBarnet.adopsjonsdato).toDate(),
                 antallBarn: parseInt(omBarnet.antallBarn!, 10),
-                fødselsdatoer: [dayjs(omBarnet.fødselsdato!).toDate()],
+                fødselsdatoer: [dayjs(omBarnet.fødselsdatoer![0]).toDate()],
             };
         }
         if (omBarnet.stebarnsadopsjon === YesOrNo.NO && omBarnet.adoptertFraUtland === YesOrNo.YES) {
@@ -52,9 +52,9 @@ const mapBarnForInnsending = (omBarnet: OmBarnetFormData): FodtBarn | UfodtBarn 
                 stebarnsadopsjon: false,
                 adopsjonsdato: dayjs(omBarnet.adopsjonsdato).toDate(),
                 antallBarn: parseInt(omBarnet.antallBarn!, 10),
-                fødselsdatoer: [dayjs(omBarnet.fødselsdato!).toDate()],
+                fødselsdatoer: [dayjs(omBarnet.fødselsdatoer![0]).toDate()],
                 adoptertFraUtland: true,
-                nårKommerBarnetDato: dayjs(omBarnet.termindato).toDate(),
+                nårKommerBarnetDato: dayjs(omBarnet.nårKommerBarnetDato).toDate(),
             };
         }
         if (omBarnet.stebarnsadopsjon === YesOrNo.NO && omBarnet.adoptertFraUtland === YesOrNo.NO) {
@@ -62,7 +62,7 @@ const mapBarnForInnsending = (omBarnet: OmBarnetFormData): FodtBarn | UfodtBarn 
                 stebarnsadopsjon: false,
                 adopsjonsdato: dayjs(omBarnet.adopsjonsdato).toDate(),
                 antallBarn: parseInt(omBarnet.antallBarn!, 10),
-                fødselsdatoer: [dayjs(omBarnet.fødselsdato!).toDate()],
+                fødselsdatoer: [dayjs(omBarnet.fødselsdatoer![0]).toDate()],
                 adoptertFraUtland: false,
             };
         }
@@ -71,7 +71,7 @@ const mapBarnForInnsending = (omBarnet: OmBarnetFormData): FodtBarn | UfodtBarn 
         ? {
               antallBarn: parseInt(omBarnet.antallBarn!, 10),
               erBarnetFødt: true,
-              fødselsdatoer: [dayjs.utc(omBarnet.fødselsdato!).toDate()],
+              fødselsdatoer: [dayjs.utc(omBarnet.fødselsdatoer![0]).toDate()],
           }
         : {
               antallBarn: parseInt(omBarnet.antallBarn!, 10),

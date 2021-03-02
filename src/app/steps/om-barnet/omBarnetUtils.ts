@@ -10,7 +10,7 @@ export const cleanupOmBarnet = (formData: OmBarnetFormData): OmBarnetFormData =>
 
     if (formData.erBarnetFødt === YesOrNo.YES) {
         cleanedData.antallBarn = formData.antallBarn;
-        cleanedData.fødselsdato = formData.fødselsdato;
+        cleanedData.fødselsdatoer = formData.fødselsdatoer;
         cleanedData.erBarnetFødt = formData.erBarnetFødt;
     }
     if (formData.erBarnetFødt === YesOrNo.NO) {
@@ -23,14 +23,14 @@ export const cleanupOmBarnet = (formData: OmBarnetFormData): OmBarnetFormData =>
     if (formData.stebarnsadopsjon === YesOrNo.YES) {
         cleanedData.antallBarn = formData.antallBarn;
         cleanedData.adopsjonsdato = formData.adopsjonsdato;
-        cleanedData.fødselsdato = formData.fødselsdato;
+        cleanedData.fødselsdatoer = formData.fødselsdatoer;
         cleanedData.adopsjonBekreftelse = formData.adopsjonBekreftelse;
         cleanedData.stebarnsadopsjon = formData.stebarnsadopsjon;
     }
     if (formData.stebarnsadopsjon === YesOrNo.NO) {
         cleanedData.antallBarn = formData.antallBarn;
         cleanedData.adopsjonsdato = formData.adopsjonsdato;
-        cleanedData.fødselsdato = formData.fødselsdato;
+        cleanedData.fødselsdatoer = formData.fødselsdatoer;
         cleanedData.adoptertFraUtland = formData.adoptertFraUtland;
         cleanedData.nårKommerBarnetDato = formData.nårKommerBarnetDato;
         cleanedData.adopsjonsbevilling = formData.adopsjonsbevilling;

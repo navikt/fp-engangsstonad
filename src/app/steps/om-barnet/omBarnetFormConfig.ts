@@ -6,7 +6,7 @@ export enum OmBarnetFormField {
     stebarnsadopsjon = 'stebarnsadopsjon',
     antallBarn = 'antallBarn',
     adopsjonsdato = 'adopsjonsdato',
-    fødselsdato = 'fødselsdato',
+    fødselsdatoer = 'fødselsdatoer',
     termindato = 'termindato',
     adopsjonBekreftelse = 'adopsjonBekreftelse',
     terminbekreftelse = 'terminbekreftelse',
@@ -21,7 +21,7 @@ export interface OmBarnetFormData {
     [OmBarnetFormField.stebarnsadopsjon]: YesOrNo;
     [OmBarnetFormField.antallBarn]?: string;
     [OmBarnetFormField.adopsjonsdato]?: string;
-    [OmBarnetFormField.fødselsdato]?: string;
+    [OmBarnetFormField.fødselsdatoer]: string[];
     [OmBarnetFormField.termindato]?: string;
     [OmBarnetFormField.adopsjonBekreftelse]: any[];
     [OmBarnetFormField.adoptertFraUtland]: YesOrNo;
@@ -36,7 +36,7 @@ export const initialOmBarnetValues: OmBarnetFormData = {
     [OmBarnetFormField.stebarnsadopsjon]: YesOrNo.UNANSWERED,
     [OmBarnetFormField.antallBarn]: undefined,
     [OmBarnetFormField.adopsjonsdato]: undefined,
-    [OmBarnetFormField.fødselsdato]: undefined,
+    [OmBarnetFormField.fødselsdatoer]: [],
     [OmBarnetFormField.termindato]: undefined,
     [OmBarnetFormField.adopsjonBekreftelse]: [],
     [OmBarnetFormField.adoptertFraUtland]: YesOrNo.UNANSWERED,

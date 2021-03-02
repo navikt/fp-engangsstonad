@@ -10,7 +10,7 @@ import Veilederpanel from 'nav-frontend-veilederpanel';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { OmBarnetFormComponents, OmBarnetFormData, OmBarnetFormField } from '../omBarnetFormConfig';
-import { validateAdopsjonDate, validateFødselDate } from '../omBarnetValidering';
+import { validateAdopsjonDate, validateAdopsjonFødselDate } from '../omBarnetValidering';
 
 interface Fødtprops {
     formValues: OmBarnetFormData;
@@ -23,6 +23,7 @@ const Stebarnsadopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, for
     if (formValues.stebarnsadopsjon === YesOrNo.NO || formValues.stebarnsadopsjon === YesOrNo.UNANSWERED) {
         return null;
     }
+
     return (
         <>
             {visibility.isVisible(OmBarnetFormField.adopsjonsdato) && (
@@ -74,23 +75,23 @@ const Stebarnsadopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, for
                     )}
                 </>
             )}
-            {visibility.isVisible(OmBarnetFormField.fødselsdato) && (
+            {visibility.isVisible(OmBarnetFormField.fødselsdatoer) && (
                 <Block margin="xl">
                     <FieldArray
-                        name={OmBarnetFormField.fødselsdato}
+                        name={OmBarnetFormField.fødselsdatoer}
                         render={() =>
                             [...Array(parseInt(formValues.antallBarn!, 10))].map((_, index) => {
                                 return (
                                     <Block padBottom="l" key={`${index}`}>
                                         <OmBarnetFormComponents.DatePicker
-                                            name={`${OmBarnetFormField.fødselsdato}.${index}` as OmBarnetFormField}
+                                            name={`${OmBarnetFormField.fødselsdatoer}.${index}` as OmBarnetFormField}
                                             label={getMessage(
                                                 intl,
                                                 `omBarnet.adopsjon.spørsmål.fødselsdato.${index + 1}`
                                             )}
-                                            minDate={dayjs().subtract(6, 'month').toDate()}
+                                            minDate={dayjs().subtract(15, 'year').subtract(6, 'month').toDate()}
                                             maxDate={dayjs().toDate()}
-                                            validate={validateFødselDate}
+                                            validate={validateAdopsjonFødselDate}
                                         />
                                     </Block>
                                 );
@@ -118,27 +119,6 @@ const Stebarnsadopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, for
                     </Block>
                 </>
             )}
-            {/*
-            {visibility.isVisible(OmBarnetFormField.adopsjonsbevilling) && (
-                <>
-                    <Block margin="xl">
-                        <Veilederpanel kompakt={true} svg={<Veileder />}>
-                            {getMessage(intl, 'terminbekreftelsen.text.terminbekreftelsen')}
-                        </Veilederpanel>
-                    </Block>
-                    <Block margin="xl">
-                        <FormikFileUploader
-                            attachments={formValues.adopsjonBekreftelse || []}
-                            label={getMessage(intl, 'vedlegg.lastoppknapp.label')}
-                            name={OmBarnetFormField.adopsjonsbevilling}
-                        />
-                        <UtvidetInformasjon apneLabel={<FormattedMessage id="psg.åpneLabel" />}>
-                            <PictureScanningGuide />
-                        </UtvidetInformasjon>
-                    </Block>
-                </>
-            )}
-            */}
         </>
     );
 };
