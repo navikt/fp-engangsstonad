@@ -12,6 +12,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { OmBarnetFormComponents, OmBarnetFormData, OmBarnetFormField } from '../omBarnetFormConfig';
 import { validateAdopsjonDate, validateAdopsjonFødselDate, validateNårKommerBarnetDate } from '../omBarnetValidering';
 
+
 interface Fødtprops {
     formValues: OmBarnetFormData;
     visibility: QuestionVisibility<OmBarnetFormField, undefined>;
