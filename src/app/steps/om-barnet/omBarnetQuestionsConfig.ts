@@ -29,10 +29,10 @@ const OmBarnetFormConfig: QuestionConfig<OmBarnetQuestionPayload, OmBarnetFormFi
         isAnswered: ({ adopsjonsdato }) => adopsjonsdato !== undefined,
         visibilityFilter: ({ stebarnsadopsjon }) => stebarnsadopsjon !== YesOrNo.UNANSWERED,
     },
+
     [OmBarnetFormField.fødselsdatoer]: {
         isIncluded: ({ erBarnetFødt, stebarnsadopsjon }) =>
-            erBarnetFødt === YesOrNo.YES || stebarnsadopsjon !== undefined,
-        //isAnswered: ({ fødselsdatoer }) => fødselsdatoer !== undefined,
+            erBarnetFødt === YesOrNo.YES || stebarnsadopsjon !== YesOrNo.UNANSWERED,
         isAnswered: ({ fødselsdatoer }) => fødselsdatoer.length > 0 && fødselsdatoer[0] !== '',
         visibilityFilter: ({ antallBarn }) => antallBarn !== undefined,
     },
@@ -69,7 +69,7 @@ const OmBarnetFormConfig: QuestionConfig<OmBarnetQuestionPayload, OmBarnetFormFi
     },
     [OmBarnetFormField.terminbekreftelsedato]: {
         isIncluded: ({ erBarnetFødt }) => erBarnetFødt === YesOrNo.NO,
-        isAnswered: ({ terminbekreftelsedato }) => terminbekreftelsedato !== undefined,
+        isAnswered: ({ terminbekreftelsedato }) => terminbekreftelsedato !== undefined || terminbekreftelsedato === '',
         visibilityFilter: ({ terminbekreftelse }) => terminbekreftelse.length > 0,
     },
 };
