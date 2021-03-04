@@ -29,7 +29,6 @@ const OmBarnetFormConfig: QuestionConfig<OmBarnetQuestionPayload, OmBarnetFormFi
         isAnswered: ({ adopsjonsdato }) => adopsjonsdato !== undefined,
         visibilityFilter: ({ stebarnsadopsjon }) => stebarnsadopsjon !== YesOrNo.UNANSWERED,
     },
-
     [OmBarnetFormField.fødselsdatoer]: {
         isIncluded: ({ erBarnetFødt, stebarnsadopsjon }) =>
             erBarnetFødt === YesOrNo.YES || stebarnsadopsjon !== YesOrNo.UNANSWERED,
