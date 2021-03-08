@@ -9,9 +9,24 @@ import {
 } from '@navikt/fp-common';
 import dayjs from 'dayjs';
 
-const ststeDatoAdoptertBarnKanVæreFødt = (dato: string) => {
+const sisteDatoAdoptertBarnKanVæreFødt = (dato: string) => {
     const sisteMuligeAdopsjonsFødselsDato = dayjs().subtract(15, 'year').subtract(6, 'month').startOf('day').toDate();
     return dayjs(dato).isBefore(sisteMuligeAdopsjonsFødselsDato);
+};
+
+const sisteMuligeDatoForOvertaOmsorg = (dato: string) => {
+    const sisteDatoForOvertaOmsorg = dayjs().add(3, 'year').startOf('day').toDate();
+    return dayjs(dato).isAfter(sisteDatoForOvertaOmsorg);
+};
+
+export const validateOvertaOmsorg = (dato: string) => {
+    if (!hasValue(dato)) {
+        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.duMåOppgi');
+    }
+    if (sisteMuligeDatoForOvertaOmsorg(dato)) {
+        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.forLangtFremITid');
+    }
+    return undefined;
 };
 
 export const validateAdopsjonDate = (dato: string) => {
@@ -48,7 +63,7 @@ export const validateAdopsjonFødselDate = (dato: string) => {
     if (etterDagensDato(dato)) {
         return createFieldValidationError('valideringsfeil.omBarnet.fodselsdato.måVæreIdagEllerTidligere');
     }
-    if (ststeDatoAdoptertBarnKanVæreFødt(dato)) {
+    if (sisteDatoAdoptertBarnKanVæreFødt(dato)) {
         return createFieldValidationError('valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn15Årog6MånederTilbake');
     }
     return undefined;

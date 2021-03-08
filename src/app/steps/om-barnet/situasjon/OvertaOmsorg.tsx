@@ -10,8 +10,7 @@ import Veilederpanel from 'nav-frontend-veilederpanel';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { OmBarnetFormComponents, OmBarnetFormData, OmBarnetFormField } from '../omBarnetFormConfig';
-import { validateAdopsjonDate, validateAdopsjonFødselDate, validateNårKommerBarnetDate } from '../omBarnetValidering';
-
+import { validateOvertaOmsorg, validateAdopsjonFødselDate } from '../omBarnetValidering';
 
 interface Fødtprops {
     formValues: OmBarnetFormData;
@@ -31,8 +30,7 @@ const OvertoOmsorg: React.FunctionComponent<Fødtprops> = ({ visibility, formVal
                         name={OmBarnetFormField.adopsjonsdato}
                         label={getMessage(intl, 'omBarnet.adopsjon.spørsmål.overtaomsorgdato')}
                         minDate={dayjs().subtract(6, 'month').toDate()}
-                        maxDate={dayjs().toDate()}
-                        validate={validateAdopsjonDate}
+                        validate={validateOvertaOmsorg}
                     />
                 </Block>
             )}
@@ -108,17 +106,6 @@ const OvertoOmsorg: React.FunctionComponent<Fødtprops> = ({ visibility, formVal
                             no: getMessage(intl, 'omBarnet.adopsjon.text.stebarnsadopsjon.nei'),
                             yes: getMessage(intl, 'omBarnet.adopsjon.text.stebarnsadopsjon.ja'),
                         }}
-                    />
-                </Block>
-            )}
-            {visibility.isVisible(OmBarnetFormField.nårKommerBarnetDato) && (
-                <Block margin="xl">
-                    <OmBarnetFormComponents.DatePicker
-                        name={OmBarnetFormField.nårKommerBarnetDato}
-                        label={getMessage(intl, 'ombarnet.adopsjon.spørsmål.nårKommerBarnetDato')}
-                        minDate={dayjs().subtract(6, 'month').toDate()}
-                        maxDate={dayjs().toDate()}
-                        validate={validateNårKommerBarnetDate}
                     />
                 </Block>
             )}

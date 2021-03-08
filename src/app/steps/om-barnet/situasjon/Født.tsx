@@ -66,6 +66,7 @@ const Født: React.FunctionComponent<Fødtprops> = ({ visibility, formValues }) 
                         name={OmBarnetFormField.fødselsdatoer}
                         render={() => [
                             <OmBarnetFormComponents.DatePicker
+                                key={`${OmBarnetFormField.fødselsdatoer}.0`}
                                 name={`${OmBarnetFormField.fødselsdatoer}.0` as OmBarnetFormField}
                                 label={getMessage(intl, 'søknad.fødselsdato')}
                                 minDate={dayjs().subtract(6, 'month').toDate()}

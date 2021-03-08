@@ -45,16 +45,10 @@ const OmBarnetFormConfig: QuestionConfig<OmBarnetQuestionPayload, OmBarnetFormFi
         isAnswered: ({ adoptertFraUtland }) => adoptertFraUtland !== YesOrNo.UNANSWERED,
         visibilityFilter: ({ antallBarn }) => antallBarn !== undefined,
     },
-    [OmBarnetFormField.nårKommerBarnetDato]: {
-        isIncluded: ({ stebarnsadopsjon }) => stebarnsadopsjon === YesOrNo.NO,
-        isAnswered: ({ nårKommerBarnetDato }) => nårKommerBarnetDato !== undefined,
-        visibilityFilter: ({ adoptertFraUtland }) => adoptertFraUtland === YesOrNo.YES,
-    },
     [OmBarnetFormField.adopsjonsbevilling]: {
         isIncluded: ({ stebarnsadopsjon }) => stebarnsadopsjon === YesOrNo.NO,
         isAnswered: ({ adopsjonsbevilling }) => adopsjonsbevilling.length > 0,
-        visibilityFilter: ({ nårKommerBarnetDato, adoptertFraUtland }) =>
-            nårKommerBarnetDato !== undefined || adoptertFraUtland === YesOrNo.NO,
+        visibilityFilter: ({ adoptertFraUtland }) => adoptertFraUtland === YesOrNo.NO,
     },
     [OmBarnetFormField.termindato]: {
         isIncluded: ({ erBarnetFødt }) => erBarnetFødt === YesOrNo.NO,
