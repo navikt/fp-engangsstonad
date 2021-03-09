@@ -31,6 +31,8 @@ const OvertoOmsorg: React.FunctionComponent<Fødtprops> = ({ visibility, formVal
                         label={getMessage(intl, 'omBarnet.adopsjon.spørsmål.overtaomsorgdato')}
                         minDate={dayjs().subtract(6, 'month').toDate()}
                         validate={validateOvertaOmsorg}
+                        placeholder={'dd.mm.åååå'}
+
                     />
                 </Block>
             )}
@@ -89,23 +91,12 @@ const OvertoOmsorg: React.FunctionComponent<Fødtprops> = ({ visibility, formVal
                                             minDate={dayjs().subtract(15, 'year').subtract(6, 'month').toDate()}
                                             maxDate={dayjs().toDate()}
                                             validate={validateAdopsjonFødselDate}
+                                            placeholder={'dd.mm.åååå'}
                                         />
                                     </Block>
                                 );
                             })
                         }
-                    />
-                </Block>
-            )}
-            {visibility.isVisible(OmBarnetFormField.adoptertFraUtland) && (
-                <Block margin="xl">
-                    <OmBarnetFormComponents.YesOrNoQuestion
-                        name={OmBarnetFormField.adoptertFraUtland}
-                        legend={getMessage(intl, 'omBarnet.adopsjon.spørsmål.adoptertFraUtland')}
-                        labels={{
-                            no: getMessage(intl, 'omBarnet.adopsjon.text.stebarnsadopsjon.nei'),
-                            yes: getMessage(intl, 'omBarnet.adopsjon.text.stebarnsadopsjon.ja'),
-                        }}
                     />
                 </Block>
             )}

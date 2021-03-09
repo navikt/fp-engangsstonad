@@ -72,6 +72,7 @@ const Født: React.FunctionComponent<Fødtprops> = ({ visibility, formValues }) 
                                 minDate={dayjs().subtract(6, 'month').toDate()}
                                 maxDate={dayjs().toDate()}
                                 validate={validateFødselDate}
+                                placeholder={'dd.mm.åååå'}
                             />,
                         ]}
                     />

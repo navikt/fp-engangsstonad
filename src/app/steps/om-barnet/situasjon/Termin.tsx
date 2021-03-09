@@ -70,6 +70,7 @@ const Termin: React.FunctionComponent<Fødtprops> = ({ visibility, formValues })
                         minDate={dayjs().subtract(3, 'week').toDate()}
                         maxDate={dayjs().add(17, 'weeks').toDate()}
                         validate={validateTerminDate}
+                        placeholder={'dd.mm.åååå'}
                     />
                 </Block>
             )}

@@ -34,6 +34,7 @@ const Stebarnsadopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, for
                         minDate={dayjs().subtract(6, 'month').toDate()}
                         maxDate={dayjs().toDate()}
                         validate={validateAdopsjonDate}
+                        placeholder={'dd.mm.åååå'}
                     />
                 </Block>
             )}
@@ -92,6 +93,7 @@ const Stebarnsadopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, for
                                             minDate={dayjs().subtract(15, 'year').subtract(6, 'month').toDate()}
                                             maxDate={dayjs().toDate()}
                                             validate={validateAdopsjonFødselDate}
+                                            placeholder={'dd.mm.åååå'}
                                         />
                                     </Block>
                                 );

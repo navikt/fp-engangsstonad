@@ -46,14 +46,16 @@ const OmBarnetOppsummering: React.FunctionComponent<Props> = ({ barn }) => {
                             ? getMessage(intl, 'oppsummering.text.medFødselsdatoer')
                             : getMessage(intl, 'oppsummering.text.medFødselsdato')}
                     </EtikettLiten>
-                    {barn.fødselsdatoer.map((_, index) => {
-                        return (
-                            <div key={index}>
-                                <Labeltekst>{formatDate(barn.fødselsdatoer![index])}</Labeltekst>
-                                <br />
-                            </div>
-                        );
-                    })}
+                    <Block margin="l" padBottom="l">
+                        {barn.fødselsdatoer.map((_, index) => {
+                            return (
+                                <div key={index}>
+                                    <Labeltekst>{formatDate(barn.fødselsdatoer![index])}</Labeltekst>
+                                    <br />
+                                </div>
+                            );
+                        })}
+                    </Block>
                 </div>
             )}
             {barn.stebarnsadopsjon === YesOrNo.YES && (
@@ -68,6 +70,7 @@ const OmBarnetOppsummering: React.FunctionComponent<Props> = ({ barn }) => {
             )}
             {barn.stebarnsadopsjon === YesOrNo.NO && (
                 <div>
+                    {/*
                     <DisplayTextWithLabel
                         label={getMessage(intl, 'oppsummering.text.adoptertFraUtland')}
                         text={
@@ -82,6 +85,7 @@ const OmBarnetOppsummering: React.FunctionComponent<Props> = ({ barn }) => {
                             text={formatDate(barn.nårKommerBarnetDato!)}
                         />
                     )}
+                    */}
                     <div className="oppsummering__attachments">
                         <EtikettLiten className="textWithLabel__label">
                             {getMessage(intl, 'oppsummering.text.vedlagtAdopsjonsBevilling')}

@@ -43,7 +43,7 @@
         "is-valid-fodselsnummer": "^3.0.5",
         "lodash": "^4.17.20",
         "morgan": "^1.9.1",
-        "nav-datovelger": "^9.0.1",
+        "nav-datovelger": "^10.1.2",
         "nav-frontend-alertstriper": "^3.0.38",
         "nav-frontend-alertstriper-style": "^2.0.30",
         "nav-frontend-chevron": "^1.0.24",
