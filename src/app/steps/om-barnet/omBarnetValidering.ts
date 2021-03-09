@@ -21,10 +21,10 @@ const sisteMuligeDatoForOvertaOmsorg = (dato: string) => {
 
 export const validateOvertaOmsorg = (dato: string) => {
     if (!hasValue(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.duMåOppgi');
+        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.overtaOmsorg.duMåOppgi');
     }
     if (sisteMuligeDatoForOvertaOmsorg(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.forLangtFremITid');
+        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.overtaOmsorg.forLangtFremITid');
     }
     return undefined;
 };
