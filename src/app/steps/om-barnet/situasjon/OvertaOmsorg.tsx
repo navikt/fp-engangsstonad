@@ -32,6 +32,7 @@ const OvertoOmsorg: React.FunctionComponent<Fødtprops> = ({ visibility, formVal
                         minDate={dayjs().subtract(6, 'month').toDate()}
                         validate={validateOvertaOmsorg}
                         placeholder={'dd.mm.åååå'}
+
                     />
                 </Block>
             )}
