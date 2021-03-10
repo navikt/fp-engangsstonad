@@ -17,10 +17,13 @@ interface Fødtprops {
     visibility: QuestionVisibility<OmBarnetFormField, undefined>;
 }
 
-const Stebarnsadopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues }) => {
+const AdopsjonAvEktefellesBarn: React.FunctionComponent<Fødtprops> = ({ visibility, formValues }) => {
     const intl = useIntl();
 
-    if (formValues.stebarnsadopsjon === YesOrNo.NO || formValues.stebarnsadopsjon === YesOrNo.UNANSWERED) {
+    if (
+        formValues.adopsjonAvEktefellesBarn === YesOrNo.NO ||
+        formValues.adopsjonAvEktefellesBarn === YesOrNo.UNANSWERED
+    ) {
         return null;
     }
 
@@ -102,7 +105,7 @@ const Stebarnsadopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, for
                     />
                 </Block>
             )}
-            {visibility.isVisible(OmBarnetFormField.adopsjonBekreftelse) && (
+            {visibility.isVisible(OmBarnetFormField.omsorgsovertakelse) && (
                 <>
                     <Block margin="xl">
                         <Veilederpanel kompakt={true} svg={<Veileder />}>
@@ -111,9 +114,9 @@ const Stebarnsadopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, for
                     </Block>
                     <Block margin="xl">
                         <FormikFileUploader
-                            attachments={formValues.adopsjonBekreftelse || []}
+                            attachments={formValues.omsorgsovertakelse || []}
                             label={getMessage(intl, 'vedlegg.lastoppknapp.label')}
-                            name={OmBarnetFormField.adopsjonBekreftelse}
+                            name={OmBarnetFormField.omsorgsovertakelse}
                         />
                         <UtvidetInformasjon apneLabel={<FormattedMessage id="psg.åpneLabel" />}>
                             <PictureScanningGuide />
@@ -124,4 +127,4 @@ const Stebarnsadopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, for
         </>
     );
 };
-export default Stebarnsadopsjon;
+export default AdopsjonAvEktefellesBarn;
