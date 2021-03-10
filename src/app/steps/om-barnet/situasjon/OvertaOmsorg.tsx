@@ -19,7 +19,10 @@ interface Fødtprops {
 
 const OvertoOmsorg: React.FunctionComponent<Fødtprops> = ({ visibility, formValues }) => {
     const intl = useIntl();
-    if (formValues.stebarnsadopsjon === YesOrNo.YES || formValues.stebarnsadopsjon === YesOrNo.UNANSWERED) {
+    if (
+        formValues.adopsjonAvEktefellesBarn === YesOrNo.YES ||
+        formValues.adopsjonAvEktefellesBarn === YesOrNo.UNANSWERED
+    ) {
         return null;
     }
     return (
@@ -32,7 +35,6 @@ const OvertoOmsorg: React.FunctionComponent<Fødtprops> = ({ visibility, formVal
                         minDate={dayjs().subtract(6, 'month').toDate()}
                         validate={validateOvertaOmsorg}
                         placeholder={'dd.mm.åååå'}
-
                     />
                 </Block>
             )}
@@ -100,7 +102,7 @@ const OvertoOmsorg: React.FunctionComponent<Fødtprops> = ({ visibility, formVal
                     />
                 </Block>
             )}
-            {visibility.isVisible(OmBarnetFormField.adopsjonsbevilling) && (
+            {visibility.isVisible(OmBarnetFormField.omsorgsovertakelse) && (
                 <>
                     <Block margin="xl">
                         <Veilederpanel kompakt={true} svg={<Veileder />}>
@@ -109,9 +111,9 @@ const OvertoOmsorg: React.FunctionComponent<Fødtprops> = ({ visibility, formVal
                     </Block>
                     <Block margin="xl">
                         <FormikFileUploader
-                            attachments={formValues.adopsjonsbevilling || []}
+                            attachments={formValues.omsorgsovertakelse || []}
                             label={getMessage(intl, 'vedlegg.lastoppknapp.label')}
-                            name={OmBarnetFormField.adopsjonsbevilling}
+                            name={OmBarnetFormField.omsorgsovertakelse}
                         />
                         <UtvidetInformasjon apneLabel={<FormattedMessage id="psg.åpneLabel" />}>
                             <PictureScanningGuide />

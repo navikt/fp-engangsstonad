@@ -27,15 +27,7 @@ const getAttachmentFromFile = (file: File, name: string): Attachment => {
     if (name === OmBarnetFormField.terminbekreftelse) {
         return mapFileToAttachment(file, AttachmentType.TERMINBEKREFTELSE, Skjemanummer.TERMINBEKREFTELSE);
     }
-    if (name === OmBarnetFormField.adopsjonBekreftelse) {
-        return mapFileToAttachment(file, AttachmentType.ADOPSJONBEKREFTELSE, Skjemanummer.ADOPSJONBEKREFTELSE);
-    }
-    /*
-    if (name === OmBarnetFormField.adopsjonsbevilling) {
-        return mapFileToAttachment(file, AttachmentType.ADOPSJONSBEVILLING, Skjemanummer.ADOPSJONSBEVILLING);
-    }
-    */
-    return mapFileToAttachment(file, AttachmentType.ADOPSJONSBEVILLING, Skjemanummer.ADOPSJONSBEVILLING);
+    return mapFileToAttachment(file, AttachmentType.OMSORGSOVERTAKELSE, Skjemanummer.OMSORGSOVERTAKELSE);
 };
 
 const getPendingAttachmentFromFile = (file: File, name: string): Attachment => {

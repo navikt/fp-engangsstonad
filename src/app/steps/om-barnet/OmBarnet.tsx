@@ -19,17 +19,21 @@ import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadCon
 import Født from './situasjon/Født';
 import Termin from './situasjon/Termin';
 import OvertaOmsorg from './situasjon/OvertaOmsorg';
-import Stebarnsadopsjon from './situasjon/Stebarnsadopsjon';
+import AdopsjonAvEktefellesBarn from './situasjon/AdopsjonAvEktefellesBarn';
 
 import './omBarnet.less';
 import { onAvbrytSøknad } from 'app/util/globalUtil';
 import { logAmplitudeEvent } from 'app/amplitude/amplitude';
 import { PageKeys } from 'app/types/PageKeys';
 
-const shouldResetInitialValues = (situasjon: string, erBarnetFødt: YesOrNo, stebarnsadopsjon: YesOrNo): boolean => {
+const shouldResetInitialValues = (
+    situasjon: string,
+    erBarnetFødt: YesOrNo,
+    adopsjonAvEktefellesBarn: YesOrNo
+): boolean => {
     if (
         (situasjon === 'adopsjon' && erBarnetFødt !== YesOrNo.UNANSWERED) ||
-        (situasjon === 'fødsel' && stebarnsadopsjon !== YesOrNo.UNANSWERED)
+        (situasjon === 'fødsel' && adopsjonAvEktefellesBarn !== YesOrNo.UNANSWERED)
     ) {
         return true;
     }
@@ -46,7 +50,7 @@ const OmBarnet: React.FunctionComponent = () => {
     const søkersituasjonValues = state.søknad.søkersituasjon;
     const { omBarnet } = state.søknad;
     const { situasjon } = søkersituasjonValues;
-    const initialValues = shouldResetInitialValues(situasjon!, omBarnet.erBarnetFødt, omBarnet.stebarnsadopsjon)
+    const initialValues = shouldResetInitialValues(situasjon!, omBarnet.erBarnetFødt, omBarnet.adopsjonAvEktefellesBarn)
         ? initialOmBarnetValues
         : omBarnet;
 
@@ -60,17 +64,14 @@ const OmBarnet: React.FunctionComponent = () => {
         dispatch(
             actionCreator.setOmBarnet({
                 erBarnetFødt: values.erBarnetFødt!,
-                stebarnsadopsjon: values.stebarnsadopsjon!,
+                adopsjonAvEktefellesBarn: values.adopsjonAvEktefellesBarn!,
                 antallBarn: values.antallBarn,
                 adopsjonsdato: values.adopsjonsdato,
                 fødselsdatoer: values.fødselsdatoer || [],
                 termindato: values.termindato,
                 terminbekreftelse: values.terminbekreftelse || [],
-                adopsjonBekreftelse: values.adopsjonBekreftelse || [],
+                omsorgsovertakelse: values.omsorgsovertakelse || [],
                 terminbekreftelsedato: values.terminbekreftelsedato,
-                adoptertFraUtland: values.adoptertFraUtland!,
-                nårKommerBarnetDato: values.nårKommerBarnetDato,
-                adopsjonsbevilling: values.adopsjonsbevilling || [],
             })
         );
         history.push('/soknad/utenlandsopphold');
@@ -115,7 +116,7 @@ const OmBarnet: React.FunctionComponent = () => {
                                 {søkersituasjonValues.situasjon === 'adopsjon' ? (
                                     <Block>
                                         <OmBarnetFormComponents.YesOrNoQuestion
-                                            name={OmBarnetFormField.stebarnsadopsjon}
+                                            name={OmBarnetFormField.adopsjonAvEktefellesBarn}
                                             legend={getMessage(intl, 'omBarnet.adopsjon.spørsmål.stebarnsadopsjon')}
                                             labels={{
                                                 no: getMessage(intl, 'omBarnet.adopsjon.text.stebarnsadopsjon.nei'),
@@ -139,7 +140,7 @@ const OmBarnet: React.FunctionComponent = () => {
                                 <Født visibility={visibility} formValues={formValues} />
                                 <OvertaOmsorg visibility={visibility} formValues={formValues} />
                                 <Termin visibility={visibility} formValues={formValues} />
-                                <Stebarnsadopsjon visibility={visibility} formValues={formValues} />
+                                <AdopsjonAvEktefellesBarn visibility={visibility} formValues={formValues} />
 
                                 {allQuestionsAnswered && (
                                     <Block margin="xl" textAlignCenter={true}>

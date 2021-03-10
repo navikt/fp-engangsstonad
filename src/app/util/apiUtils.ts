@@ -10,8 +10,9 @@ import InformasjonOmUtenlandsopphold, { Utenlandsopphold } from 'app/types/domai
 import { BostedUtland } from 'app/steps/utenlandsopphold/bostedUtlandListAndDialog/types';
 import dayjs from 'dayjs';
 import { Locale } from '@navikt/fp-common';
-import { OvertaOmsorg, Stebarn } from 'app/types/domain/Adopsjon';
+
 import utc from 'dayjs/plugin/utc';
+import Adopsjon from 'app/types/domain/Adopsjon';
 
 dayjs.extend(utc);
 
@@ -37,33 +38,22 @@ export const mapAttachments = (object: object): Attachment[] => {
     return foundAttachments;
 };
 
-const mapBarnForInnsending = (omBarnet: OmBarnetFormData): FodtBarn | UfodtBarn | Stebarn | OvertaOmsorg => {
-    if (omBarnet.stebarnsadopsjon !== YesOrNo.UNANSWERED) {
-        if (omBarnet.stebarnsadopsjon === YesOrNo.YES) {
+const mapBarnForInnsending = (omBarnet: OmBarnetFormData): FodtBarn | UfodtBarn | Adopsjon => {
+    if (omBarnet.adopsjonAvEktefellesBarn !== YesOrNo.UNANSWERED) {
+        if (omBarnet.adopsjonAvEktefellesBarn === YesOrNo.YES) {
             return {
-                stebarnsadopsjon: true,
+                adopsjonAvEktefellesBarn: true,
                 adopsjonsdato: dayjs(omBarnet.adopsjonsdato).toDate(),
                 antallBarn: parseInt(omBarnet.antallBarn!, 10),
                 fødselsdatoer: [dayjs(omBarnet.fødselsdatoer![0]).toDate()],
             };
         }
-        if (omBarnet.stebarnsadopsjon === YesOrNo.NO && omBarnet.adoptertFraUtland === YesOrNo.YES) {
+        if (omBarnet.adopsjonAvEktefellesBarn === YesOrNo.NO) {
             return {
-                stebarnsadopsjon: false,
+                adopsjonAvEktefellesBarn: false,
                 adopsjonsdato: dayjs(omBarnet.adopsjonsdato).toDate(),
                 antallBarn: parseInt(omBarnet.antallBarn!, 10),
                 fødselsdatoer: [dayjs(omBarnet.fødselsdatoer![0]).toDate()],
-                adoptertFraUtland: true,
-                nårKommerBarnetDato: dayjs(omBarnet.nårKommerBarnetDato).toDate(),
-            };
-        }
-        if (omBarnet.stebarnsadopsjon === YesOrNo.NO && omBarnet.adoptertFraUtland === YesOrNo.NO) {
-            return {
-                stebarnsadopsjon: false,
-                adopsjonsdato: dayjs(omBarnet.adopsjonsdato).toDate(),
-                antallBarn: parseInt(omBarnet.antallBarn!, 10),
-                fødselsdatoer: [dayjs(omBarnet.fødselsdatoer![0]).toDate()],
-                adoptertFraUtland: false,
             };
         }
     }
@@ -104,7 +94,7 @@ const mapUtenlandsoppholdForInnsending = (
 
 export const mapStateForInnsending = (state: EngangsstønadContextState, locale: Locale): EngangsstønadSøknadDto => {
     const { omBarnet, utenlandsopphold } = state.søknad;
-    const barn: FodtBarn | UfodtBarn | Stebarn | OvertaOmsorg = mapBarnForInnsending(omBarnet);
+    const barn: FodtBarn | UfodtBarn | Adopsjon = mapBarnForInnsending(omBarnet);
     const utenlandsoppholdDto = mapUtenlandsoppholdForInnsending(utenlandsopphold);
 
     return {

@@ -34,7 +34,7 @@ const OmBarnetOppsummering: React.FunctionComponent<Props> = ({ barn }) => {
                 label={getMessage(intl, 'oppsummering.text.soknadenGjelder')}
                 text={antallBarnSummaryText}
             />
-            {barn.stebarnsadopsjon !== YesOrNo.UNANSWERED && (
+            {barn.adopsjonAvEktefellesBarn !== YesOrNo.UNANSWERED && (
                 <div>
                     <DisplayTextWithLabel
                         label={getMessage(intl, 'oppsummering.text.medAdopsjonsdato')}
@@ -58,42 +58,14 @@ const OmBarnetOppsummering: React.FunctionComponent<Props> = ({ barn }) => {
                     </Block>
                 </div>
             )}
-            {barn.stebarnsadopsjon === YesOrNo.YES && (
+            {barn.adopsjonAvEktefellesBarn !== YesOrNo.UNANSWERED && (
                 <div className="oppsummering__attachments">
                     <EtikettLiten className="textWithLabel__label">
                         {getMessage(intl, 'oppsummering.text.vedlagtAdopsjonBekreftelse')}
                     </EtikettLiten>
                     <AttachmentList
-                        attachments={barn.adopsjonBekreftelse.filter((a: Attachment) => !isAttachmentWithError(a))}
+                        attachments={barn.omsorgsovertakelse.filter((a: Attachment) => !isAttachmentWithError(a))}
                     />
-                </div>
-            )}
-            {barn.stebarnsadopsjon === YesOrNo.NO && (
-                <div>
-                    {/*
-                    <DisplayTextWithLabel
-                        label={getMessage(intl, 'oppsummering.text.adoptertFraUtland')}
-                        text={
-                            barn.adoptertFraUtland === YesOrNo.YES
-                                ? getMessage(intl, 'oppsummering.text.adoptertFraUtland.Ja')
-                                : getMessage(intl, 'oppsummering.text.adoptertFraUtland.Nei')
-                        }
-                    />
-                    {barn.adoptertFraUtland === YesOrNo.YES && (
-                        <DisplayTextWithLabel
-                            label={getMessage(intl, 'oppsummering.text.nårKommerBarnetDato')}
-                            text={formatDate(barn.nårKommerBarnetDato!)}
-                        />
-                    )}
-                    */}
-                    <div className="oppsummering__attachments">
-                        <EtikettLiten className="textWithLabel__label">
-                            {getMessage(intl, 'oppsummering.text.vedlagtAdopsjonsBevilling')}
-                        </EtikettLiten>
-                        <AttachmentList
-                            attachments={barn.adopsjonsbevilling.filter((a: Attachment) => !isAttachmentWithError(a))}
-                        />
-                    </div>
                 </div>
             )}
             {barn.erBarnetFødt === YesOrNo.YES && (

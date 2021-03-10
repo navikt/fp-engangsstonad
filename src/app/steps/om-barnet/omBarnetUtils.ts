@@ -5,8 +5,7 @@ export const cleanupOmBarnet = (formData: OmBarnetFormData): OmBarnetFormData =>
     const cleanedData: Partial<OmBarnetFormData> = {};
     cleanedData.antallBarn = undefined;
     cleanedData.erBarnetFødt = YesOrNo.UNANSWERED;
-    cleanedData.stebarnsadopsjon = YesOrNo.UNANSWERED;
-    cleanedData.adoptertFraUtland = YesOrNo.UNANSWERED;
+    cleanedData.adopsjonAvEktefellesBarn = YesOrNo.UNANSWERED;
 
     if (formData.erBarnetFødt === YesOrNo.YES) {
         cleanedData.antallBarn = formData.antallBarn;
@@ -20,21 +19,21 @@ export const cleanupOmBarnet = (formData: OmBarnetFormData): OmBarnetFormData =>
         cleanedData.terminbekreftelsedato = formData.terminbekreftelsedato;
         cleanedData.termindato = formData.termindato;
     }
-    if (formData.stebarnsadopsjon === YesOrNo.YES) {
+    if (formData.adopsjonAvEktefellesBarn !== YesOrNo.UNANSWERED) {
         cleanedData.antallBarn = formData.antallBarn;
         cleanedData.adopsjonsdato = formData.adopsjonsdato;
         cleanedData.fødselsdatoer = formData.fødselsdatoer;
-        cleanedData.adopsjonBekreftelse = formData.adopsjonBekreftelse;
-        cleanedData.stebarnsadopsjon = formData.stebarnsadopsjon;
+        cleanedData.omsorgsovertakelse = formData.omsorgsovertakelse;
+        cleanedData.adopsjonAvEktefellesBarn = formData.adopsjonAvEktefellesBarn;
     }
-    if (formData.stebarnsadopsjon === YesOrNo.NO) {
+    /*
+    if (formData.adopsjonAvEktefellesBarn === YesOrNo.NO) {
         cleanedData.antallBarn = formData.antallBarn;
         cleanedData.adopsjonsdato = formData.adopsjonsdato;
         cleanedData.fødselsdatoer = formData.fødselsdatoer;
-        cleanedData.adoptertFraUtland = formData.adoptertFraUtland;
-        cleanedData.nårKommerBarnetDato = formData.nårKommerBarnetDato;
-        cleanedData.adopsjonsbevilling = formData.adopsjonsbevilling;
-        cleanedData.stebarnsadopsjon = formData.stebarnsadopsjon;
+        cleanedData.omsorgsovertakelse = formData.omsorgsovertakelse;
+        cleanedData.adopsjonAvEktefellesBarn = formData.adopsjonAvEktefellesBarn;
     }
+    */
     return cleanedData as OmBarnetFormData;
 };

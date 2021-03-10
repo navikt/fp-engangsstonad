@@ -3,47 +3,38 @@ import { SøkersituasjonFormField } from '../søkersituasjon/søkersituasjonForm
 
 export enum OmBarnetFormField {
     erBarnetFødt = 'erBarnetFødt',
-    stebarnsadopsjon = 'stebarnsadopsjon',
+    adopsjonAvEktefellesBarn = 'adopsjonAvEktefellesBarn',
     antallBarn = 'antallBarn',
     adopsjonsdato = 'adopsjonsdato',
     fødselsdatoer = 'fødselsdatoer',
     termindato = 'termindato',
-    adopsjonBekreftelse = 'adopsjonBekreftelse',
+    omsorgsovertakelse = 'omsorgsovertakelse',
     terminbekreftelse = 'terminbekreftelse',
     terminbekreftelsedato = 'terminbekreftelsedato',
-    nårKommerBarnetDato = 'nårKommerBarnetDato',
-    adoptertFraUtland = 'adoptertFraUtland',
-    adopsjonsbevilling = 'adopsjonsbevilling',
 }
 
 export interface OmBarnetFormData {
     [OmBarnetFormField.erBarnetFødt]: YesOrNo;
-    [OmBarnetFormField.stebarnsadopsjon]: YesOrNo;
+    [OmBarnetFormField.adopsjonAvEktefellesBarn]: YesOrNo;
     [OmBarnetFormField.antallBarn]?: string;
     [OmBarnetFormField.adopsjonsdato]?: string;
     [OmBarnetFormField.fødselsdatoer]: string[];
     [OmBarnetFormField.termindato]?: string;
-    [OmBarnetFormField.adopsjonBekreftelse]: any[];
-    [OmBarnetFormField.adoptertFraUtland]: YesOrNo;
+    [OmBarnetFormField.omsorgsovertakelse]: any[];
     [OmBarnetFormField.terminbekreftelse]: any[];
     [OmBarnetFormField.terminbekreftelsedato]?: string;
-    [OmBarnetFormField.nårKommerBarnetDato]?: string;
-    [OmBarnetFormField.adopsjonsbevilling]: any[];
 }
 
 export const initialOmBarnetValues: OmBarnetFormData = {
     [OmBarnetFormField.erBarnetFødt]: YesOrNo.UNANSWERED,
-    [OmBarnetFormField.stebarnsadopsjon]: YesOrNo.UNANSWERED,
+    [OmBarnetFormField.adopsjonAvEktefellesBarn]: YesOrNo.UNANSWERED,
     [OmBarnetFormField.antallBarn]: undefined,
     [OmBarnetFormField.adopsjonsdato]: undefined,
     [OmBarnetFormField.fødselsdatoer]: [],
     [OmBarnetFormField.termindato]: undefined,
-    [OmBarnetFormField.adopsjonBekreftelse]: [],
-    [OmBarnetFormField.adoptertFraUtland]: YesOrNo.UNANSWERED,
+    [OmBarnetFormField.omsorgsovertakelse]: [],
     [OmBarnetFormField.terminbekreftelse]: [],
     [OmBarnetFormField.terminbekreftelsedato]: undefined,
-    [OmBarnetFormField.nårKommerBarnetDato]: undefined,
-    [OmBarnetFormField.adopsjonsbevilling]: [],
 };
 
 export const OmBarnetFormComponents = getTypedFormComponents<
