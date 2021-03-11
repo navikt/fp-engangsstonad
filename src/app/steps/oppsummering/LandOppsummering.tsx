@@ -4,6 +4,7 @@ import { Element } from 'nav-frontend-typografi';
 import * as countries from 'i18n-iso-countries';
 
 import './landOppsummering.less';
+import { formatDate } from '@navikt/fp-common';
 
 interface Props {
     utenlandsoppholdListe: BostedUtland[];
@@ -15,7 +16,7 @@ const LandOppsummering: React.FunctionComponent<Props> = ({ utenlandsoppholdList
             <div key={`${opphold.landkode}${opphold.fom}`} style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Element>{countries.getName(opphold.landkode, 'nb')}</Element>
                 <Element>
-                    {opphold.fom} - {opphold.tom}
+                    {formatDate(opphold.fom)} - {formatDate(opphold.tom)}
                 </Element>
             </div>
         ))}

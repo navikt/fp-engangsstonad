@@ -19,5 +19,5 @@ export enum AttachmentType {
 
 export enum Skjemanummer {
     TERMINBEKREFTELSE = 'I000062',
-    OMSORGSOVERTAKELSE = 'I000063',
+    OMSORGSOVERTAKELSE = 'I000042',
 }
