@@ -26,7 +26,7 @@
     "omBarnet.adopsjon.spørsmål.stebarnsadopsjondato": "Enter the date of adoption of the spouse's children",
     "omBarnet.adopsjon.text.stebarnsadopsjon.ja": "Yes",
     "omBarnet.adopsjon.text.stebarnsadopsjon.nei": "No",
-    "omBarnet.adopsjon.veilederpanel.stebarnadopsjon.text": "You must upload documentation on the stepchild adoption and confirmation of the date of the stepchild adoption.",
+    "omBarnet.adopsjon.veilederpanel.adopsjon.text": "You must upload documentation about the adoption and confirmation of the date of the adoption.",
     "omBarnet.radiobutton.ettbarn": "one child",
     "omBarnet.radiobutton.flere": "triplets or more",
     "omBarnet.radiobutton.fortid": "has already occurred",

@@ -26,7 +26,7 @@
     "omBarnet.adopsjon.spørsmål.stebarnsadopsjondato": "Oppgi datoen for adopsjon av ektefellens barn",
     "omBarnet.adopsjon.text.stebarnsadopsjon.ja": "Ja",
     "omBarnet.adopsjon.text.stebarnsadopsjon.nei": "Nei",
-    "omBarnet.adopsjon.veilederpanel.stebarnadopsjon.text": "Du må lasta opp dokumentasjon på stebarnsadopsjonen og stadfesting på dato for stebarnsadopsjonen.",
+    "omBarnet.adopsjon.veilederpanel.adopsjon.text": "Du må lasta opp dokumentasjon om adopsjonen og stadfesting på dato for adopsjonen.",
     "omBarnet.radiobutton.ettbarn": "eitt barn",
     "omBarnet.radiobutton.flere": "fleire barn",
     "omBarnet.radiobutton.fortid": "tilbake i tid",
