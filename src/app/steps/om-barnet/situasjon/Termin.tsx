@@ -71,6 +71,7 @@ const Termin: React.FunctionComponent<Fødtprops> = ({ visibility, formValues })
                         maxDate={dayjs().add(17, 'weeks').toDate()}
                         validate={validateTerminDate}
                         placeholder={'dd.mm.åååå'}
+                        invalidFormatErrorKey={'invalidFormatErrorKey.termindato'}
                     />
                 </Block>
             )}
@@ -103,6 +104,7 @@ const Termin: React.FunctionComponent<Fødtprops> = ({ visibility, formValues })
                         validate={(terminBekreftelseDato) =>
                             valideringAvTerminbekreftelsesdato(terminBekreftelseDato, formValues.termindato)
                         }
+                        invalidFormatErrorKey={'invalidFormatErrorKey.terminBekreftelsedato'}
                     />
                 </Block>
             )}

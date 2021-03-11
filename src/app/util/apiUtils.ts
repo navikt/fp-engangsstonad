@@ -40,22 +40,12 @@ export const mapAttachments = (object: object): Attachment[] => {
 
 const mapBarnForInnsending = (omBarnet: OmBarnetFormData): FodtBarn | UfodtBarn | Adopsjon => {
     if (omBarnet.adopsjonAvEktefellesBarn !== YesOrNo.UNANSWERED) {
-        if (omBarnet.adopsjonAvEktefellesBarn === YesOrNo.YES) {
-            return {
-                adopsjonAvEktefellesBarn: true,
-                adopsjonsdato: dayjs(omBarnet.adopsjonsdato).toDate(),
-                antallBarn: parseInt(omBarnet.antallBarn!, 10),
-                fødselsdatoer: [dayjs(omBarnet.fødselsdatoer![0]).toDate()],
-            };
-        }
-        if (omBarnet.adopsjonAvEktefellesBarn === YesOrNo.NO) {
-            return {
-                adopsjonAvEktefellesBarn: false,
-                adopsjonsdato: dayjs(omBarnet.adopsjonsdato).toDate(),
-                antallBarn: parseInt(omBarnet.antallBarn!, 10),
-                fødselsdatoer: [dayjs(omBarnet.fødselsdatoer![0]).toDate()],
-            };
-        }
+        return {
+            adopsjonAvEktefellesBarn: omBarnet.adopsjonAvEktefellesBarn === YesOrNo.YES ? true : false,
+            adopsjonsdato: dayjs(omBarnet.adopsjonsdato).toDate(),
+            antallBarn: parseInt(omBarnet.antallBarn!, 10),
+            fødselsdatoer: [dayjs(omBarnet.fødselsdatoer![0]).toDate()],
+        };
     }
     return omBarnet.erBarnetFødt === YesOrNo.YES
         ? {

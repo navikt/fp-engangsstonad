@@ -18,13 +18,12 @@ import { cleanupOmBarnet } from './omBarnetUtils';
 import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadContext';
 import Født from './situasjon/Født';
 import Termin from './situasjon/Termin';
-import OvertaOmsorg from './situasjon/OvertaOmsorg';
-import AdopsjonAvEktefellesBarn from './situasjon/AdopsjonAvEktefellesBarn';
 
 import './omBarnet.less';
 import { onAvbrytSøknad } from 'app/util/globalUtil';
 import { logAmplitudeEvent } from 'app/amplitude/amplitude';
 import { PageKeys } from 'app/types/PageKeys';
+import Adopsjon from './situasjon/Adopsjon';
 
 const shouldResetInitialValues = (
     situasjon: string,
@@ -136,11 +135,11 @@ const OmBarnet: React.FunctionComponent = () => {
                                         />
                                     </Block>
                                 )}
-
+                                <Adopsjon visibility={visibility} formValues={formValues} />
                                 <Født visibility={visibility} formValues={formValues} />
-                                <OvertaOmsorg visibility={visibility} formValues={formValues} />
+                                {/*<OvertaOmsorg visibility={visibility} formValues={formValues} />*/}
                                 <Termin visibility={visibility} formValues={formValues} />
-                                <AdopsjonAvEktefellesBarn visibility={visibility} formValues={formValues} />
+                                {/*<AdopsjonAvEktefellesBarn visibility={visibility} formValues={formValues} />*/}
 
                                 {allQuestionsAnswered && (
                                     <Block margin="xl" textAlignCenter={true}>

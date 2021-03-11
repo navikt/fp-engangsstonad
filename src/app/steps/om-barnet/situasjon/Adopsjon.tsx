@@ -10,31 +10,36 @@ import Veilederpanel from 'nav-frontend-veilederpanel';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { OmBarnetFormComponents, OmBarnetFormData, OmBarnetFormField } from '../omBarnetFormConfig';
-import { validateOvertaOmsorg, validateAdopsjonFødselDate } from '../omBarnetValidering';
+import { validateAdopsjonDate, validateAdopsjonFødselDate } from '../omBarnetValidering';
 
 interface Fødtprops {
     formValues: OmBarnetFormData;
     visibility: QuestionVisibility<OmBarnetFormField, undefined>;
 }
 
-const OvertoOmsorg: React.FunctionComponent<Fødtprops> = ({ visibility, formValues }) => {
+const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues }) => {
     const intl = useIntl();
-    if (
-        formValues.adopsjonAvEktefellesBarn === YesOrNo.YES ||
-        formValues.adopsjonAvEktefellesBarn === YesOrNo.UNANSWERED
-    ) {
+
+    if (formValues.adopsjonAvEktefellesBarn === YesOrNo.UNANSWERED) {
         return null;
     }
+
     return (
         <>
             {visibility.isVisible(OmBarnetFormField.adopsjonsdato) && (
                 <Block margin="xl">
                     <OmBarnetFormComponents.DatePicker
                         name={OmBarnetFormField.adopsjonsdato}
-                        label={getMessage(intl, 'omBarnet.adopsjon.spørsmål.overtaomsorgdato')}
+                        label={
+                            formValues.adopsjonAvEktefellesBarn === YesOrNo.YES
+                                ? getMessage(intl, 'omBarnet.adopsjon.spørsmål.stebarnsadopsjondato')
+                                : getMessage(intl, 'omBarnet.adopsjon.spørsmål.overtaomsorgdato')
+                        }
                         minDate={dayjs().subtract(6, 'month').toDate()}
-                        validate={validateOvertaOmsorg}
+                        maxDate={dayjs().toDate()}
+                        validate={validateAdopsjonDate}
                         placeholder={'dd.mm.åååå'}
+                        invalidFormatErrorKey={'invalidFormatErrorKey.adopsjonsdato'}
                     />
                 </Block>
             )}
@@ -86,14 +91,19 @@ const OvertoOmsorg: React.FunctionComponent<Fødtprops> = ({ visibility, formVal
                                     <Block padBottom="l" key={`${index}`}>
                                         <OmBarnetFormComponents.DatePicker
                                             name={`${OmBarnetFormField.fødselsdatoer}.${index}` as OmBarnetFormField}
-                                            label={getMessage(
-                                                intl,
-                                                `omBarnet.adopsjon.spørsmål.fødselsdato.${index + 1}`
-                                            )}
+                                            label={
+                                                formValues.antallBarn === '1'
+                                                    ? getMessage(intl, 'søknad.fødselsdato')
+                                                    : getMessage(
+                                                          intl,
+                                                          `omBarnet.adopsjon.spørsmål.fødselsdato.${index + 1}`
+                                                      )
+                                            }
                                             minDate={dayjs().subtract(15, 'year').subtract(6, 'month').toDate()}
                                             maxDate={dayjs().toDate()}
                                             validate={validateAdopsjonFødselDate}
                                             placeholder={'dd.mm.åååå'}
+                                            invalidFormatErrorKey={'invalidFormatErrorKey.fødselsdato'}
                                         />
                                     </Block>
                                 );
@@ -106,7 +116,7 @@ const OvertoOmsorg: React.FunctionComponent<Fødtprops> = ({ visibility, formVal
                 <>
                     <Block margin="xl">
                         <Veilederpanel kompakt={true} svg={<Veileder />}>
-                            {getMessage(intl, 'omBarnet.adopsjon.veilederpanel.adopsjonsbevillingen.text')}
+                            {getMessage(intl, 'omBarnet.adopsjon.veilederpanel.adopsjon.text')}
                         </Veilederpanel>
                     </Block>
                     <Block margin="xl">
@@ -124,4 +134,4 @@ const OvertoOmsorg: React.FunctionComponent<Fødtprops> = ({ visibility, formVal
         </>
     );
 };
-export default OvertoOmsorg;
+export default Adopsjon;

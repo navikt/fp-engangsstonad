@@ -76,9 +76,7 @@ const BostedUtlandForm: React.FunctionComponent<Props> = ({
                         fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
                     >
                         <Systemtittel tag="h1">
-                            <FormattedMessage
-                                id={getMessage(intl, 'utenlandsopphold.leggTilUtenlandsopphold.tittel')}
-                            />
+                            <FormattedMessage id={'utenlandsopphold.leggTilUtenlandsopphold.tittel'} />
                         </Systemtittel>
                         <Block>
                             <Form.DateIntervalPicker

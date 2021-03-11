@@ -32,14 +32,14 @@ const OmBarnetFormConfig: QuestionConfig<OmBarnetQuestionPayload, OmBarnetFormFi
     [OmBarnetFormField.fødselsdatoer]: {
         isIncluded: ({ erBarnetFødt, adopsjonAvEktefellesBarn }) =>
             erBarnetFødt === YesOrNo.YES || adopsjonAvEktefellesBarn !== YesOrNo.UNANSWERED,
-        isAnswered: ({ fødselsdatoer }) => fødselsdatoer.length > 0 && fødselsdatoer[0] !== '',
+        isAnswered: ({ fødselsdatoer }) => fødselsdatoer?.length > 0 && fødselsdatoer[0] !== '',
         visibilityFilter: ({ antallBarn }) => antallBarn !== undefined,
     },
     [OmBarnetFormField.omsorgsovertakelse]: {
         isIncluded: ({ adopsjonAvEktefellesBarn }) => adopsjonAvEktefellesBarn !== YesOrNo.UNANSWERED,
-        isAnswered: ({ omsorgsovertakelse }) => omsorgsovertakelse.length > 0,
+        isAnswered: ({ omsorgsovertakelse }) => omsorgsovertakelse?.length > 0,
         visibilityFilter: ({ antallBarn, fødselsdatoer }) =>
-            antallBarn !== undefined || (fødselsdatoer.length > 0 && fødselsdatoer[0] !== ''),
+            antallBarn !== undefined || (fødselsdatoer?.length > 0 && fødselsdatoer[0] !== ''),
     },
     [OmBarnetFormField.termindato]: {
         isIncluded: ({ erBarnetFødt }) => erBarnetFødt === YesOrNo.NO,
@@ -48,13 +48,13 @@ const OmBarnetFormConfig: QuestionConfig<OmBarnetQuestionPayload, OmBarnetFormFi
     },
     [OmBarnetFormField.terminbekreftelse]: {
         isIncluded: ({ erBarnetFødt }) => erBarnetFødt === YesOrNo.NO,
-        isAnswered: ({ terminbekreftelse }) => terminbekreftelse.length > 0,
+        isAnswered: ({ terminbekreftelse }) => terminbekreftelse?.length > 0,
         visibilityFilter: ({ termindato }) => termindato !== undefined,
     },
     [OmBarnetFormField.terminbekreftelsedato]: {
         isIncluded: ({ erBarnetFødt }) => erBarnetFødt === YesOrNo.NO,
         isAnswered: ({ terminbekreftelsedato }) => terminbekreftelsedato !== undefined || terminbekreftelsedato === '',
-        visibilityFilter: ({ terminbekreftelse }) => terminbekreftelse.length > 0,
+        visibilityFilter: ({ terminbekreftelse }) => terminbekreftelse?.length > 0,
     },
 };
 
