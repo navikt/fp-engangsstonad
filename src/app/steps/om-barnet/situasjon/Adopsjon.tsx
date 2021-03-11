@@ -36,7 +36,6 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues 
                                 : getMessage(intl, 'omBarnet.adopsjon.spørsmål.overtaomsorgdato')
                         }
                         minDate={dayjs().subtract(6, 'month').toDate()}
-                        maxDate={dayjs().toDate()}
                         validate={validateAdopsjonDate}
                         placeholder={'dd.mm.åååå'}
                         invalidFormatErrorKey={'invalidFormatErrorKey.adopsjonsdato'}

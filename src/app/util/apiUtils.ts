@@ -44,7 +44,7 @@ const mapBarnForInnsending = (omBarnet: OmBarnetFormData): FodtBarn | UfodtBarn 
             adopsjonAvEktefellesBarn: omBarnet.adopsjonAvEktefellesBarn === YesOrNo.YES ? true : false,
             adopsjonsdato: dayjs(omBarnet.adopsjonsdato).toDate(),
             antallBarn: parseInt(omBarnet.antallBarn!, 10),
-            fødselsdatoer: [dayjs(omBarnet.fødselsdatoer![0]).toDate()],
+            fødselsdatoer: omBarnet.fødselsdatoer.map((fødselsdato) => dayjs.utc(fødselsdato).toDate()),
         };
     }
     return omBarnet.erBarnetFødt === YesOrNo.YES

@@ -15,23 +15,16 @@ const sisteDatoAdoptertBarnKanVæreFødt = (dato: string) => {
 };
 
 const sisteMuligeDatoForOvertaOmsorg = (dato: string) => {
-    const sisteDatoForOvertaOmsorg = dayjs().add(3, 'year').startOf('day').toDate();
+    const sisteDatoForOvertaOmsorg = dayjs().add(1, 'year').startOf('day').toDate();
     return dayjs(dato).isAfter(sisteDatoForOvertaOmsorg);
-};
-
-export const validateOvertaOmsorg = (dato: string) => {
-    if (!hasValue(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.overtaOmsorg.duMåOppgi');
-    }
-    if (sisteMuligeDatoForOvertaOmsorg(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.overtaOmsorg.forLangtFremITid');
-    }
-    return undefined;
 };
 
 export const validateAdopsjonDate = (dato: string) => {
     if (!hasValue(dato)) {
         return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.duMåOppgi');
+    }
+    if (sisteMuligeDatoForOvertaOmsorg(dato)) {
+        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.overtaOmsorg.forLangtFremITid');
     }
     return undefined;
 };
