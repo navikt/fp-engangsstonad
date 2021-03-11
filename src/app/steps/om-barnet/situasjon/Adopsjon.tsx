@@ -17,13 +17,10 @@ interface Fødtprops {
     visibility: QuestionVisibility<OmBarnetFormField, undefined>;
 }
 
-const AdopsjonAvEktefellesBarn: React.FunctionComponent<Fødtprops> = ({ visibility, formValues }) => {
+const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues }) => {
     const intl = useIntl();
 
-    if (
-        formValues.adopsjonAvEktefellesBarn === YesOrNo.NO ||
-        formValues.adopsjonAvEktefellesBarn === YesOrNo.UNANSWERED
-    ) {
+    if (formValues.adopsjonAvEktefellesBarn === YesOrNo.UNANSWERED) {
         return null;
     }
 
@@ -33,11 +30,16 @@ const AdopsjonAvEktefellesBarn: React.FunctionComponent<Fødtprops> = ({ visibil
                 <Block margin="xl">
                     <OmBarnetFormComponents.DatePicker
                         name={OmBarnetFormField.adopsjonsdato}
-                        label={getMessage(intl, 'omBarnet.adopsjon.spørsmål.stebarnsadopsjondato')}
+                        label={
+                            formValues.adopsjonAvEktefellesBarn === YesOrNo.YES
+                                ? getMessage(intl, 'omBarnet.adopsjon.spørsmål.stebarnsadopsjondato')
+                                : getMessage(intl, 'omBarnet.adopsjon.spørsmål.overtaomsorgdato')
+                        }
                         minDate={dayjs().subtract(6, 'month').toDate()}
                         maxDate={dayjs().toDate()}
                         validate={validateAdopsjonDate}
                         placeholder={'dd.mm.åååå'}
+                        invalidFormatErrorKey={'invalidFormatErrorKey.adopsjonsdato'}
                     />
                 </Block>
             )}
@@ -89,14 +91,19 @@ const AdopsjonAvEktefellesBarn: React.FunctionComponent<Fødtprops> = ({ visibil
                                     <Block padBottom="l" key={`${index}`}>
                                         <OmBarnetFormComponents.DatePicker
                                             name={`${OmBarnetFormField.fødselsdatoer}.${index}` as OmBarnetFormField}
-                                            label={getMessage(
-                                                intl,
-                                                `omBarnet.adopsjon.spørsmål.fødselsdato.${index + 1}`
-                                            )}
+                                            label={
+                                                formValues.antallBarn === '1'
+                                                    ? getMessage(intl, 'søknad.fødselsdato')
+                                                    : getMessage(
+                                                          intl,
+                                                          `omBarnet.adopsjon.spørsmål.fødselsdato.${index + 1}`
+                                                      )
+                                            }
                                             minDate={dayjs().subtract(15, 'year').subtract(6, 'month').toDate()}
                                             maxDate={dayjs().toDate()}
                                             validate={validateAdopsjonFødselDate}
                                             placeholder={'dd.mm.åååå'}
+                                            invalidFormatErrorKey={'invalidFormatErrorKey.fødselsdato'}
                                         />
                                     </Block>
                                 );
@@ -109,7 +116,7 @@ const AdopsjonAvEktefellesBarn: React.FunctionComponent<Fødtprops> = ({ visibil
                 <>
                     <Block margin="xl">
                         <Veilederpanel kompakt={true} svg={<Veileder />}>
-                            {getMessage(intl, 'omBarnet.adopsjon.veilederpanel.stebarnadopsjon.text')}
+                            {getMessage(intl, 'omBarnet.adopsjon.veilederpanel.adopsjon.text')}
                         </Veilederpanel>
                     </Block>
                     <Block margin="xl">
@@ -127,4 +134,4 @@ const AdopsjonAvEktefellesBarn: React.FunctionComponent<Fødtprops> = ({ visibil
         </>
     );
 };
-export default AdopsjonAvEktefellesBarn;
+export default Adopsjon;

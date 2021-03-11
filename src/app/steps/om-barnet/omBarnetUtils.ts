@@ -26,14 +26,5 @@ export const cleanupOmBarnet = (formData: OmBarnetFormData): OmBarnetFormData =>
         cleanedData.omsorgsovertakelse = formData.omsorgsovertakelse;
         cleanedData.adopsjonAvEktefellesBarn = formData.adopsjonAvEktefellesBarn;
     }
-    /*
-    if (formData.adopsjonAvEktefellesBarn === YesOrNo.NO) {
-        cleanedData.antallBarn = formData.antallBarn;
-        cleanedData.adopsjonsdato = formData.adopsjonsdato;
-        cleanedData.fødselsdatoer = formData.fødselsdatoer;
-        cleanedData.omsorgsovertakelse = formData.omsorgsovertakelse;
-        cleanedData.adopsjonAvEktefellesBarn = formData.adopsjonAvEktefellesBarn;
-    }
-    */
     return cleanedData as OmBarnetFormData;
 };
