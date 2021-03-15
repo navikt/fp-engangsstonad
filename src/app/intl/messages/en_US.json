@@ -163,7 +163,7 @@
     "valideringsfeil.omBarnet.adopsjonDato.overtaOmsorg.forLangtFremITid": "You are applying too far in advance",
     "valideringsfeil.omBarnet.fodselsdato.duMåOppgi": "You must enter date of birthYou must enter date of birth",
     "valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn6MånederTilbake": "You can not apply for the lump-sum grant benefit for children older than 6 months.",
-    "valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn15Årog6MånederTilbake": "You can not apply for the lump-sum grant benefit for children older than 15 years and 6 months.",
+    "valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn15ÅrTilbake": "You can not apply for the lump-sum grant benefit for children older than 15 years.",
     "valideringsfeil.omBarnet.fodselsdato.måVæreIdagEllerTidligere": "The birth date must be today’s date or earlier",
     "valideringsfeil.omBarnet.overtaomsorgdato.duMåOppgi": "You must state the take over care date",
     "valideringsfeil.omBarnet.terminbekreftelseDato.duMåOppgi": "You must enter the term confirmation date",

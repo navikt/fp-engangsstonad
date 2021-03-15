@@ -163,7 +163,7 @@
     "valideringsfeil.omBarnet.adopsjonDato.overtaOmsorg.forLangtFremITid": "Du søker for langt frami tid",
     "valideringsfeil.omBarnet.fodselsdato.duMåOppgi": "Du må gi opp fødselsdato",
     "valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn6MånederTilbake": "Du kan ikkje søka om engangsstønad for barn som er eldre enn 6 månader",
-    "valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn15Årog6MånederTilbake": "Du kan ikkje søka om engangsstønad for barn som er eldre enn 15 år og 6 månader",
+    "valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn15ÅrTilbake": "Du kan ikkje søka om engangsstønad for barn som er eldre enn 15 årr",
     "valideringsfeil.omBarnet.fodselsdato.måVæreIdagEllerTidligere": "Fødselsdato må vere i dag eller tidlegare",
     "valideringsfeil.omBarnet.overtaomsorgdato.duMåOppgi": "Du må gi opp overta omsorg dato",
     "valideringsfeil.omBarnet.terminbekreftelseDato.duMåOppgi": "Du må gi opp terminstadfesting dato",

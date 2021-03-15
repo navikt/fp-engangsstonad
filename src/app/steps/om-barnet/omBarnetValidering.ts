@@ -57,7 +57,7 @@ export const validateAdopsjonFødselDate = (dato: string) => {
         return createFieldValidationError('valideringsfeil.omBarnet.fodselsdato.måVæreIdagEllerTidligere');
     }
     if (sisteDatoAdoptertBarnKanVæreFødt(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn15Årog6MånederTilbake');
+        return createFieldValidationError('valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn15ÅrTilbake');
     }
     return undefined;
 };
