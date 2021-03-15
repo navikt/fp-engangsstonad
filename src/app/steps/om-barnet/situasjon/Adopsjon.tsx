@@ -25,7 +25,7 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues,
     if (formValues.adopsjonAvEktefellesBarn === YesOrNo.UNANSWERED) {
         return null;
     }
-
+    
     return (
         <>
             {visibility.isVisible(OmBarnetFormField.adopsjonsdato) && (
