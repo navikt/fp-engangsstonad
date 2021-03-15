@@ -5,6 +5,7 @@ import { OmBarnetFormData, OmBarnetFormField } from './omBarnetFormConfig';
 
 interface OmBarnetQuestionPayload extends OmBarnetFormData {
     situasjon: string;
+    kjønn: string;
 }
 
 const OmBarnetFormConfig: QuestionConfig<OmBarnetQuestionPayload, OmBarnetFormField> = {
@@ -21,14 +22,20 @@ const OmBarnetFormConfig: QuestionConfig<OmBarnetQuestionPayload, OmBarnetFormFi
     [OmBarnetFormField.antallBarn]: {
         isIncluded: () => true,
         isAnswered: ({ antallBarn }) => hasValue(antallBarn),
-        visibilityFilter: ({ erBarnetFødt, adopsjonAvEktefellesBarn, adopsjonsdato }) =>
+        visibilityFilter: ({ erBarnetFødt, søkerAdopsjonAlene, kjønn, adopsjonsdato }) =>
             erBarnetFødt !== YesOrNo.UNANSWERED ||
-            (adopsjonAvEktefellesBarn !== YesOrNo.UNANSWERED && hasValue(adopsjonsdato)),
+            søkerAdopsjonAlene !== YesOrNo.UNANSWERED ||
+            (kjønn === 'K' && hasValue(adopsjonsdato)),
     },
     [OmBarnetFormField.adopsjonsdato]: {
         isIncluded: ({ adopsjonAvEktefellesBarn }) => adopsjonAvEktefellesBarn !== YesOrNo.UNANSWERED,
         isAnswered: ({ adopsjonsdato }) => hasValue(adopsjonsdato),
         visibilityFilter: ({ adopsjonAvEktefellesBarn }) => adopsjonAvEktefellesBarn !== YesOrNo.UNANSWERED,
+    },
+    [OmBarnetFormField.søkerAdopsjonAlene]: {
+        isIncluded: ({ situasjon, kjønn }) => situasjon === 'adopsjon' && kjønn === 'M',
+        isAnswered: ({ søkerAdopsjonAlene }) => søkerAdopsjonAlene !== YesOrNo.UNANSWERED,
+        visibilityFilter: ({ adopsjonsdato }) => hasValue(adopsjonsdato),
     },
     [OmBarnetFormField.fødselsdatoer]: {
         isIncluded: ({ erBarnetFødt, adopsjonAvEktefellesBarn }) =>

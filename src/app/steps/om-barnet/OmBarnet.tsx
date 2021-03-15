@@ -24,6 +24,11 @@ import { onAvbrytSøknad } from 'app/util/globalUtil';
 import { logAmplitudeEvent } from 'app/amplitude/amplitude';
 import { PageKeys } from 'app/types/PageKeys';
 import Adopsjon from './situasjon/Adopsjon';
+import Person from 'app/types/domain/Person';
+
+interface Props {
+    person: Person;
+}
 
 const shouldResetInitialValues = (
     situasjon: string,
@@ -40,7 +45,7 @@ const shouldResetInitialValues = (
     return false;
 };
 
-const OmBarnet: React.FunctionComponent = () => {
+const OmBarnet: React.FunctionComponent<Props> = ({ person }) => {
     const intl = useIntl();
     const bem = bemUtils('omBarnet');
     const history = useHistory();
@@ -66,6 +71,7 @@ const OmBarnet: React.FunctionComponent = () => {
                 adopsjonAvEktefellesBarn: values.adopsjonAvEktefellesBarn!,
                 antallBarn: values.antallBarn,
                 adopsjonsdato: values.adopsjonsdato,
+                søkerAdopsjonAlene: values.søkerAdopsjonAlene!,
                 fødselsdatoer: values.fødselsdatoer || [],
                 termindato: values.termindato,
                 terminbekreftelse: values.terminbekreftelse || [],
@@ -84,6 +90,7 @@ const OmBarnet: React.FunctionComponent = () => {
                 const visibility = omBarnetQuestionsConfig.getVisbility({
                     ...formValues,
                     situasjon: søkersituasjonValues.situasjon!,
+                    kjønn: person.kjønn,
                 });
                 const allQuestionsAnswered = visibility.areAllQuestionsAnswered();
                 return (
@@ -118,8 +125,8 @@ const OmBarnet: React.FunctionComponent = () => {
                                             name={OmBarnetFormField.adopsjonAvEktefellesBarn}
                                             legend={getMessage(intl, 'omBarnet.adopsjon.spørsmål.stebarnsadopsjon')}
                                             labels={{
-                                                no: getMessage(intl, 'omBarnet.adopsjon.text.stebarnsadopsjon.nei'),
-                                                yes: getMessage(intl, 'omBarnet.adopsjon.text.stebarnsadopsjon.ja'),
+                                                no: getMessage(intl, 'omBarnet.adopsjon.text.nei'),
+                                                yes: getMessage(intl, 'omBarnet.adopsjon.text.ja'),
                                             }}
                                         />
                                     </Block>
@@ -135,7 +142,7 @@ const OmBarnet: React.FunctionComponent = () => {
                                         />
                                     </Block>
                                 )}
-                                <Adopsjon visibility={visibility} formValues={formValues} />
+                                <Adopsjon visibility={visibility} formValues={formValues} kjønn={person.kjønn} />
                                 <Født visibility={visibility} formValues={formValues} />
                                 <Termin visibility={visibility} formValues={formValues} />
 

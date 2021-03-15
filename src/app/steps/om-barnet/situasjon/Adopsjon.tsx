@@ -3,6 +3,7 @@ import Veileder from '@navikt/fp-common/lib/components/veileder/Veileder';
 import { YesOrNo } from '@navikt/sif-common-formik/lib';
 import { QuestionVisibility } from '@navikt/sif-common-question-config/lib';
 import FormikFileUploader from 'app/components/formik-file-uploader/FormikFileUploader';
+import { Kjønn } from 'app/types/domain/Person';
 import getMessage from 'common/util/i18nUtils';
 import dayjs from 'dayjs';
 import { FieldArray } from 'formik';
@@ -15,15 +16,16 @@ import { validateAdopsjonDate, validateAdopsjonFødselDate } from '../omBarnetVa
 interface Fødtprops {
     formValues: OmBarnetFormData;
     visibility: QuestionVisibility<OmBarnetFormField, undefined>;
+    kjønn: Kjønn;
 }
 
-const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues }) => {
+const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues, kjønn }) => {
     const intl = useIntl();
 
     if (formValues.adopsjonAvEktefellesBarn === YesOrNo.UNANSWERED) {
         return null;
     }
-
+    
     return (
         <>
             {visibility.isVisible(OmBarnetFormField.adopsjonsdato) && (
@@ -42,6 +44,18 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues 
                     />
                 </Block>
             )}
+            {visibility.isVisible(OmBarnetFormField.søkerAdopsjonAlene) && (
+                <Block margin="xl">
+                    <OmBarnetFormComponents.YesOrNoQuestion
+                        name={OmBarnetFormField.søkerAdopsjonAlene}
+                        legend={getMessage(intl, 'omBarnet.adopsjon.spørsmål.søkerdualene')}
+                        labels={{
+                            no: getMessage(intl, 'omBarnet.adopsjon.text.nei'),
+                            yes: getMessage(intl, 'omBarnet.adopsjon.text.ja'),
+                        }}
+                    />
+                </Block>
+            )}
             {visibility.isVisible(OmBarnetFormField.antallBarn) && (
                 <>
                     <Block margin="xl">
@@ -53,7 +67,7 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues 
                                     value: '1',
                                 },
                                 {
-                                    label: intlUtils(intl, 'omBarnet.radiobutton.tvillinger'),
+                                    label: intlUtils(intl, 'oppsummering.omBarnet.flereBarn'),
                                     value: '2',
                                 },
                                 {
@@ -65,6 +79,7 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues 
                             legend={getMessage(intl, 'omBarnet.adopsjon.spørsmål.antallBarnAdoptert')}
                         />
                     </Block>
+
                     {formValues.antallBarn && parseInt(formValues.antallBarn, 10) >= 3 && (
                         <Block margin="xl">
                             <OmBarnetFormComponents.Select name={OmBarnetFormField.antallBarn}>

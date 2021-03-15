@@ -10,7 +10,7 @@ import {
 import dayjs from 'dayjs';
 
 const sisteDatoAdoptertBarnKanVæreFødt = (dato: string) => {
-    const sisteMuligeAdopsjonsFødselsDato = dayjs().subtract(15, 'year').subtract(6, 'month').startOf('day').toDate();
+    const sisteMuligeAdopsjonsFødselsDato = dayjs().subtract(15, 'year').startOf('day').toDate();
     return dayjs(dato).isBefore(sisteMuligeAdopsjonsFødselsDato);
 };
 
