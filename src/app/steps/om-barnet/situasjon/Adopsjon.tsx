@@ -67,7 +67,7 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues,
                                     value: '1',
                                 },
                                 {
-                                    label: intlUtils(intl, 'oppsummering.omBarnet.flereBarn'),
+                                    label: intlUtils(intl, 'omBarnet.radiobutton.toBarn'),
                                     value: '2',
                                 },
                                 {
