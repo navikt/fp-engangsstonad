@@ -80,8 +80,17 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                         />
                         <Sidebanner
                             dialog={{
-                                text: intlUtils(intl, 'velkommen.standard.bobletekst'),
                                 title: intlUtils(intl, 'velkommen.standard.bobletittel', { name: fornavn }),
+                                text: (
+                                    <>
+                                        <Block padBottom="m">
+                                            <FormattedMessage id={'velkommen.standard.bobletekst.del1'} />
+                                        </Block>
+                                        <Block>
+                                            <FormattedMessage id={'velkommen.standard.bobletekst.del2'} />
+                                        </Block>
+                                    </>
+                                ),
                             }}
                         />
                         <div className={bem.block}>

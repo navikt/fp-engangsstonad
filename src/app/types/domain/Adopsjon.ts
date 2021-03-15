@@ -5,6 +5,7 @@ interface Adopsjon {
     antallBarn?: number | undefined;
     fødselsdatoer: Date[];
     adopsjonAvEktefellesBarn?: boolean;
+    søkerAdopsjonAlene?: boolean;
     omsorgsovertakelse: Attachment[];
 }
 

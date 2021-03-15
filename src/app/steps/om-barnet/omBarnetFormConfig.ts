@@ -1,4 +1,5 @@
 import { getTypedFormComponents, YesOrNo } from '@navikt/sif-common-formik/lib';
+import { Kjønn } from 'app/types/domain/Person';
 import { SøkersituasjonFormField } from '../søkersituasjon/søkersituasjonFormConfig';
 
 export enum OmBarnetFormField {
@@ -6,6 +7,7 @@ export enum OmBarnetFormField {
     adopsjonAvEktefellesBarn = 'adopsjonAvEktefellesBarn',
     antallBarn = 'antallBarn',
     adopsjonsdato = 'adopsjonsdato',
+    søkerAdopsjonAlene = 'søkerAdopsjonAlene',
     fødselsdatoer = 'fødselsdatoer',
     termindato = 'termindato',
     omsorgsovertakelse = 'omsorgsovertakelse',
@@ -18,6 +20,7 @@ export interface OmBarnetFormData {
     [OmBarnetFormField.adopsjonAvEktefellesBarn]: YesOrNo;
     [OmBarnetFormField.antallBarn]?: string;
     [OmBarnetFormField.adopsjonsdato]?: string;
+    [OmBarnetFormField.søkerAdopsjonAlene]: YesOrNo;
     [OmBarnetFormField.fødselsdatoer]: string[];
     [OmBarnetFormField.termindato]?: string;
     [OmBarnetFormField.omsorgsovertakelse]: any[];
@@ -30,6 +33,7 @@ export const initialOmBarnetValues: OmBarnetFormData = {
     [OmBarnetFormField.adopsjonAvEktefellesBarn]: YesOrNo.UNANSWERED,
     [OmBarnetFormField.antallBarn]: undefined,
     [OmBarnetFormField.adopsjonsdato]: undefined,
+    [OmBarnetFormField.søkerAdopsjonAlene]: YesOrNo.UNANSWERED,
     [OmBarnetFormField.fødselsdatoer]: [],
     [OmBarnetFormField.termindato]: undefined,
     [OmBarnetFormField.omsorgsovertakelse]: [],
@@ -38,6 +42,6 @@ export const initialOmBarnetValues: OmBarnetFormData = {
 };
 
 export const OmBarnetFormComponents = getTypedFormComponents<
-    OmBarnetFormField | SøkersituasjonFormField,
+    OmBarnetFormField | SøkersituasjonFormField | Kjønn,
     OmBarnetFormData
 >();

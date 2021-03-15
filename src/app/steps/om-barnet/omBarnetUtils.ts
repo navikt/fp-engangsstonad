@@ -6,6 +6,7 @@ export const cleanupOmBarnet = (formData: OmBarnetFormData): OmBarnetFormData =>
     cleanedData.antallBarn = undefined;
     cleanedData.erBarnetFødt = YesOrNo.UNANSWERED;
     cleanedData.adopsjonAvEktefellesBarn = YesOrNo.UNANSWERED;
+    cleanedData.søkerAdopsjonAlene = YesOrNo.UNANSWERED;
 
     if (formData.erBarnetFødt === YesOrNo.YES) {
         cleanedData.antallBarn = formData.antallBarn;
@@ -25,6 +26,7 @@ export const cleanupOmBarnet = (formData: OmBarnetFormData): OmBarnetFormData =>
         cleanedData.fødselsdatoer = formData.fødselsdatoer;
         cleanedData.omsorgsovertakelse = formData.omsorgsovertakelse;
         cleanedData.adopsjonAvEktefellesBarn = formData.adopsjonAvEktefellesBarn;
+        cleanedData.søkerAdopsjonAlene = formData.søkerAdopsjonAlene;
     }
     return cleanedData as OmBarnetFormData;
 };
