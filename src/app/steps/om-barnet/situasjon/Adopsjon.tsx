@@ -52,7 +52,6 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues,
                     />
                 </Block>
             )}
-
             {visibility.isVisible(OmBarnetFormField.antallBarn) && (
                 <>
                     <Block margin="xl">
