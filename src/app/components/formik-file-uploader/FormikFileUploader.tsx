@@ -55,6 +55,7 @@ const FormikFileUploader: React.FunctionComponent<Props> = ({ attachments, name,
             attachment = setAttachmentPendingToFalse(attachment);
             attachment.url = response.headers.location;
             attachment.uploaded = true;
+            attachment.uuid = response.data;
         } catch (error) {
             setAttachmentPendingToFalse(attachment);
         }
