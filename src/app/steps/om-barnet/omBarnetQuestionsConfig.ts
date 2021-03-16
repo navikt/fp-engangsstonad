@@ -22,10 +22,9 @@ const OmBarnetFormConfig: QuestionConfig<OmBarnetQuestionPayload, OmBarnetFormFi
     [OmBarnetFormField.antallBarn]: {
         isIncluded: () => true,
         isAnswered: ({ antallBarn }) => hasValue(antallBarn),
-        visibilityFilter: ({ erBarnetFødt, søkerAdopsjonAlene, kjønn, adopsjonsdato }) =>
+        visibilityFilter: ({ adopsjonAvEktefellesBarn, erBarnetFødt, søkerAdopsjonAlene, kjønn, adopsjonsdato }) =>
             erBarnetFødt !== YesOrNo.UNANSWERED ||
-            søkerAdopsjonAlene !== YesOrNo.UNANSWERED ||
-            (kjønn === 'K' && hasValue(adopsjonsdato)),
+            (adopsjonAvEktefellesBarn !== YesOrNo.UNANSWERED && hasValue(adopsjonsdato)),
     },
     [OmBarnetFormField.adopsjonsdato]: {
         isIncluded: ({ adopsjonAvEktefellesBarn }) => adopsjonAvEktefellesBarn !== YesOrNo.UNANSWERED,
@@ -33,9 +32,11 @@ const OmBarnetFormConfig: QuestionConfig<OmBarnetQuestionPayload, OmBarnetFormFi
         visibilityFilter: ({ adopsjonAvEktefellesBarn }) => adopsjonAvEktefellesBarn !== YesOrNo.UNANSWERED,
     },
     [OmBarnetFormField.søkerAdopsjonAlene]: {
-        isIncluded: ({ situasjon, kjønn }) => situasjon === 'adopsjon' && kjønn === 'M',
+        isIncluded: ({ situasjon, kjønn, adopsjonAvEktefellesBarn }) =>
+            situasjon === 'adopsjon' && kjønn === 'M' && adopsjonAvEktefellesBarn === YesOrNo.NO,
         isAnswered: ({ søkerAdopsjonAlene }) => søkerAdopsjonAlene !== YesOrNo.UNANSWERED,
-        visibilityFilter: ({ adopsjonsdato }) => hasValue(adopsjonsdato),
+        visibilityFilter: ({ adopsjonAvEktefellesBarn, fødselsdatoer }) =>
+            adopsjonAvEktefellesBarn === YesOrNo.NO && fødselsdatoer?.length > 0 && fødselsdatoer[0] !== '',
     },
     [OmBarnetFormField.fødselsdatoer]: {
         isIncluded: ({ erBarnetFødt, adopsjonAvEktefellesBarn }) =>
@@ -46,8 +47,10 @@ const OmBarnetFormConfig: QuestionConfig<OmBarnetQuestionPayload, OmBarnetFormFi
     [OmBarnetFormField.omsorgsovertakelse]: {
         isIncluded: ({ adopsjonAvEktefellesBarn }) => adopsjonAvEktefellesBarn !== YesOrNo.UNANSWERED,
         isAnswered: ({ omsorgsovertakelse }) => omsorgsovertakelse?.length > 0,
-        visibilityFilter: ({ antallBarn, fødselsdatoer }) =>
-            hasValue(antallBarn) || (fødselsdatoer?.length > 0 && fødselsdatoer[0] !== ''),
+        visibilityFilter: ({ adopsjonAvEktefellesBarn, fødselsdatoer, søkerAdopsjonAlene, kjønn }) =>
+            (adopsjonAvEktefellesBarn === YesOrNo.YES && fødselsdatoer?.length > 0 && fødselsdatoer[0] !== '') ||
+            (adopsjonAvEktefellesBarn === YesOrNo.NO && søkerAdopsjonAlene !== YesOrNo.UNANSWERED) ||
+            (kjønn === 'K' && fødselsdatoer?.length > 0 && fødselsdatoer[0] !== ''),
     },
     [OmBarnetFormField.termindato]: {
         isIncluded: ({ erBarnetFødt }) => erBarnetFødt === YesOrNo.NO,

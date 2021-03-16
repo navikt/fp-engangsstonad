@@ -163,7 +163,7 @@
     "valideringsfeil.omBarnet.adopsjonDato.ektefellensBarn.duMåOppgi": "You must enter the date of adoption of the spouse's children",
     "valideringsfeil.omBarnet.adopsjonDato.overtaOmsorg.duMåOppgi": "You must enter the date of taking over care",
     "valideringsfeil.omBarnet.adopsjonDato.forLangtFremITid": "You are applying too far in advance",
-    "valideringsfeil.omBarnet.fødselsdato.barnetErIkkeFødtFørAdopsjonsDato": "The child is not born until you want to adopt the child",
+    "valideringsfeil.omBarnet.fødselsdato.barnetErIkkeFødtFørAdopsjonsDato": "The child is not born before the date of the adoption",
     "valideringsfeil.omBarnet.fodselsdato.duMåOppgi": "You must enter date of birthYou must enter date of birth",
     "valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn6MånederTilbake": "You can not apply for the lump-sum grant benefit for children older than 6 months.",
     "valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn15ÅrTilbake": "You can not apply for the lump-sum grant benefit for children older than 15 years.",
