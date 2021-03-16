@@ -162,7 +162,7 @@
     "valideringsfeil.omBarnet.adopsjonDato.ektefellensBarn.duMåOppgi": "Du må gi opp dato for adopsjon av barnet til ektefellen.",
     "valideringsfeil.omBarnet.adopsjonDato.overtaOmsorg.duMåOppgi": "Du må gi opp dato for omsorgsovertakinga.",
     "valideringsfeil.omBarnet.adopsjonDato.forLangtFremITid": "Du søker for langt frami tid",
-    "valideringsfeil.omBarnet.fødselsdato.barnetErIkkeFødtFørAdopsjonsDato": "Barnet er ikkje fødd før du ønsker å adoptera barnet",
+    "valideringsfeil.omBarnet.fødselsdato.barnetErIkkeFødtFørAdopsjonsDato": "Barnet er ikkje fødd før adopsjonsdato",
     "valideringsfeil.omBarnet.fodselsdato.duMåOppgi": "Du må gi opp fødselsdato",
     "valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn6MånederTilbake": "Du kan ikkje søka om engangsstønad for barn som er eldre enn 6 månader",
     "valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn15ÅrTilbake": "Du kan ikkje søka om engangsstønad for barn som er eldre enn 15 årr",

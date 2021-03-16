@@ -52,18 +52,7 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues,
                     />
                 </Block>
             )}
-            {visibility.isVisible(OmBarnetFormField.søkerAdopsjonAlene) && (
-                <Block margin="xl">
-                    <OmBarnetFormComponents.YesOrNoQuestion
-                        name={OmBarnetFormField.søkerAdopsjonAlene}
-                        legend={getMessage(intl, 'omBarnet.adopsjon.spørsmål.adoptererDuAlene')}
-                        labels={{
-                            no: getMessage(intl, 'omBarnet.adopsjon.text.nei'),
-                            yes: getMessage(intl, 'omBarnet.adopsjon.text.ja'),
-                        }}
-                    />
-                </Block>
-            )}
+
             {visibility.isVisible(OmBarnetFormField.antallBarn) && (
                 <>
                     <Block margin="xl">
@@ -133,6 +122,18 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues,
                                 );
                             })
                         }
+                    />
+                </Block>
+            )}
+            {visibility.isVisible(OmBarnetFormField.søkerAdopsjonAlene) && (
+                <Block margin="xl">
+                    <OmBarnetFormComponents.YesOrNoQuestion
+                        name={OmBarnetFormField.søkerAdopsjonAlene}
+                        legend={getMessage(intl, 'omBarnet.adopsjon.spørsmål.adoptererDuAlene')}
+                        labels={{
+                            no: getMessage(intl, 'omBarnet.adopsjon.text.nei'),
+                            yes: getMessage(intl, 'omBarnet.adopsjon.text.ja'),
+                        }}
                     />
                 </Block>
             )}
