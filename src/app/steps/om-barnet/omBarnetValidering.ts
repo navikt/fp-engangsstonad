@@ -7,11 +7,28 @@ import {
     sisteMuligeTermindato,
     utstedtDatoErIUke22,
 } from '@navikt/fp-common';
-import dayjs from 'dayjs';
 
-const sisteDatoAdoptertBarnKanVæreFødt = (dato: string) => {
-    const sisteMuligeAdopsjonsFødselsDato = dayjs().subtract(15, 'year').startOf('day').toDate();
-    return dayjs(dato).isBefore(sisteMuligeAdopsjonsFødselsDato);
+import dayjs from 'dayjs';
+import minMax from 'dayjs/plugin/minMax';
+import isBetween from 'dayjs/plugin/isBetween';
+
+dayjs.extend(isBetween);
+dayjs.extend(minMax);
+
+const barnetErMerEnn15årPåSøknadsDato = (dato: string, adopsjonsdato: string) => {
+    const fødselsdato = dayjs(dato);
+    const adopsjonsDato = dayjs(adopsjonsdato);
+    const datoBarnetFyllerFemten = dayjs(fødselsdato).startOf('day').add(15, 'year');
+    return dayjs(adopsjonsDato).isBetween(fødselsdato, datoBarnetFyllerFemten, null, '[]');
+};
+
+const barnetErIkkeFødtFørAdopsjonsDato = (dato: string, adopsjonsdato: string) => {
+    return dayjs(adopsjonsdato).isBefore(dato);
+};
+
+const sisteDatoAdoptertBarnKanVæreFødt = (dato: string, adopsjonsdato: string) => {
+    const datoBarnetFyllerFemten = dayjs(dato).add(15, 'year').startOf('day').toDate();
+    return dayjs(adopsjonsdato).isAfter(datoBarnetFyllerFemten);
 };
 
 const sisteMuligeDatoForOvertaOmsorg = (dato: string) => {
@@ -19,12 +36,22 @@ const sisteMuligeDatoForOvertaOmsorg = (dato: string) => {
     return dayjs(dato).isAfter(sisteDatoForOvertaOmsorg);
 };
 
-export const validateAdopsjonDate = (dato: string) => {
+export const validateEktefellensBarnAdopsjonDate = (dato: string) => {
     if (!hasValue(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.duMåOppgi');
+        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.ektefellensBarn.duMåOppgi');
     }
     if (sisteMuligeDatoForOvertaOmsorg(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.overtaOmsorg.forLangtFremITid');
+        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.forLangtFremITid');
+    }
+    return undefined;
+};
+
+export const validateOvertaOmsorgAdopsjonDate = (dato: string) => {
+    if (!hasValue(dato)) {
+        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.overtaOmsorg.duMåOppgi');
+    }
+    if (sisteMuligeDatoForOvertaOmsorg(dato)) {
+        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.forLangtFremITid');
     }
     return undefined;
 };
@@ -49,15 +76,24 @@ export const validateFødselDate = (dato: string) => {
     return undefined;
 };
 
-export const validateAdopsjonFødselDate = (dato: string) => {
+export const validateAdopsjonFødselDate = (dato: string | undefined, adopsjonsdato: string | undefined) => {
     if (!hasValue(dato)) {
         return createFieldValidationError('valideringsfeil.omBarnet.fodselsdato.duMåOppgi');
+    }
+    if (!dato || !adopsjonsdato) {
+        return undefined;
     }
     if (etterDagensDato(dato)) {
         return createFieldValidationError('valideringsfeil.omBarnet.fodselsdato.måVæreIdagEllerTidligere');
     }
-    if (sisteDatoAdoptertBarnKanVæreFødt(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn15ÅrTilbake');
+    if (!barnetErMerEnn15årPåSøknadsDato(dato, adopsjonsdato)) {
+        if (sisteDatoAdoptertBarnKanVæreFødt(dato, adopsjonsdato)) {
+            return createFieldValidationError('valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn15ÅrTilbake');
+        }
+        if (barnetErIkkeFødtFørAdopsjonsDato(dato, adopsjonsdato)) {
+            return createFieldValidationError('valideringsfeil.omBarnet.fødselsdato.barnetErIkkeFødtFørAdopsjonsDato');
+        }
+        return undefined;
     }
     return undefined;
 };

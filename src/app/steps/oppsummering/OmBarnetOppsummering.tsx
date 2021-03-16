@@ -20,8 +20,10 @@ const OmBarnetOppsummering: React.FunctionComponent<Props> = ({ barn }) => {
     let antallBarnSummaryText;
     if (barn.antallBarn === '1') {
         antallBarnSummaryText = getMessage(intl, 'oppsummering.omBarnet.ettBarn');
-    } else if (barn.antallBarn === '2') {
+    } else if (barn.antallBarn === '2' && barn.adopsjonAvEktefellesBarn === YesOrNo.UNANSWERED) {
         antallBarnSummaryText = getMessage(intl, 'oppsummering.omBarnet.tvillinger');
+    } else if (barn.antallBarn === '2' && barn.adopsjonAvEktefellesBarn !== YesOrNo.UNANSWERED) {
+        antallBarnSummaryText = getMessage(intl, 'oppsummering.omBarnet.toBarn');
     } else {
         antallBarnSummaryText = getMessage(intl, 'oppsummering.omBarnet.flereBarn', {
             antall: barn.antallBarn,
