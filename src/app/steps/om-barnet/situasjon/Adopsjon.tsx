@@ -11,7 +11,11 @@ import Veilederpanel from 'nav-frontend-veilederpanel';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { OmBarnetFormComponents, OmBarnetFormData, OmBarnetFormField } from '../omBarnetFormConfig';
-import { validateAdopsjonDate, validateAdopsjonFødselDate } from '../omBarnetValidering';
+import {
+    validateAdopsjonFødselDate,
+    validateEktefellensBarnAdopsjonDate,
+    validateOvertaOmsorgAdopsjonDate,
+} from '../omBarnetValidering';
 
 interface Fødtprops {
     formValues: OmBarnetFormData;
@@ -38,7 +42,11 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues,
                                 : getMessage(intl, 'omBarnet.adopsjon.spørsmål.overtaomsorgdato')
                         }
                         minDate={dayjs().subtract(6, 'month').toDate()}
-                        validate={validateAdopsjonDate}
+                        validate={
+                            formValues.adopsjonAvEktefellesBarn === YesOrNo.YES
+                                ? validateEktefellensBarnAdopsjonDate
+                                : validateOvertaOmsorgAdopsjonDate
+                        }
                         placeholder={'dd.mm.åååå'}
                         invalidFormatErrorKey={'invalidFormatErrorKey.adopsjonsdato'}
                     />
@@ -48,7 +56,7 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues,
                 <Block margin="xl">
                     <OmBarnetFormComponents.YesOrNoQuestion
                         name={OmBarnetFormField.søkerAdopsjonAlene}
-                        legend={getMessage(intl, 'omBarnet.adopsjon.spørsmål.søkerdualene')}
+                        legend={getMessage(intl, 'omBarnet.adopsjon.spørsmål.adoptererDuAlene')}
                         labels={{
                             no: getMessage(intl, 'omBarnet.adopsjon.text.nei'),
                             yes: getMessage(intl, 'omBarnet.adopsjon.text.ja'),
@@ -113,9 +121,11 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues,
                                                           `omBarnet.adopsjon.spørsmål.fødselsdato.${index + 1}`
                                                       )
                                             }
-                                            minDate={dayjs().subtract(15, 'year').subtract(6, 'month').toDate()}
+                                            minDate={dayjs().subtract(15, 'year').toDate()}
                                             maxDate={dayjs().toDate()}
-                                            validate={validateAdopsjonFødselDate}
+                                            validate={(fødselsDatoer) =>
+                                                validateAdopsjonFødselDate(fødselsDatoer, formValues.adopsjonsdato)
+                                            }
                                             placeholder={'dd.mm.åååå'}
                                             invalidFormatErrorKey={'invalidFormatErrorKey.fødselsdato'}
                                         />
