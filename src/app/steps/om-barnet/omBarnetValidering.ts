@@ -6,35 +6,11 @@ import {
     sisteDatoBarnetKanVæreFødt,
     sisteMuligeTermindato,
     utstedtDatoErIUke22,
+    barnetErMerEnn15årPåSøknadsDato,
+    barnetErIkkeFødtFørAdopsjonsDato,
+    sisteDatoAdoptertBarnKanVæreFødt,
+    sisteMuligeDatoForOvertaOmsorg,
 } from '@navikt/fp-common';
-
-import dayjs from 'dayjs';
-import minMax from 'dayjs/plugin/minMax';
-import isBetween from 'dayjs/plugin/isBetween';
-
-dayjs.extend(isBetween);
-dayjs.extend(minMax);
-
-const barnetErMerEnn15årPåSøknadsDato = (dato: string, adopsjonsdato: string) => {
-    const fødselsdato = dayjs(dato);
-    const adopsjonsDato = dayjs(adopsjonsdato);
-    const datoBarnetFyllerFemten = dayjs(fødselsdato).startOf('day').add(15, 'year');
-    return dayjs(adopsjonsDato).isBetween(fødselsdato, datoBarnetFyllerFemten, null, '[]');
-};
-
-const barnetErIkkeFødtFørAdopsjonsDato = (dato: string, adopsjonsdato: string) => {
-    return dayjs(adopsjonsdato).isBefore(dato);
-};
-
-const sisteDatoAdoptertBarnKanVæreFødt = (dato: string, adopsjonsdato: string) => {
-    const datoBarnetFyllerFemten = dayjs(dato).add(15, 'year').startOf('day').toDate();
-    return dayjs(adopsjonsdato).isAfter(datoBarnetFyllerFemten);
-};
-
-const sisteMuligeDatoForOvertaOmsorg = (dato: string) => {
-    const sisteDatoForOvertaOmsorg = dayjs().add(1, 'year').startOf('day').toDate();
-    return dayjs(dato).isAfter(sisteDatoForOvertaOmsorg);
-};
 
 export const validateEktefellensBarnAdopsjonDate = (dato: string) => {
     if (!hasValue(dato)) {
