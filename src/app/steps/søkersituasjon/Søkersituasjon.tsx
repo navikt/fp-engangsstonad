@@ -16,6 +16,7 @@ import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
 import søkersituasjonQuestionsConfig from './søkersituasjonQuestionsConfig';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router';
+import { onAvbrytSøknad } from 'app/util/globalUtil';
 
 const Søkersituasjon: React.FunctionComponent = () => {
     const intl = useIntl();
@@ -46,6 +47,7 @@ const Søkersituasjon: React.FunctionComponent = () => {
                         activeStepId="søkersituasjon"
                         pageTitle={getMessage(intl, 'søknad.søkersituasjon')}
                         stepTitle={getMessage(intl, 'søknad.søkersituasjon')}
+                        onCancel={() => onAvbrytSøknad(dispatch, history)}
                         steps={stepConfig}
                         kompakt={true}
                     >
