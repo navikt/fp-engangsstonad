@@ -1,6 +1,4 @@
 import { getTypedFormComponents, YesOrNo } from '@navikt/sif-common-formik/lib';
-import { Kjønn } from 'app/types/domain/Person';
-import { SøkersituasjonFormField } from '../søkersituasjon/søkersituasjonFormConfig';
 
 export enum OmBarnetFormField {
     erBarnetFødt = 'erBarnetFødt',
@@ -41,7 +39,4 @@ export const initialOmBarnetValues: OmBarnetFormData = {
     [OmBarnetFormField.terminbekreftelsedato]: undefined,
 };
 
-export const OmBarnetFormComponents = getTypedFormComponents<
-    OmBarnetFormField | SøkersituasjonFormField | Kjønn,
-    OmBarnetFormData
->();
+export const OmBarnetFormComponents = getTypedFormComponents<OmBarnetFormField, OmBarnetFormData>();
