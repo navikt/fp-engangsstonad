@@ -101,7 +101,7 @@
         "@babel/preset-react": "^7.10.4",
         "@types/amplitude-js": "^7.0.1",
         "@types/bytes": "^3.1.0",
-        "@types/classnames": "^2.2.10",
+        "@types/classnames": "^2.3.1",
         "@types/date-fns": "^2.6.0",
         "@types/detect-browser": "^4.0.0",
         "@types/enzyme": "^3.10.7",
