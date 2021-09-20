@@ -106,9 +106,22 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                             </Block>
                             <Block padBottom="xl">
                                 <Veilederpanel kompakt={true} svg={<Veiviser />}>
-                                    <FormattedMessage id="velkommen.text.veiviser" />
-                                    <br />
-                                    <br />
+                                    <FormattedMessage id="velkommen.text.veiviser.del1" />
+                                    <ul>
+                                        <li>
+                                            <FormattedMessage id="velkommen.text.veiviser.punkt1" />
+                                        </li>
+                                        <li>
+                                            <FormattedMessage id="velkommen.text.veiviser.punkt2" />
+                                        </li>
+                                        <li>
+                                            <FormattedMessage id="velkommen.text.veiviser.punkt3" />
+                                        </li>
+                                        <li>
+                                            <FormattedMessage id="velkommen.text.veiviser.punkt4" />
+                                        </li>
+                                    </ul>
+                                    <FormattedMessage id="velkommen.text.veiviser.del2" />
                                     <FormattedMessage
                                         id="velkommen.text.veiviser.lenke"
                                         values={{
