@@ -121,7 +121,9 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                                             <FormattedMessage id="velkommen.text.veiviser.punkt4" />
                                         </li>
                                     </ul>
-                                    <FormattedMessage id="velkommen.text.veiviser.del2" />
+                                    <Block padBottom="m">
+                                        <FormattedMessage id="velkommen.text.veiviser.del2" />
+                                    </Block>
                                     <FormattedMessage
                                         id="velkommen.text.veiviser.lenke"
                                         values={{
