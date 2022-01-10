@@ -69,7 +69,7 @@ jobs:
                         });
                       });
 
-            - name: Opprett issue, trigg deploy til dev-fss og dev-gcp
+            - name: Opprett issue, trigg deploy til dev-gcp
               if: success()
               uses: actions/github-script@v3
               with:
