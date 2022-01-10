@@ -18,11 +18,11 @@ For å kjøre cypress-tester:
 
 # Henvendelser
 
-Spørsmål knyttet til koden eller prosjektet kan rettes mot nav.team.bris@nav.no.
+Spørsmål kan sendes nav.team.bris@nav.no.
 
 ## For NAV-ansatte
 
-Interne henvendelser kan sendes via Slack i kanalen #bris.
+Interne henvendelser kan sendes via Slack i kanalen #teamforeldrepenger.
 
 ### Icon License
 
