@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Ingress, Innholdstittel } from 'nav-frontend-typografi';
+import { Ingress, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import {
     bemUtils,
     LanguageToggle,
@@ -121,9 +121,6 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                                             <FormattedMessage id="velkommen.text.veiviser.punkt4" />
                                         </li>
                                     </ul>
-                                    <Block padBottom="m">
-                                        <FormattedMessage id="velkommen.text.veiviser.del2" />
-                                    </Block>
                                     <FormattedMessage
                                         id="velkommen.text.veiviser.lenke"
                                         values={{
@@ -160,11 +157,16 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                                         <Block padBottom="l">
                                             <FormattedMessage id="velkommen.text.samtykkeIntro" />
                                         </Block>
-                                        <UtvidetInformasjon
-                                            apneLabel={intlUtils(intl, 'velkommen.text.plikter.apneLabel')}
-                                        >
-                                            <Plikter />
-                                        </UtvidetInformasjon>
+                                        <Block padBottom="m">
+                                            <UtvidetInformasjon
+                                                apneLabel={intlUtils(intl, 'velkommen.text.plikter.apneLabel')}
+                                            >
+                                                <Plikter />
+                                            </UtvidetInformasjon>
+                                        </Block>
+                                        <Normaltekst>
+                                            <FormattedMessage id="velkommen.text.kunEnStønad" />
+                                        </Normaltekst>
                                     </>
                                 </VelkommenFormComponents.ConfirmationCheckbox>
                             </Block>

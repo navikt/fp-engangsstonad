@@ -236,7 +236,7 @@
     "velkommen.text.veiviser.punkt2": "dagpengar",
     "velkommen.text.veiviser.punkt3": "sjukepengar",
     "velkommen.text.veiviser.punkt4": "pleie- eller omsorgspengar",
-    "velkommen.text.veiviser.del2": "Vel du likevel å søke om eingongsstønad, kan du ikkje seinare ombestemme deg. Du kan ikkje motta både eingongsstønad og foreldrepengar for same barn.",
+    "velkommen.text.kunEnStønad": "Vel du å søke om eingongsstønad, kan du ikkje seinare ombestemme deg. Du kan ikkje motta både eingongsstønad og foreldrepengar for same barn.",
     "velkommen.text.veiviser.lenke": "<a>Bruk vegvisaren og finn ut kva du kan få</a>",
     "velkommen.text.plikter.apneLabel": "Les om pliktene dine",
     "velkommen.under18.boblelenketekst": "Her kan du laste ned papirsøknaden",
