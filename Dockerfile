@@ -2,11 +2,13 @@ FROM node:alpine
 
 WORKDIR /usr/src/app
 
-COPY package.json ./
+COPY dist ./dist
 
-RUN npm install
+COPY server.js .
+COPY node_modules ./node_modules
+COPY package.json .
+COPY src/build/scripts/decorator.js ./src/build/scripts/decorator.js
 
-COPY . .
 EXPOSE 8080
 
 CMD ["npm", "run", "start-express"]
