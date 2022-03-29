@@ -1,6 +1,5 @@
 import { EngangsstønadSøknadDto } from '../types/domain/EngangsstønadSøknad';
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
-import { redirectToLogin } from 'util/login';
 
 const foreldrepengersoknadApi = axios.create({
     baseURL: (window as any).REST_API_URL,
@@ -26,7 +25,7 @@ foreldrepengersoknadApi.interceptors.response.use(
             error.config.url &&
             !error.config.url.includes('/soknad')
         ) {
-            redirectToLogin();
+            // redirectToLogin();
         }
         return Promise.reject(error);
     }
