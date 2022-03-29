@@ -7,6 +7,6 @@
     "env": {
         "APPRES_CMS_URL": "https://dekoratoren.dev.nav.no",
         "FORELDREPENGESOKNAD_API_URL": "https://foreldrepengesoknad-api.dev.nav.no/rest",
-        "LOGINSERVICE_URL": "https://engangsstonad.nav.no/oauth2/login"
+        "LOGINSERVICE_URL": "https://engangsstonad.dev.nav.no/oauth2/login"
     }
 }
