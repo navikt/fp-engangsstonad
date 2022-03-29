@@ -1,5 +1,4 @@
 {
-    "gcp" : "true",
     "ingresses":  ["https://engangsstonad.nav.no"],
     "dekoratoren" : "www.nav.no",
     "nav" : "www.nav.no",
