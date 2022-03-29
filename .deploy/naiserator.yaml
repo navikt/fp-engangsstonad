@@ -27,11 +27,6 @@ spec:
     initialDelay: 60
   prometheus:
     enabled: false
-  idporten:
-    enabled: true
-    sidecar:
-      enabled: true
-      level: Level4
   ingresses:
   {{#each ingresses as |url|}}
     - {{url}}
