@@ -18,7 +18,7 @@ For å kjøre cypress-tester:
 
 # Henvendelser
 
-Spørsmål kan sendes teamforeldrepenger
+Spørsmål kan sendes https://engangsstonad.nav.no
 
 ## For NAV-ansatte
 
