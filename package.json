@@ -104,7 +104,7 @@
         "@types/classnames": "^2.2.10",
         "@types/date-fns": "^2.6.0",
         "@types/detect-browser": "^4.0.0",
-        "@types/enzyme": "^3.10.7",
+        "@types/enzyme": "^3.10.12",
         "@types/jest": "^26.0.14",
         "@types/lodash": "^4.14.162",
         "@types/query-string": "^6.3.0",
