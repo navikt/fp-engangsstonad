@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Veiviser: React.FunctionComponent<any> = (props: any) => (
-    <svg width={80} height={80} viewBox="0 0 64 64" {...props}>
+    <svg width={80} height={80} role="img" aria-hidden="true" viewBox="0 0 64 64" {...props}>
         <g transform="translate(-1)" fill="none" fillRule="evenodd">
             <circle fill="#C1B5D0" cx={33} cy={32} r={32} />
             <g transform="translate(.5)">

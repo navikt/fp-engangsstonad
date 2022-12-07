@@ -1,7 +1,7 @@
 import React from 'react';
 const PaperclipIkon = (props: any) => {
     return (
-        <svg viewBox="0 0 24 24" {...props}>
+        <svg viewBox="0 0 24 24" role="img" aria-hidden="true" {...props}>
             <path
                 stroke="#000"
                 strokeLinecap="round"
