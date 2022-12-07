@@ -20,11 +20,11 @@ import { mapStateForInnsending } from 'app/util/apiUtils';
 import Api from 'app/api/api';
 import { useHistory } from 'react-router-dom';
 import actionCreator from 'app/context/action/actionCreator';
-
-import './oppsummering.less';
 import { onAvbrytSøknad } from 'app/util/globalUtil';
 import { logAmplitudeEvent } from 'app/amplitude/amplitude';
 import { PageKeys } from 'app/types/PageKeys';
+
+import './oppsummering.less';
 
 interface Props {
     person: Person;

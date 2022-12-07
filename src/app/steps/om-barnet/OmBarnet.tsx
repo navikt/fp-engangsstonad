@@ -49,7 +49,7 @@ const OmBarnet: React.FunctionComponent<Props> = ({ person }) => {
     const intl = useIntl();
     const bem = bemUtils('omBarnet');
     const history = useHistory();
-    useDocumentTitle(intlUtils(intl, 'velkommen.standard.dokumenttittel'));
+    useDocumentTitle(intlUtils(intl, 'søknad.omBarnet'));
     const { state, dispatch } = useEngangsstønadContext();
     const søkersituasjonValues = state.søknad.søkersituasjon;
     const { omBarnet } = state.søknad;
