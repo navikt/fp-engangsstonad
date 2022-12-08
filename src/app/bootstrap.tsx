@@ -8,6 +8,7 @@ import ModalWrapper from 'nav-frontend-modal';
 import AppContainer from './AppContainer';
 import { initAmplitude } from './amplitude/amplitude';
 
+import '@navikt/ds-css';
 import './styles/globals.less';
 
 countries.registerLocale(require('i18n-iso-countries/langs/nb.json'));
