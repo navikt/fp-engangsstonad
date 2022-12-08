@@ -1,7 +1,9 @@
 import React from 'react';
 import * as Sentry from '@sentry/browser';
 
-interface Props {}
+interface Props {
+    children: React.ReactNode;
+}
 
 interface State {
     eventId: string | null;

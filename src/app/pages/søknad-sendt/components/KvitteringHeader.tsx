@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Lenke from 'nav-frontend-lenker';
-import { Sidetittel, EtikettLiten } from 'nav-frontend-typografi';
+import { Sidetittel, Element } from 'nav-frontend-typografi';
 import { FormattedMessage } from 'react-intl';
 import dayjs from 'dayjs';
 import Person from 'app/types/domain/Person';
@@ -61,11 +61,11 @@ const KvitteringHeader: React.FunctionComponent<Props> = ({ søker, kvittering }
 
             <Block margin="l">
                 <div className={bem.element('sendtInnTid')}>
-                    <EtikettLiten>
+                    <Element>
                         <FormattedMessage id="søknadSendt.sendtInn" />
                         <span style={{ width: '0.25rem' }} />
                         {dayjs(mottattDato).format('D MMMM YYYY')}, kl. {dayjs(mottattDato).format('HH:mm')}
-                    </EtikettLiten>
+                    </Element>
                 </div>
             </Block>
         </div>

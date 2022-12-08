@@ -1,4 +1,4 @@
-import { bemUtils, Block, commonFieldErrorRenderer, intlUtils, Step, useDocumentTitle } from '@navikt/fp-common';
+import { bemUtils, Block, intlUtils, Step, useDocumentTitle } from '@navikt/fp-common';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import {
@@ -10,7 +10,7 @@ import {
 import omBarnetQuestionsConfig from './omBarnetQuestionsConfig';
 import getMessage from 'common/util/i18nUtils';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { UnansweredQuestionsInfo, YesOrNo } from '@navikt/sif-common-formik/lib';
 import actionCreator from 'app/context/action/actionCreator';
 import stepConfig, { getPreviousStepHref } from 'app/step-config/stepConfig';
@@ -48,7 +48,7 @@ const shouldResetInitialValues = (
 const OmBarnet: React.FunctionComponent<Props> = ({ person }) => {
     const intl = useIntl();
     const bem = bemUtils('omBarnet');
-    const history = useHistory();
+    const navigate = useNavigate();
     useDocumentTitle(intlUtils(intl, 'søknad.omBarnet'));
     const { state, dispatch } = useEngangsstønadContext();
     const søkersituasjonValues = state.søknad.søkersituasjon;
@@ -79,7 +79,7 @@ const OmBarnet: React.FunctionComponent<Props> = ({ person }) => {
                 terminbekreftelsedato: values.terminbekreftelsedato,
             })
         );
-        history.push('/soknad/utenlandsopphold');
+        navigate('/soknad/utenlandsopphold');
     };
 
     return (
@@ -100,13 +100,12 @@ const OmBarnet: React.FunctionComponent<Props> = ({ person }) => {
                         pageTitle={getMessage(intl, 'søknad.omBarnet')}
                         stepTitle={getMessage(intl, 'søknad.omBarnet')}
                         backLinkHref={getPreviousStepHref('omBarnet')}
-                        onCancel={() => onAvbrytSøknad(dispatch, history)}
+                        onCancel={() => onAvbrytSøknad(dispatch, navigate)}
                         steps={stepConfig}
                         kompakt={true}
                     >
                         <OmBarnetFormComponents.Form
                             includeButtons={false}
-                            fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
                             cleanup={() => cleanupOmBarnet(formValues)}
                             noButtonsContentRenderer={
                                 allQuestionsAnswered

@@ -10,7 +10,7 @@ import BEMHelper from 'common/util/bem';
 import './alertstripeWithCloseButton.less';
 
 interface AlertstripeContentProps {
-    lukknappProps: LukknappProps;
+    lukknappProps: Omit<LukknappProps, 'children'>;
     onClose?: () => void;
     errorMessages: React.ReactNode[];
 }

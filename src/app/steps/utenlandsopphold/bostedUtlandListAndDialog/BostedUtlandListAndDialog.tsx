@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormikModalFormAndList, FormikValidateFunction, ModalFormAndListLabels } from '@navikt/sif-common-formik';
+import { FormikModalFormAndList, ModalFormAndListLabels } from '@navikt/sif-common-formik';
 import BostedUtlandForm from './BostedUtlandForm';
 import BostedUtlandListe from './BostedUtlandList';
 import { BostedUtland } from './types';
@@ -7,7 +7,7 @@ import { sortItemsByFom } from '@navikt/fp-common';
 
 interface Props<FieldNames> {
     name: FieldNames;
-    validate?: FormikValidateFunction;
+    validate?: any;
     minDate: Date;
     maxDate: Date;
     labels: ModalFormAndListLabels;
@@ -23,7 +23,7 @@ function BostedUtlandListAndDialog<FieldNames>({
     erFremtidigOpphold,
 }: Props<FieldNames>) {
     return (
-        <FormikModalFormAndList<FieldNames, BostedUtland>
+        <FormikModalFormAndList<FieldNames, BostedUtland, string>
             name={name}
             labels={labels}
             validate={validate}

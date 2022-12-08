@@ -29,7 +29,7 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues,
     if (formValues.adopsjonAvEktefellesBarn === YesOrNo.UNANSWERED) {
         return null;
     }
-    
+
     return (
         <>
             {visibility.isVisible(OmBarnetFormField.adopsjonsdato) && (
@@ -44,11 +44,10 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues,
                         minDate={dayjs().subtract(6, 'month').toDate()}
                         validate={
                             formValues.adopsjonAvEktefellesBarn === YesOrNo.YES
-                                ? validateEktefellensBarnAdopsjonDate
-                                : validateOvertaOmsorgAdopsjonDate
+                                ? (value) => validateEktefellensBarnAdopsjonDate(value, intl)
+                                : (value) => validateOvertaOmsorgAdopsjonDate(value, intl)
                         }
                         placeholder={'dd.mm.åååå'}
-                        invalidFormatErrorKey={'invalidFormatErrorKey.adopsjonsdato'}
                     />
                 </Block>
             )}
@@ -112,10 +111,13 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues,
                                             minDate={dayjs().subtract(15, 'year').toDate()}
                                             maxDate={dayjs().toDate()}
                                             validate={(fødselsDatoer) =>
-                                                validateAdopsjonFødselDate(fødselsDatoer, formValues.adopsjonsdato)
+                                                validateAdopsjonFødselDate(
+                                                    fødselsDatoer,
+                                                    formValues.adopsjonsdato,
+                                                    intl
+                                                )
                                             }
                                             placeholder={'dd.mm.åååå'}
-                                            invalidFormatErrorKey={'invalidFormatErrorKey.fødselsdato'}
                                         />
                                     </Block>
                                 );

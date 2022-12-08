@@ -71,7 +71,7 @@ const Født: React.FunctionComponent<Fødtprops> = ({ visibility, formValues }) 
                                 label={getMessage(intl, 'søknad.fødselsdato')}
                                 minDate={dayjs().subtract(6, 'month').toDate()}
                                 maxDate={dayjs().toDate()}
-                                validate={validateFødselDate}
+                                validate={(value) => validateFødselDate(value, intl)}
                                 placeholder={'dd.mm.åååå'}
                             />,
                         ]}

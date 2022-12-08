@@ -1,4 +1,4 @@
-import { bemUtils, Block, commonFieldErrorRenderer, intlUtils, Step } from '@navikt/fp-common';
+import { bemUtils, Block, intlUtils, Step } from '@navikt/fp-common';
 import stepConfig from 'app/step-config/stepConfig';
 import getMessage from 'common/util/i18nUtils';
 import React from 'react';
@@ -15,13 +15,13 @@ import { cleanupSøkersituasjon } from './søkersituasjonUtils';
 import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
 import søkersituasjonQuestionsConfig from './søkersituasjonQuestionsConfig';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { onAvbrytSøknad } from 'app/util/globalUtil';
 
 const Søkersituasjon: React.FunctionComponent = () => {
     const intl = useIntl();
     const bem = bemUtils('søkersituasjon');
-    const history = useHistory();
+    const navigate = useNavigate();
     const { state, dispatch } = useEngangsstønadContext();
     const søkersituasjonValues = state.søknad.søkersituasjon;
 
@@ -31,7 +31,7 @@ const Søkersituasjon: React.FunctionComponent = () => {
                 situasjon: values.situasjon,
             })
         );
-        history.push('/soknad/om-barnet');
+        navigate('/soknad/om-barnet');
     };
 
     return (
@@ -47,13 +47,12 @@ const Søkersituasjon: React.FunctionComponent = () => {
                         activeStepId="søkersituasjon"
                         pageTitle={getMessage(intl, 'søknad.søkersituasjon')}
                         stepTitle={getMessage(intl, 'søknad.søkersituasjon')}
-                        onCancel={() => onAvbrytSøknad(dispatch, history)}
+                        onCancel={() => onAvbrytSøknad(dispatch, navigate)}
                         steps={stepConfig}
                         kompakt={true}
                     >
                         <SøkersituasjonFormComponents.Form
                             includeButtons={false}
-                            fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
                             cleanup={() => cleanupSøkersituasjon(formValues)}
                             noButtonsContentRenderer={
                                 allQuestionsAnswered

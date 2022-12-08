@@ -4,7 +4,7 @@ import { Undertittel, Normaltekst } from 'nav-frontend-typografi';
 
 import './modalContent.less';
 
-const OmTerminbekreftelsen: React.StatelessComponent = () => (
+const OmTerminbekreftelsen: React.FunctionComponent = () => (
     <div className="modalContent">
         <Undertittel className="modalContent__header">
             <FormattedMessage id="terminbekreftelsen.sectionheading" />

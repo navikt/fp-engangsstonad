@@ -1,104 +1,130 @@
 import {
-    createFieldValidationError,
     erMindreEnn3UkerSiden,
     etterDagensDato,
     hasValue,
     sisteDatoBarnetKanVæreFødt,
     sisteMuligeTermindato,
     utstedtDatoErIUke22,
-    barnetErMerEnn15årPåSøknadsDato,
-    barnetErIkkeFødtFørAdopsjonsDato,
-    sisteDatoAdoptertBarnKanVæreFødt,
     sisteMuligeDatoForOvertaOmsorg,
+    intlUtils,
 } from '@navikt/fp-common';
+import datepickerUtils from '@navikt/sif-common-formik/lib/components/formik-datepicker/datepickerUtils';
+import { IntlShape } from 'react-intl';
 
-export const validateEktefellensBarnAdopsjonDate = (dato: string) => {
+export const validateEktefellensBarnAdopsjonDate = (dato: string, intl: IntlShape) => {
     if (!hasValue(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.ektefellensBarn.duMåOppgi');
+        return intlUtils(intl, 'valideringsfeil.omBarnet.adopsjonDato.ektefellensBarn.duMåOppgi');
+    }
+
+    if (!datepickerUtils.isValidFormattedDateString(dato)) {
+        return intlUtils(intl, 'invalidFormatErrorKey.adopsjonsdato');
+    }
+
+    if (sisteMuligeDatoForOvertaOmsorg(dato)) {
+        return intlUtils(intl, 'valideringsfeil.omBarnet.adopsjonDato.forLangtFremITid');
+    }
+
+    return undefined;
+};
+
+export const validateOvertaOmsorgAdopsjonDate = (dato: string, intl: IntlShape) => {
+    if (!hasValue(dato)) {
+        return intlUtils(intl, 'valideringsfeil.omBarnet.adopsjonDato.overtaOmsorg.duMåOppgi');
     }
     if (sisteMuligeDatoForOvertaOmsorg(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.forLangtFremITid');
+        return intlUtils(intl, 'valideringsfeil.omBarnet.adopsjonDato.forLangtFremITid');
     }
     return undefined;
 };
 
-export const validateOvertaOmsorgAdopsjonDate = (dato: string) => {
+export const validateNårKommerBarnetDate = (dato: string, intl: IntlShape) => {
     if (!hasValue(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.overtaOmsorg.duMåOppgi');
-    }
-    if (sisteMuligeDatoForOvertaOmsorg(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.adopsjonDato.forLangtFremITid');
+        return intlUtils(intl, 'valideringsfeil.omBarnet.nårKommerBarnetDato.duMåOppgi');
     }
     return undefined;
 };
 
-export const validateNårKommerBarnetDate = (dato: string) => {
+export const validateFødselDate = (dato: string, intl: IntlShape) => {
     if (!hasValue(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.nårKommerBarnetDato.duMåOppgi');
-    }
-    return undefined;
-};
-
-export const validateFødselDate = (dato: string) => {
-    if (!hasValue(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.fodselsdato.duMåOppgi');
+        return intlUtils(intl, 'valideringsfeil.omBarnet.fodselsdato.duMåOppgi');
     }
     if (etterDagensDato(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.fodselsdato.måVæreIdagEllerTidligere');
+        return intlUtils(intl, 'valideringsfeil.omBarnet.fodselsdato.måVæreIdagEllerTidligere');
     }
     if (sisteDatoBarnetKanVæreFødt(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn6MånederTilbake');
+        return intlUtils(intl, 'valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn6MånederTilbake');
     }
     return undefined;
 };
 
-export const validateAdopsjonFødselDate = (dato: string | undefined, adopsjonsdato: string | undefined) => {
+export const validateAdopsjonFødselDate = (
+    dato: string | undefined,
+    adopsjonsdato: string | undefined,
+    intl: IntlShape
+) => {
     if (!hasValue(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.fodselsdato.duMåOppgi');
+        return intlUtils(intl, 'valideringsfeil.omBarnet.fodselsdato.duMåOppgi');
     }
+
+    if (!datepickerUtils.isValidFormattedDateString(dato)) {
+        return intlUtils(intl, 'invalidFormatErrorKey.fødselsdato');
+    }
+
     if (!dato || !adopsjonsdato) {
         return undefined;
     }
     if (etterDagensDato(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.fodselsdato.måVæreIdagEllerTidligere');
+        return intlUtils(intl, 'valideringsfeil.omBarnet.fodselsdato.måVæreIdagEllerTidligere');
     }
-    if (!barnetErMerEnn15årPåSøknadsDato(dato, adopsjonsdato)) {
-        if (sisteDatoAdoptertBarnKanVæreFødt(dato, adopsjonsdato)) {
-            return createFieldValidationError('valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn15ÅrTilbake');
-        }
-        if (barnetErIkkeFødtFørAdopsjonsDato(dato, adopsjonsdato)) {
-            return createFieldValidationError('valideringsfeil.omBarnet.fødselsdato.barnetErIkkeFødtFørAdopsjonsDato');
-        }
-        return undefined;
-    }
+    // if (!barnetErMerEnn15årPåSøknadsDato(dato, adopsjonsdato)) {
+    //     if (sisteDatoAdoptertBarnKanVæreFødt(dato, adopsjonsdato)) {
+    //         return intlUtils(intl, 'valideringsfeil.omBarnet.fodselsdato.ikkeMerEnn15ÅrTilbake');
+    //     }
+    //     if (barnetErIkkeFødtFørAdopsjonsDato(dato, adopsjonsdato)) {
+    //         return intlUtils(intl, 'valideringsfeil.omBarnet.fødselsdato.barnetErIkkeFødtFørAdopsjonsDato');
+    //     }
+    //     return undefined;
+    // }
     return undefined;
 };
 
-export const validateTerminDate = (dato: string) => {
+export const validateTerminDate = (dato: string, intl: IntlShape) => {
     if (!hasValue(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.termindato.duMåOppgi');
+        return intlUtils(intl, 'valideringsfeil.omBarnet.termindato.duMåOppgi');
+    }
+    if (!datepickerUtils.isValidFormattedDateString(dato)) {
+        return intlUtils(intl, 'invalidFormatErrorKey.termindato');
     }
     if (!erMindreEnn3UkerSiden(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.termindato.termindatoKanIkkeVære3UkerFraIdag');
+        return intlUtils(intl, 'valideringsfeil.omBarnet.termindato.termindatoKanIkkeVære3UkerFraIdag');
     }
     if (sisteMuligeTermindato(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.termindato.duMåVæreIUke22');
+        return intlUtils(intl, 'valideringsfeil.omBarnet.termindato.duMåVæreIUke22');
     }
     return undefined;
 };
 
-export const valideringAvTerminbekreftelsesdato = (dato: string | undefined, termindato: string | undefined) => {
+export const valideringAvTerminbekreftelsesdato = (
+    dato: string | undefined,
+    termindato: string | undefined,
+    intl: IntlShape
+) => {
     if (!hasValue(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.terminbekreftelseDato.duMåOppgi');
+        return intlUtils(intl, 'valideringsfeil.omBarnet.terminbekreftelseDato.duMåOppgi');
     }
     if (!dato || !termindato) {
         return undefined;
     }
+
+    if (!datepickerUtils.isValidFormattedDateString(dato)) {
+        return intlUtils(intl, 'invalidFormatErrorKey.terminBekreftelsedato');
+    }
+
     if (etterDagensDato(dato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.terminbekreftelseDato.måVæreIdagEllerTidligere');
+        return intlUtils(intl, 'valideringsfeil.omBarnet.terminbekreftelseDato.måVæreIdagEllerTidligere');
     }
     if (!utstedtDatoErIUke22(dato, termindato)) {
-        return createFieldValidationError('valideringsfeil.omBarnet.terminbekreftelseDato.duMåVæreIUke22');
+        return intlUtils(intl, 'valideringsfeil.omBarnet.terminbekreftelseDato.duMåVæreIUke22');
     }
     return undefined;
 };

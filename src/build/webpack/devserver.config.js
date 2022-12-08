@@ -1,12 +1,13 @@
 require('dotenv').config();
+const path = require('path');
 const mustacheExpress = require('mustache-express');
 
 const configureDevServer = (decoratorFragments) => ({
-    before: (app) => {
-        app.engine('html', mustacheExpress());
-        app.set('views', `${__dirname}/../../../dist/dev`);
-        app.set('view engine', 'mustache');
-        app.get(/^\/(?!.*dist).*$/, (req, res) => {
+    setupMiddlewares: (middlewares, devServer) => {
+        devServer.app.engine('html', mustacheExpress());
+        devServer.app.set('views', `${__dirname}/../../../dist/dev`);
+        devServer.app.set('view engine', 'mustache');
+        devServer.app.get(/^\/(?!.*dist).*$/, (req, res) => {
             res.render(
                 'index.html',
                 Object.assign(
@@ -18,12 +19,22 @@ const configureDevServer = (decoratorFragments) => ({
                 )
             );
         });
+
+        return middlewares;
     },
-    watchContentBase: true,
-    quiet: false,
-    noInfo: false,
-    stats: 'minimal',
-    publicPath: '/engangsstonad/dist',
+    client: {
+        logging: 'info',
+    },
+    devMiddleware: {
+        index: true,
+        stats: 'minimal',
+        publicPath: '/engangsstonad/dist',
+    },
+    static: {
+        directory: path.resolve(__dirname, '../../../dist/dev'),
+        serveIndex: true,
+        watch: true,
+    },
 });
 
 module.exports = configureDevServer;

@@ -9,7 +9,6 @@ import {
     Locale,
     useDocumentTitle,
     Sidebanner,
-    commonFieldErrorRenderer,
     UtvidetInformasjon,
 } from '@navikt/fp-common';
 import Veiviser from 'components/veiviser/VeiviserSvg';
@@ -23,7 +22,7 @@ import {
 } from './velkommenFormConfig';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import actionCreator from 'app/context/action/actionCreator';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadContext';
 import Personopplysninger from 'app/components/modal-content/Personopplysninger';
 import Modal from 'nav-frontend-modal';
@@ -42,7 +41,7 @@ interface Props {
 const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }) => {
     const intl = useIntl();
     const bem = bemUtils('velkommen');
-    const history = useHistory();
+    const navigate = useNavigate();
     useDocumentTitle(intlUtils(intl, 'velkommen.standard.dokumenttittel'));
     const { dispatch } = useEngangsstønadContext();
 
@@ -58,7 +57,7 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                 harForståttRettigheterOgPlikter: values.harForståttRettigheterOgPlikter!!,
             })
         );
-        history.push('/soknad/søkersituasjon');
+        navigate('/soknad/søkersituasjon');
     };
 
     const [PersonopplysningerModalOpen, setPersonopplysningerModalOpen] = useState<boolean>(false);
@@ -69,10 +68,7 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
             onSubmit={(values) => onValidSubmit(values)}
             renderForm={() => {
                 return (
-                    <VelkommenFormComponents.Form
-                        includeButtons={false}
-                        fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
-                    >
+                    <VelkommenFormComponents.Form includeButtons={false}>
                         <LanguageToggle
                             locale={locale}
                             availableLocales={['en', 'nb', 'nn']}
@@ -157,7 +153,7 @@ const Velkommen: FunctionComponent<Props> = ({ fornavn, locale, onChangeLocale }
                                         <Block padBottom="l">
                                             <FormattedMessage id="velkommen.text.samtykkeIntro" />
                                         </Block>
-                                        <Block padBottom="m">
+                                        <Block>
                                             <UtvidetInformasjon
                                                 apneLabel={intlUtils(intl, 'velkommen.text.plikter.apneLabel')}
                                             >

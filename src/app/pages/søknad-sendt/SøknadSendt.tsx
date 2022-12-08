@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Lenke from 'nav-frontend-lenker';
 import { bemUtils, Block, intlUtils, useDocumentTitle } from '@navikt/fp-common';
-import { EtikettLiten, Ingress, Normaltekst } from 'nav-frontend-typografi';
+import { Ingress, Normaltekst, Element } from 'nav-frontend-typografi';
 import KvitteringHeader from './components/KvitteringHeader';
 import StatusBoks from './components/StatusBoks';
 import Person from 'app/types/domain/Person';
@@ -51,9 +51,9 @@ const SøknadSendt: React.FunctionComponent<Props> = ({ person }) => {
                         {person.bankkonto && person.bankkonto.kontonummer ? (
                             <>
                                 <Block margin="none">
-                                    <EtikettLiten>
+                                    <Element>
                                         <FormattedMessage id="søknadSendt.pengene.kontonummer" />
-                                    </EtikettLiten>
+                                    </Element>
                                 </Block>
                                 <Block margin="s">
                                     <Ingress>{person.bankkonto && person.bankkonto.kontonummer}</Ingress>

@@ -1,4 +1,4 @@
-import { bemUtils, Block, commonFieldErrorRenderer, intlUtils, Locale, Step } from '@navikt/fp-common';
+import { bemUtils, Block, intlUtils, Locale, Step } from '@navikt/fp-common';
 import Veileder from '@navikt/fp-common/lib/components/veileder/Veileder';
 import SøkersPersonalia from 'app/components/søkers-personalia/SøkersPersonalia';
 import Veilederpanel from 'nav-frontend-veilederpanel';
@@ -18,7 +18,7 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import { EngangsstønadSøknadDto } from 'app/types/domain/EngangsstønadSøknad';
 import { mapStateForInnsending } from 'app/util/apiUtils';
 import Api from 'app/api/api';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import actionCreator from 'app/context/action/actionCreator';
 import { onAvbrytSøknad } from 'app/util/globalUtil';
 import { logAmplitudeEvent } from 'app/amplitude/amplitude';
@@ -35,7 +35,7 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person, locale }) => {
     const intl = useIntl();
     const bem = bemUtils('oppsummering');
     const { state, dispatch } = useEngangsstønadContext();
-    const history = useHistory();
+    const navigate = useNavigate();
     const [isSending, setIsSending] = useState(false);
 
     logAmplitudeEvent('sidevisning', {
@@ -53,7 +53,7 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person, locale }) => {
 
             kvitteringResponse.then((response) => {
                 dispatch(actionCreator.setKvittering(response.data));
-                history.push('/kvittering');
+                navigate('/kvittering');
                 setIsSending(false);
             });
 
@@ -62,7 +62,7 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person, locale }) => {
                 team: 'foreldrepenger',
             });
         } catch (error) {
-            history.push('/kvittering');
+            navigate('/kvittering');
         }
     };
 
@@ -81,13 +81,12 @@ const Oppsummering: React.FunctionComponent<Props> = ({ person, locale }) => {
                         pageTitle={intlUtils(intl, 'søknad.oppsummering')}
                         stepTitle={intlUtils(intl, 'søknad.oppsummering')}
                         backLinkHref={getPreviousStepHref('oppsummering')}
-                        onCancel={() => onAvbrytSøknad(dispatch, history)}
+                        onCancel={() => onAvbrytSøknad(dispatch, navigate)}
                         steps={stepConfig}
                         kompakt={true}
                     >
                         <OppsummeringFormComponents.Form
                             includeButtons={false}
-                            fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
                             noButtonsContentRenderer={
                                 allQuestionsAnswered
                                     ? undefined

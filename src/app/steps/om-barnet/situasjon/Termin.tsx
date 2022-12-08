@@ -69,9 +69,8 @@ const Termin: React.FunctionComponent<Fødtprops> = ({ visibility, formValues })
                         label={getMessage(intl, 'søknad.termindato')}
                         minDate={dayjs().subtract(3, 'week').toDate()}
                         maxDate={dayjs().add(18, 'weeks').add(3, 'days').toDate()}
-                        validate={validateTerminDate}
+                        validate={(value) => validateTerminDate(value, intl)}
                         placeholder={'dd.mm.åååå'}
-                        invalidFormatErrorKey={'invalidFormatErrorKey.termindato'}
                     />
                 </Block>
             )}
@@ -102,9 +101,8 @@ const Termin: React.FunctionComponent<Fødtprops> = ({ visibility, formValues })
                         minDate={dayjs(formValues.termindato).subtract(18, 'week').subtract(3, 'day').toDate()}
                         maxDate={dayjs().toDate()}
                         validate={(terminBekreftelseDato) =>
-                            valideringAvTerminbekreftelsesdato(terminBekreftelseDato, formValues.termindato)
+                            valideringAvTerminbekreftelsesdato(terminBekreftelseDato, formValues.termindato, intl)
                         }
-                        invalidFormatErrorKey={'invalidFormatErrorKey.terminBekreftelsedato'}
                     />
                 </Block>
             )}

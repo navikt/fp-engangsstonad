@@ -2,7 +2,6 @@ import React from 'react';
 import {
     bemUtils,
     Block,
-    commonFieldErrorRenderer,
     date1YearAgo,
     date1YearFromNow,
     dateToday,
@@ -20,7 +19,6 @@ import {
 import { Utenlandsopphold } from 'app/types/domain/InformasjonOmUtenlandsopphold';
 import { useIntl } from 'react-intl';
 import actionCreator from 'app/context/action/actionCreator';
-import { useHistory } from 'react-router-dom';
 import stepConfig, { getPreviousStepHref } from 'app/step-config/stepConfig';
 import { utenlandsoppholdFormQuestions } from './utenlandsoppholdFormQuestions';
 import BostedUtlandListAndDialog from './bostedUtlandListAndDialog/BostedUtlandListAndDialog';
@@ -33,11 +31,12 @@ import { validateUtenlandsoppholdNeste12Mnd, validateUtenlandsoppholdSiste12Mnd 
 import './utenlandsopphold.less';
 import { logAmplitudeEvent } from 'app/amplitude/amplitude';
 import { PageKeys } from 'app/types/PageKeys';
+import { useNavigate } from 'react-router-dom';
 
 const Utenlandsopphold: React.FunctionComponent = () => {
     const intl = useIntl();
     const bem = bemUtils('utenlandsopphold');
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const { state, dispatch } = useEngangsstønadContext();
     const initialValues = state.søknad.utenlandsopphold;
@@ -57,7 +56,7 @@ const Utenlandsopphold: React.FunctionComponent = () => {
                 utenlandsoppholdSiste12Mnd: values.utenlandsoppholdSiste12Mnd || [],
             })
         );
-        history.push('/soknad/oppsummering');
+        navigate('/soknad/oppsummering');
     };
 
     return (
@@ -74,13 +73,12 @@ const Utenlandsopphold: React.FunctionComponent = () => {
                         pageTitle={getMessage(intl, 'søknad.utenlandsopphold')}
                         stepTitle={getMessage(intl, 'søknad.utenlandsopphold')}
                         backLinkHref={getPreviousStepHref('utenlandsopphold')}
-                        onCancel={() => onAvbrytSøknad(dispatch, history)}
+                        onCancel={() => onAvbrytSøknad(dispatch, navigate)}
                         steps={stepConfig}
                         kompakt={true}
                     >
                         <UtenlandsoppholdFormComponents.Form
                             includeButtons={allQuestionsAnswered}
-                            fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
                             includeValidationSummary={true}
                             submitButtonLabel={getMessage(intl, 'søknad.gåVidere')}
                             runDelayedFormValidation={true}

@@ -1,71 +1,74 @@
 import {
-    createFieldValidationError,
     date1YearAgo,
     date1YearFromNow,
     dateRangesCollide,
     dateRangesExceedsRange,
     formatDateExtended,
+    intlUtils,
 } from '@navikt/fp-common';
 import dayjs from 'dayjs';
 import { BostedUtland } from './bostedUtlandListAndDialog/types';
-
 import isBetween from 'dayjs/plugin/isBetween';
+import { IntlShape } from 'react-intl';
 
 dayjs.extend(isBetween);
 
-type SkjemaelementFeil = React.ReactNode | boolean;
+const createFieldValidationError = <T extends string>(key: T | undefined, values?: any) => {
+    return key
+        ? {
+              key,
+              values,
+          }
+        : undefined;
+};
 
 const dateIsWithinRange = (date: Date, minDate: Date, maxDate: Date) => {
     return dayjs(date).isBetween(minDate, maxDate, 'day', '[]');
 };
 
-const validateDateInRange = (date: Date | undefined, minDate: Date, maxDate: Date, isFomDate: boolean) => {
+const validateDateInRange = (
+    intl: IntlShape,
+    date: Date | undefined,
+    minDate: Date,
+    maxDate: Date,
+    isFomDate: boolean
+) => {
     if (date === undefined) {
         if (isFomDate) {
-            return {
-                key: 'valideringsfeil.fraOgMedDato.gyldigDato',
-            };
+            return intlUtils(intl, 'valideringsfeil.fraOgMedDato.gyldigDato');
         }
-        return {
-            key: 'valideringsfeil.tilOgMedDato.gyldigDato',
-        };
+
+        return intlUtils(intl, 'valideringsfeil.tilOgMedDato.gyldigDato');
     }
 
     if (!dateIsWithinRange(date, minDate, maxDate)) {
-        return {
-            key: 'valideringsfeil.dateOutsideRange',
-            values: {
-                fom: formatDateExtended(minDate),
-                tom: formatDateExtended(maxDate),
-            },
-        };
+        return intlUtils(intl, 'valideringsfeil.dateOutsideRange', {
+            fom: formatDateExtended(minDate),
+            tom: formatDateExtended(maxDate),
+        });
     }
 
     return undefined;
 };
 
-const validateFromDate = (date: Date | undefined, minDate: Date, maxDate: Date, toDate?: Date) => {
-    const error = validateDateInRange(date, minDate, maxDate, true);
+const validateFromDate = (intl: IntlShape, date: Date | undefined, minDate: Date, maxDate: Date, toDate?: Date) => {
+    const error = validateDateInRange(intl, date, minDate, maxDate, true);
     if (error !== undefined) {
         return error;
     }
     if (toDate && dayjs(date).isAfter(toDate, 'day')) {
-        return {
-            key: 'valideringsfeil.utenlandsopphold.førTilDato',
-        };
+        return intlUtils(intl, 'valideringsfeil.utenlandsopphold.førTilDato');
     }
     return undefined;
 };
 
-const validateToDate = (date: Date | undefined, minDate: Date, maxDate: Date, fromDate?: Date) => {
-    const error = validateDateInRange(date, minDate, maxDate, false);
+const validateToDate = (intl: IntlShape, date: Date | undefined, minDate: Date, maxDate: Date, fromDate?: Date) => {
+    const error = validateDateInRange(intl, date, minDate, maxDate, false);
     if (error !== undefined) {
         return error;
     }
     if (fromDate && dayjs(date).isBefore(fromDate, 'day')) {
-        return {
-            key: 'valideringsfeil.utenlandsopphold.etterFraDato',
-        };
+        return intlUtils(intl, 'valideringsfeil.utenlandsopphold.etterFraDato');
     }
     return undefined;
 };
@@ -75,7 +78,7 @@ export const dateRangeValidation = {
     validateFromDate,
 };
 
-export const validateUtenlandsoppholdNeste12Mnd = (utenlandsopphold: BostedUtland[]): SkjemaelementFeil => {
+export const validateUtenlandsoppholdNeste12Mnd = (utenlandsopphold: BostedUtland[]) => {
     if (utenlandsopphold.length === 0) {
         return createFieldValidationError('valideringsfeil.utenlandsopphold.neste12Måneder.ikkeRegistrert');
     }
@@ -91,7 +94,7 @@ export const validateUtenlandsoppholdNeste12Mnd = (utenlandsopphold: BostedUtlan
     return undefined;
 };
 
-export const validateUtenlandsoppholdSiste12Mnd = (utenlandsopphold: BostedUtland[]): SkjemaelementFeil => {
+export const validateUtenlandsoppholdSiste12Mnd = (utenlandsopphold: BostedUtland[]) => {
     if (utenlandsopphold.length === 0) {
         return createFieldValidationError('valideringsfeil.utenlandsopphold.siste12Måneder.ikkeRegistrert');
     }

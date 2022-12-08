@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { EtikettLiten } from 'nav-frontend-typografi';
+import { Element } from 'nav-frontend-typografi';
 import { useIntl } from 'react-intl';
 import { UtenlandsoppholdFormData } from 'app/steps/utenlandsopphold/utenlandsoppholdFormTypes';
 import dayjs from 'dayjs';
@@ -41,9 +41,9 @@ const UtenlandsoppholdOppsummering: React.FunctionComponent<Props> = ({ barn, in
                 <DisplayTextWithLabel label={getMessage(intl, 'oppsummering.text.boddSisteTolv')} text="Norge" />
             ) : (
                 <div className="textWithLabel">
-                    <EtikettLiten className="textWithLabel__label">
+                    <Element className="textWithLabel__label">
                         {getMessage(intl, 'oppsummering.text.boddSisteTolv')}
-                    </EtikettLiten>
+                    </Element>
                     <LandOppsummering
                         utenlandsoppholdListe={informasjonOmUtenlandsopphold.utenlandsoppholdSiste12Mnd}
                     />
@@ -56,9 +56,9 @@ const UtenlandsoppholdOppsummering: React.FunctionComponent<Props> = ({ barn, in
                 />
             ) : (
                 <div className="textWithLabel">
-                    <EtikettLiten className="textWithLabel__label">
+                    <Element className="textWithLabel__label">
                         {getMessage(intl, 'oppsummering.text.neste12mnd')}
-                    </EtikettLiten>
+                    </Element>
                     <LandOppsummering
                         utenlandsoppholdListe={informasjonOmUtenlandsopphold.utenlandsoppholdNeste12Mnd}
                     />

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Normaltekst } from 'nav-frontend-typografi';
 import * as Sentry from '@sentry/browser';
 import * as countries from 'i18n-iso-countries';
@@ -27,12 +27,13 @@ if (process.env.NODE_ENV !== 'development') {
 
 initAmplitude();
 
-const root = document.getElementById('app');
-render(
+const container = document.getElementById('app');
+const root = createRoot(container!);
+
+root.render(
     <ErrorBoundary>
         <Normaltekst tag="div">
             <AppContainer />
         </Normaltekst>
-    </ErrorBoundary>,
-    root
+    </ErrorBoundary>
 );

@@ -1,11 +1,21 @@
 import React from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { getTypedFormComponents, ISOStringToDate } from '@navikt/sif-common-formik/lib';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { getTypedFormComponents, ISOStringToDate, NavFrontendSkjemaFeil } from '@navikt/sif-common-formik/lib';
 import { Systemtittel } from 'nav-frontend-typografi';
 import getMessage from 'common/util/i18nUtils';
 import { BostedUtland, isValidBostedUtland } from './types';
-import { Block, commonFieldErrorRenderer, validateRequiredField } from '@navikt/fp-common';
+import { Block, validateRequiredField } from '@navikt/fp-common';
 import { dateRangeValidation } from '../utenlandsoppholdValidering';
+
+export const commonFieldErrorRenderer = (intl: IntlShape, error: any): NavFrontendSkjemaFeil => {
+    if (typeof error === 'object' && error.key !== undefined) {
+        return intl.formatMessage({ id: error.key }, error.values);
+    }
+    if (typeof error === 'string') {
+        return error;
+    }
+    return error !== undefined;
+};
 
 export interface BostedUtlandFormLabels {
     tittel: string;
@@ -71,10 +81,7 @@ const BostedUtlandForm: React.FunctionComponent<Props> = ({
             onSubmit={onFormikSubmit}
             renderForm={({ values }) => {
                 return (
-                    <Form.Form
-                        onCancel={onCancel}
-                        fieldErrorRenderer={(error) => commonFieldErrorRenderer(intl, error)}
-                    >
+                    <Form.Form onCancel={onCancel}>
                         <Systemtittel tag="h1">
                             <FormattedMessage id={'utenlandsopphold.leggTilUtenlandsopphold.tittel'} />
                         </Systemtittel>
@@ -87,10 +94,11 @@ const BostedUtlandForm: React.FunctionComponent<Props> = ({
                                     fullscreenOverlay: true,
                                     placeholder: 'dd.mm.åååå',
                                     minDate,
-                                    invalidFormatErrorKey: 'valideringsfeil.fraOgMedDato.gyldigDato',
+                                    invalidFormatError: 'valideringsfeil.fraOgMedDato.gyldigDato',
                                     maxDate: ISOStringToDate(values.tom) || maxDate,
                                     validate: (value) =>
                                         dateRangeValidation.validateFromDate(
+                                            intl,
                                             ISOStringToDate(value),
                                             minDate,
                                             maxDate,
@@ -104,9 +112,10 @@ const BostedUtlandForm: React.FunctionComponent<Props> = ({
                                     placeholder: 'dd.mm.åååå',
                                     minDate: ISOStringToDate(values.fom) || minDate,
                                     maxDate,
-                                    invalidFormatErrorKey: 'valideringsfeil.tilOgMedDato.gyldigDato',
+                                    invalidFormatError: 'valideringsfeil.tilOgMedDato.gyldigDato',
                                     validate: (value) =>
                                         dateRangeValidation.validateToDate(
+                                            intl,
                                             ISOStringToDate(value),
                                             minDate,
                                             maxDate,

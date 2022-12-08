@@ -36,14 +36,17 @@ const webpackConfig = {
             },
             {
                 test: /\.(ts|tsx)$/,
-                include: [path.resolve(__dirname, './../..')],
-                loader: require.resolve('ts-loader'),
+                use: 'ts-loader',
+                exclude: /node_modules/,
             },
-
             {
                 test: /\.js$/,
                 use: [{ loader: 'babel-loader' }],
                 exclude: /node_modules/,
+            },
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
             {
                 test: /\.less$/,
@@ -57,6 +60,10 @@ const webpackConfig = {
                         loader: 'less-loader',
                     },
                 ],
+            },
+            {
+                test: /\.s[ac]ss$/i,
+                use: ['style-loader', 'css-loader', 'sass-loader'],
             },
             {
                 test: /\.svg$/,

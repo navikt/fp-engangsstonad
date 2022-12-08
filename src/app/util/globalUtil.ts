@@ -1,12 +1,12 @@
 import { logAmplitudeEvent } from 'app/amplitude/amplitude';
 import actionCreator, { EngangsstønadContextAction } from 'app/context/action/actionCreator';
-import { History } from 'history';
+import { NavigateFunction } from 'react-router-dom';
 
 export const assertUnreachable = (_x: never): never => {
     throw new Error('This should never happen');
 };
 
-export const onAvbrytSøknad = (dispatch: React.Dispatch<EngangsstønadContextAction>, history: History<any>) => {
+export const onAvbrytSøknad = (dispatch: React.Dispatch<EngangsstønadContextAction>, navigate: NavigateFunction) => {
     logAmplitudeEvent('applikasjon-hendelse', {
         app: 'engangsstonadny',
         team: 'foreldrepenger',
@@ -14,5 +14,5 @@ export const onAvbrytSøknad = (dispatch: React.Dispatch<EngangsstønadContextAc
     });
 
     dispatch(actionCreator.avbrytSøknad());
-    history.push('/');
+    navigate('/');
 };

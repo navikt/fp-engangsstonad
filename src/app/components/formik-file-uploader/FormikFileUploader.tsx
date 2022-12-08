@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { FormikValidateFunction } from '@navikt/sif-common-formik/lib';
 import { ArrayHelpers, useFormikContext } from 'formik';
 import { Attachment, AttachmentType, Skjemanummer } from 'common/storage/attachment/types/Attachment';
 import FormikFileInput from '@navikt/sif-common-formik/lib/components/formik-file-input/FormikFileInput';
@@ -17,7 +16,7 @@ interface Props {
     attachments: Attachment[];
     name: OmBarnetFormField;
     label: string;
-    validate?: FormikValidateFunction;
+    validate?: any;
     onFileInputClick?: () => void;
 }
 

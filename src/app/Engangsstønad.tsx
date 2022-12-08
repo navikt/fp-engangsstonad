@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Velkommen from './pages/velkommen/Velkommen';
 import { useRequest } from './api/apiHooks';
 import Api from './api/api';
@@ -66,29 +66,30 @@ const Engangsstønad: React.FunctionComponent<Props> = ({ locale, onChangeLocale
             {!erMyndig(data.fødselsdato) ? (
                 <Umyndig person={data} />
             ) : (
-                <Router>
-                    <Route
-                        path="/"
-                        exact={true}
-                        component={() => (
-                            <Velkommen fornavn={data.fornavn} locale={locale} onChangeLocale={onChangeLocale} />
+                <BrowserRouter>
+                    <Routes>
+                        <Route
+                            path="/"
+                            element={
+                                <Velkommen fornavn={data.fornavn} locale={locale} onChangeLocale={onChangeLocale} />
+                            }
+                        />
+                        {!state.søknad.velkommen.harForståttRettigheterOgPlikter ? (
+                            <Route path="*" element={<Navigate to="/" />} />
+                        ) : (
+                            <>
+                                <Route path="/soknad/søkersituasjon" element={<Søkersituasjon />} />
+                                <Route path="/soknad/om-barnet" element={<OmBarnet person={data} />} />
+                                <Route path="/soknad/utenlandsopphold" element={<Utenlandsopphold />} />
+                                <Route
+                                    path="/soknad/oppsummering"
+                                    element={<Oppsummering person={data} locale={locale} />}
+                                />
+                                <Route path="/kvittering" element={<SøknadSendt person={data} />} />
+                            </>
                         )}
-                    />
-                    {!state.søknad.velkommen.harForståttRettigheterOgPlikter ? (
-                        <Redirect to="/" exact={true} />
-                    ) : (
-                        <>
-                            <Route path="/soknad/søkersituasjon" component={() => <Søkersituasjon />} />
-                            <Route path="/soknad/om-barnet" component={() => <OmBarnet person={data} />} />
-                            <Route path="/soknad/utenlandsopphold" component={() => <Utenlandsopphold />} />
-                            <Route
-                                path="/soknad/oppsummering"
-                                component={() => <Oppsummering person={data} locale={locale} />}
-                            />
-                            <Route path="/kvittering" component={() => <SøknadSendt person={data} />} />
-                        </>
-                    )}
-                </Router>
+                    </Routes>
+                </BrowserRouter>
             )}
         </>
     );
