@@ -3,18 +3,23 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 webpackConfig.plugins.push(
-	new HtmlWebpackPlugin({
-		template: './src/app/index.html',
-		inject: 'body'
-	})
+    new HtmlWebpackPlugin({
+        template: './src/app/index.html',
+        inject: 'body',
+    })
 );
 
 webpackConfig.optimization = {
     minimizer: [
         new TerserPlugin({
-            sourceMap: true,
-        })
-    ]
+            terserOptions: {
+                mangle: true, // Note `mangle.properties` is `false` by default.
+                ie8: true,
+                keep_classnames: true,
+                keep_fnames: true,
+            },
+        }),
+    ],
 };
 
 module.exports = webpackConfig;
