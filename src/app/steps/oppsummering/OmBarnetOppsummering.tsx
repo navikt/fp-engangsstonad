@@ -63,7 +63,9 @@ const OmBarnetOppsummering: React.FunctionComponent<Props> = ({ barn }) => {
             {barn.adopsjonAvEktefellesBarn !== YesOrNo.UNANSWERED && (
                 <div className="oppsummering__attachments">
                     <Element className="textWithLabel__label">
-                        {getMessage(intl, 'oppsummering.text.vedlagtAdopsjonBekreftelse')}
+                        {barn.adopsjonAvEktefellesBarn === YesOrNo.YES
+                            ? getMessage(intl, 'oppsummering.text.vedlagtAdopsjonBekreftelse')
+                            : getMessage(intl, 'oppsummering.text.vedlagtOmsorgsovertakelseBekreftelse')}
                     </Element>
                     <AttachmentList
                         attachments={barn.omsorgsovertakelse.filter((a: Attachment) => !isAttachmentWithError(a))}
