@@ -142,9 +142,7 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues,
                 <>
                     <Block margin="xl">
                         <Veilederpanel kompakt={true} svg={<Veileder />}>
-                            {formValues.adopsjonAvEktefellesBarn === YesOrNo.YES
-                                ? getMessage(intl, 'omBarnet.adopsjon.veilederpanel.adopsjon.stebarn.text')
-                                : getMessage(intl, 'omBarnet.adopsjon.veilederpanel.adopsjon.annetBarn.text')}
+                            {getMessage(intl, 'omBarnet.adopsjon.veilederpanel.adopsjon.text')}
                         </Veilederpanel>
                     </Block>
                     <Block margin="xl">
