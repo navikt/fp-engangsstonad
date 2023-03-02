@@ -74,8 +74,6 @@ const webpackConfig = {
     plugins: [
         new MiniCssExtractPlugin({
             filename: 'css/[name].css?[hash]-[chunkhash]-[contenthash]-[name]',
-            disable: false,
-            allChunks: true,
         }),
         new SpriteLoaderPlugin({
             plainSprite: true,
