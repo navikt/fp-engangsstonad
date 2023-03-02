@@ -1,5 +1,5 @@
 import { EngangsstønadSøknadDto } from '../types/domain/EngangsstønadSøknad';
-import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
 import { redirectToLogin } from 'util/login';
 
 const foreldrepengersoknadApi = axios.create({
@@ -8,7 +8,7 @@ const foreldrepengersoknadApi = axios.create({
 });
 
 foreldrepengersoknadApi.interceptors.request.use(
-    (config: AxiosRequestConfig): AxiosRequestConfig => {
+    (config) => {
         config.withCredentials = true;
         config.timeout = 60 * 1000;
         return config;
@@ -23,7 +23,7 @@ foreldrepengersoknadApi.interceptors.response.use(
         if (
             error.response &&
             error.response.status === 401 &&
-            error.config.url &&
+            error?.config?.url &&
             !error.config.url.includes('/soknad')
         ) {
              redirectToLogin();
