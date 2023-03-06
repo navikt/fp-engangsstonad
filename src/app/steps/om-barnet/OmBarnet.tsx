@@ -19,7 +19,6 @@ import { useEngangsstønadContext } from 'app/context/hooks/useEngangsstønadCon
 import Født from './situasjon/Født';
 import Termin from './situasjon/Termin';
 
-import './omBarnet.less';
 import { onAvbrytSøknad } from 'app/util/globalUtil';
 import { logAmplitudeEvent } from 'app/amplitude/amplitude';
 import { PageKeys } from 'app/types/PageKeys';

@@ -6,8 +6,6 @@ import { VeilederProps } from '@navikt/fp-common/lib/components/veileder/Veilede
 import { Heading, Ingress } from '@navikt/ds-react';
 import { Locale, bemUtils, Block, LanguageToggle, Sidebanner } from '@navikt/fp-common';
 
-import './feilside.less';
-
 export interface Props {
     containerId?: string;
     dokumenttittel: string;

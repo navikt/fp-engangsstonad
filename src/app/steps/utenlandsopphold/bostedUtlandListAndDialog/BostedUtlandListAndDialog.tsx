@@ -42,7 +42,7 @@ function BostedUtlandListAndDialog<FieldNames>({
             listRenderer={({ items, onEdit, onDelete }) => (
                 <BostedUtlandListe bosteder={items} onEdit={onEdit} onDelete={onDelete} />
             )}
-            shouldCloseOnOverlayClick
+            shouldCloseOnOverlayClick={true}
         />
     );
 }

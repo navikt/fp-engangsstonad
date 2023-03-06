@@ -27,7 +27,6 @@ import { onAvbrytSøknad } from 'app/util/globalUtil';
 import getMessage from 'common/util/i18nUtils';
 import { validateUtenlandsoppholdNeste12Mnd, validateUtenlandsoppholdSiste12Mnd } from './utenlandsoppholdValidering';
 
-import './utenlandsopphold.less';
 import { logAmplitudeEvent } from 'app/amplitude/amplitude';
 import { PageKeys } from 'app/types/PageKeys';
 import { useNavigate } from 'react-router-dom';
