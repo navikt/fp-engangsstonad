@@ -88,7 +88,7 @@ const Termin: React.FunctionComponent<Fødtprops> = ({ visibility, formValues })
                             name={OmBarnetFormField.terminbekreftelse}
                         />
                         <UtvidetInformasjon apneLabel={<FormattedMessage id="psg.åpneLabel" />}>
-                            <PictureScanningGuide backgroundColor="white" />
+                            <PictureScanningGuide />
                         </UtvidetInformasjon>
                     </Block>
                 </>

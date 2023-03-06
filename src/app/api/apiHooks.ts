@@ -15,7 +15,7 @@ export const useRequest = <T>(request: Promise<AxiosResponse<any>>) => {
                 if (!ignore) {
                     setData(response.data);
                 }
-            } catch (err) {
+            } catch (err: any) {
                 setError(err);
             } finally {
                 setLoading(false);

@@ -4,7 +4,7 @@ import Lenke from 'nav-frontend-lenker';
 import { Innholdstittel, Ingress } from 'nav-frontend-typografi';
 import { Språkkode } from 'intl/types';
 import { VeilederProps } from '@navikt/fp-common/lib/components/veileder/Veileder';
-import { bemUtils, Block, LanguageToggle, Sidebanner } from '@navikt/fp-common';
+import { Locale, bemUtils, Block, LanguageToggle, Sidebanner } from '@navikt/fp-common';
 
 import './feilside.less';
 
@@ -23,7 +23,7 @@ export interface Props {
     tittel: React.ReactNode;
     ingress: React.ReactNode;
     språkkode?: Språkkode;
-    setLanguage?: (languageCode: string) => void;
+    setLanguage?: (languageCode: Locale) => void;
 }
 
 const Feilside: React.FunctionComponent<Props> = ({

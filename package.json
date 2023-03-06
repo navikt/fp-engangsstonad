@@ -16,7 +16,8 @@
         "start-express": "node ./server.js",
         "dev-api": "node ./mock-api-server.js",
         "dev": "node ./src/build/scripts/start-dev.js",
-        "jest": "cross-env NODE_ENV=test jest --color",
+        "jest": "cross-env NODE_ENV=test jest",
+        "tsc": "tsc  --pretty",
         "lint": "tslint src/**",
         "storybook": "start-storybook -p 9001 --quiet",
         "deploy-storybook": "build-storybook -o .static_storybook && storybook-to-ghpages --existing-output-dir=.static_storybook"
@@ -189,6 +190,7 @@
         "json5": "1.0.2",
         "loader-utils": "2.0.4",
         "nth-check": "2.0.1",
+        "postcss": "8.4.21",
         "parse-url": "8.1.0",
         "qs": "6.5.3",
         "serialize-javascript": "3.1.0",

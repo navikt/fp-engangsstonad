@@ -152,7 +152,7 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues,
                             name={OmBarnetFormField.omsorgsovertakelse}
                         />
                         <UtvidetInformasjon apneLabel={<FormattedMessage id="psg.åpneLabel" />}>
-                            <PictureScanningGuide backgroundColor='white' />
+                            <PictureScanningGuide />
                         </UtvidetInformasjon>
                     </Block>
                 </>

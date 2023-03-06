@@ -15,6 +15,7 @@
         "noImplicitReturns": false,
         "noImplicitThis": true,
         "noUnusedLocals": true,
+        "resolveJsonModule": true,
         "baseUrl": "./src",
         "typeRoots": ["./node_modules/@types", "./src/@types"],
         "paths": {
