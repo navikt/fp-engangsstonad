@@ -180,7 +180,7 @@
         "webpack-cli": "^5.0.1",
         "webpack-dev-server": "^4.11.1"
     },
-    "resolutions": {
+    "overrides": {
         "decode-uri-component": "0.2.2",
         "glob-parent": "5.1.2",
         "got": "11.8.5",
@@ -188,7 +188,6 @@
         "loader-utils": "2.0.3",
         "nth-check": "2.0.1",
         "parse-url": "8.1.0",
-        "postcss": "7.0.36",
         "qs": "6.5.3",
         "serialize-javascript": "3.1.0",
         "trim": "0.0.3",
