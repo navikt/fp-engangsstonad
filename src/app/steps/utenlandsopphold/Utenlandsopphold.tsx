@@ -10,7 +10,7 @@ import {
     UtvidetInformasjon,
     validateYesOrNoIsAnswered,
 } from '@navikt/fp-common';
-import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik/lib';
+import { UnansweredQuestionsInfo } from '@navikt/sif-common-formik-ds/lib';
 import {
     UtenlandsoppholdFieldNames,
     UtenlandsoppholdFormComponents,
@@ -64,6 +64,7 @@ const Utenlandsopphold: React.FunctionComponent = () => {
             initialValues={initialValues}
             onSubmit={(values) => onValidSubmit(values)}
             renderForm={({ values: formValues }) => {
+                // @ts-ignore Fiks denne
                 const visibility = utenlandsoppholdFormQuestions.getVisbility(formValues);
                 const allQuestionsAnswered = visibility.areAllQuestionsAnswered();
                 return (

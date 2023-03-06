@@ -5,6 +5,8 @@ import MockAdapter from 'axios-mock-adapter';
 import AppContainer from './AppContainer';
 import { foreldrepengersoknadApi } from './api/api';
 
+import '@navikt/ds-css';
+import './styles/globals.less';
 
 export default {
   title: 'AppContainer',

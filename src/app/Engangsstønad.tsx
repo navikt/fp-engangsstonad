@@ -1,9 +1,9 @@
 import React from 'react';
+import { Loader } from '@navikt/ds-react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Velkommen from './pages/velkommen/Velkommen';
 import { useRequest } from './api/apiHooks';
 import Api from './api/api';
-import NavFrontendSpinner from 'nav-frontend-spinner';
 import Person from './types/domain/Person';
 import { erMyndig, intlUtils, Locale } from '@navikt/fp-common';
 import OmBarnet from './steps/om-barnet/OmBarnet';
@@ -24,7 +24,7 @@ interface Props {
 
 const renderSpinner = () => (
     <div style={{ textAlign: 'center', padding: '12rem 0' }}>
-        <NavFrontendSpinner type="XXL" />
+        <Loader size="2xlarge" />
     </div>
 );
 

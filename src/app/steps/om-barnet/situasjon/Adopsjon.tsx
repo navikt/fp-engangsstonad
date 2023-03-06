@@ -1,13 +1,12 @@
+import { GuidePanel } from '@navikt/ds-react';
 import { Block, intlUtils, PictureScanningGuide, UtvidetInformasjon } from '@navikt/fp-common';
-import Veileder from '@navikt/fp-common/lib/components/veileder/Veileder';
-import { YesOrNo } from '@navikt/sif-common-formik/lib';
+import { YesOrNo } from '@navikt/sif-common-formik-ds/lib';
 import { QuestionVisibility } from '@navikt/sif-common-question-config/lib';
 import FormikFileUploader from 'app/components/formik-file-uploader/FormikFileUploader';
 import { Kjønn } from 'app/types/domain/Person';
 import getMessage from 'common/util/i18nUtils';
 import dayjs from 'dayjs';
 import { FieldArray } from 'formik';
-import Veilederpanel from 'nav-frontend-veilederpanel';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { OmBarnetFormComponents, OmBarnetFormData, OmBarnetFormField } from '../omBarnetFormConfig';
@@ -54,7 +53,7 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues,
             {visibility.isVisible(OmBarnetFormField.antallBarn) && (
                 <>
                     <Block margin="xl">
-                        <OmBarnetFormComponents.RadioPanelGroup
+                        <OmBarnetFormComponents.RadioGroup
                             name={OmBarnetFormField.antallBarn}
                             radios={[
                                 {
@@ -70,14 +69,13 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues,
                                     value: '3',
                                 },
                             ]}
-                            useTwoColumns={true}
                             legend={getMessage(intl, 'omBarnet.adopsjon.spørsmål.antallBarnAdoptert')}
                         />
                     </Block>
 
                     {formValues.antallBarn && parseInt(formValues.antallBarn, 10) >= 3 && (
                         <Block margin="xl">
-                            <OmBarnetFormComponents.Select name={OmBarnetFormField.antallBarn}>
+                            <OmBarnetFormComponents.Select name={OmBarnetFormField.antallBarn} label="test">
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
@@ -141,9 +139,9 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues,
             {visibility.isVisible(OmBarnetFormField.omsorgsovertakelse) && (
                 <>
                     <Block margin="xl">
-                        <Veilederpanel kompakt={true} svg={<Veileder />}>
+                        <GuidePanel>
                             {getMessage(intl, 'omBarnet.adopsjon.veilederpanel.adopsjon.text')}
-                        </Veilederpanel>
+                        </GuidePanel>
                     </Block>
                     <Block margin="xl">
                         <FormikFileUploader
@@ -152,7 +150,7 @@ const Adopsjon: React.FunctionComponent<Fødtprops> = ({ visibility, formValues,
                             name={OmBarnetFormField.omsorgsovertakelse}
                         />
                         <UtvidetInformasjon apneLabel={<FormattedMessage id="psg.åpneLabel" />}>
-                            <PictureScanningGuide />
+                            <PictureScanningGuide backgroundColor='white' />
                         </UtvidetInformasjon>
                     </Block>
                 </>
