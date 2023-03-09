@@ -13,15 +13,6 @@ import { IntlShape } from 'react-intl';
 
 dayjs.extend(isBetween);
 
-const createFieldValidationError = <T extends string>(key: T | undefined, values?: any) => {
-    return key
-        ? {
-              key,
-              values,
-          }
-        : undefined;
-};
-
 const dateIsWithinRange = (date: Date, minDate: Date, maxDate: Date) => {
     return dayjs(date).isBetween(minDate, maxDate, 'day', '[]');
 };
@@ -78,34 +69,34 @@ export const dateRangeValidation = {
     validateFromDate,
 };
 
-export const validateUtenlandsoppholdNeste12Mnd = (utenlandsopphold: BostedUtland[]) => {
+export const validateUtenlandsoppholdNeste12Mnd = (utenlandsopphold: BostedUtland[], intl: IntlShape) => {
     if (utenlandsopphold.length === 0) {
-        return createFieldValidationError('valideringsfeil.utenlandsopphold.neste12Måneder.ikkeRegistrert');
+        return intlUtils(intl, 'valideringsfeil.utenlandsopphold.neste12Måneder.ikkeRegistrert');
     }
 
     const dateRanges = utenlandsopphold.map((u) => ({ from: dayjs(u.fom).toDate(), to: dayjs(u.tom).toDate() }));
 
     if (dateRangesCollide(dateRanges)) {
-        return createFieldValidationError('valideringsfeil.utenlandsopphold.overlapp');
+        return intlUtils(intl, 'valideringsfeil.utenlandsopphold.overlapp');
     }
     if (dateRangesExceedsRange(dateRanges, { from: new Date(), to: date1YearFromNow })) {
-        return createFieldValidationError('valideringsfeil.utenlandsoppholdUtenforPeriode');
+        return intlUtils(intl, 'valideringsfeil.utenlandsoppholdUtenforPeriode');
     }
     return undefined;
 };
 
-export const validateUtenlandsoppholdSiste12Mnd = (utenlandsopphold: BostedUtland[]) => {
+export const validateUtenlandsoppholdSiste12Mnd = (utenlandsopphold: BostedUtland[], intl: IntlShape) => {
     if (utenlandsopphold.length === 0) {
-        return createFieldValidationError('valideringsfeil.utenlandsopphold.siste12Måneder.ikkeRegistrert');
+        return intlUtils(intl, 'valideringsfeil.utenlandsopphold.siste12Måneder.ikkeRegistrert');
     }
 
     const dateRanges = utenlandsopphold.map((u) => ({ from: dayjs(u.fom).toDate(), to: dayjs(u.tom).toDate() }));
 
     if (dateRangesCollide(dateRanges)) {
-        return createFieldValidationError('valideringsfeil.utenlandsopphold.overlapp');
+        return intlUtils(intl, 'valideringsfeil.utenlandsopphold.overlapp');
     }
     if (dateRangesExceedsRange(dateRanges, { from: date1YearAgo, to: new Date() })) {
-        return createFieldValidationError('valideringsfeil.utenlandsoppholdUtenforPeriode');
+        return intlUtils(intl, 'valideringsfeil.utenlandsoppholdUtenforPeriode');
     }
 
     return undefined;

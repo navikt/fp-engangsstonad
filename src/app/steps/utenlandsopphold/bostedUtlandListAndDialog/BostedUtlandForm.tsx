@@ -4,7 +4,7 @@ import { getTypedFormComponents, ISOStringToDate, NavFrontendSkjemaFeil } from '
 import { Systemtittel } from 'nav-frontend-typografi';
 import getMessage from 'common/util/i18nUtils';
 import { BostedUtland, isValidBostedUtland } from './types';
-import { Block, validateRequiredField } from '@navikt/fp-common';
+import { Block, intlUtils } from '@navikt/fp-common';
 import { dateRangeValidation } from '../utenlandsoppholdValidering';
 
 export const commonFieldErrorRenderer = (intl: IntlShape, error: any): NavFrontendSkjemaFeil => {
@@ -138,14 +138,19 @@ const BostedUtlandForm: React.FunctionComponent<Props> = ({
                                               'utenlandsopphold.leggTilUtenlandsopphold.spørsmål.hvilketLandHarDuBoddI'
                                           )
                                 }
-                                validate={(country) =>
-                                    validateRequiredField(
-                                        country,
-                                        erFremtidigOpphold
-                                            ? 'valideringsfeil.leggTilUtenlandsopphold.landDuSkalBoIPåkreved'
-                                            : 'valideringsfeil.leggTilUtenlandsopphold.landDuHarBoddIPåkrevd'
-                                    )
-                                }
+                                validate={(country) => {
+                                    if (country === '' || !country) {
+                                        return erFremtidigOpphold
+                                            ? intlUtils(
+                                                  intl,
+                                                  'valideringsfeil.leggTilUtenlandsopphold.landDuSkalBoIPåkreved'
+                                              )
+                                            : intlUtils(
+                                                  intl,
+                                                  'valideringsfeil.leggTilUtenlandsopphold.landDuHarBoddIPåkrevd'
+                                              );
+                                    }
+                                }}
                                 useAlpha3Code={false}
                             />
                         </Block>

@@ -32,6 +32,7 @@ import './utenlandsopphold.less';
 import { logAmplitudeEvent } from 'app/amplitude/amplitude';
 import { PageKeys } from 'app/types/PageKeys';
 import { useNavigate } from 'react-router-dom';
+import { BostedUtland } from './bostedUtlandListAndDialog/types';
 
 const Utenlandsopphold: React.FunctionComponent = () => {
     const intl = useIntl();
@@ -81,7 +82,6 @@ const Utenlandsopphold: React.FunctionComponent = () => {
                             includeButtons={allQuestionsAnswered}
                             includeValidationSummary={true}
                             submitButtonLabel={getMessage(intl, 'søknad.gåVidere')}
-                            runDelayedFormValidation={true}
                             cleanup={(values) => utenlandsoppholdFormCleanup(values)}
                             noButtonsContentRenderer={
                                 allQuestionsAnswered
@@ -134,7 +134,9 @@ const Utenlandsopphold: React.FunctionComponent = () => {
                                                 modalTitle: 'Utenlandsopphold neste 12 måneder',
                                             }}
                                             erFremtidigOpphold={true}
-                                            validate={validateUtenlandsoppholdNeste12Mnd}
+                                            validate={(value: BostedUtland[]) =>
+                                                validateUtenlandsoppholdNeste12Mnd(value, intl)
+                                            }
                                         />
                                     </Block>
                                 )}
@@ -178,7 +180,9 @@ const Utenlandsopphold: React.FunctionComponent = () => {
                                                 modalTitle: 'Utenlandsopphold siste 12 måneder',
                                             }}
                                             erFremtidigOpphold={false}
-                                            validate={validateUtenlandsoppholdSiste12Mnd}
+                                            validate={(value: BostedUtland[]) =>
+                                                validateUtenlandsoppholdSiste12Mnd(value, intl)
+                                            }
                                         />
                                     </Block>
                                 )}
