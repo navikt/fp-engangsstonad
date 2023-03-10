@@ -25,6 +25,8 @@ import { PageKeys } from 'app/types/PageKeys';
 import Adopsjon from './situasjon/Adopsjon';
 import Person from 'app/types/domain/Person';
 
+import './omBarnet.less';
+
 interface Props {
     person: Person;
 }

@@ -32,6 +32,8 @@ import { PageKeys } from 'app/types/PageKeys';
 import { useNavigate } from 'react-router-dom';
 import { BostedUtland } from './bostedUtlandListAndDialog/types';
 
+import './utenlandsopphold.less';
+
 const Utenlandsopphold: React.FunctionComponent = () => {
     const intl = useIntl();
     const bem = bemUtils('utenlandsopphold');

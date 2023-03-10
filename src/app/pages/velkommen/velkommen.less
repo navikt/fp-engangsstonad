@@ -1,17 +1,7 @@
-@import '../../styles/variables.less';
+@import '../../styles/mixins.less';
 
 .velkommen {
-    max-width: 704px;
-    margin: 0 auto;
-    padding: 2rem;
-
-    @media (max-width: @tablet-breakpoint) {
-        max-width: 100%;
-    }
-
-    @media (max-width: @mobile-breakpoint) {
-        padding: 1rem;
-    }
+    .contentWrapper();
 
     &__tittel {
         text-align: center;
