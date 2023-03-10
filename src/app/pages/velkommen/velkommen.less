@@ -1,4 +1,18 @@
+@import '../../styles/variables.less';
+
 .velkommen {
+    max-width: 704px;
+    margin: 0 auto;
+    padding: 2rem;
+
+    @media (max-width: @tablet-breakpoint) {
+        max-width: 100%;
+    }
+
+    @media (max-width: @mobile-breakpoint) {
+        padding: 1rem;
+    }
+
     &__tittel {
         text-align: center;
     }
