@@ -1,4 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -29,13 +30,13 @@ module.exports = {
                 enforce: 'pre',
             },
             {
-                test: /\.(ts|tsx)$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
-            },
-            {
-                test: /\.js$/,
-                use: [{ loader: 'babel-loader' }],
+                test: /\.(js|ts|tsx)$/,
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        plugins: [require.resolve('react-refresh/babel')],
+                      },
+                }],
                 exclude: /node_modules/,
             },
             {
@@ -69,6 +70,9 @@ module.exports = {
             new MiniCssExtractPlugin({
                 filename: 'css/[name].css?[hash]-[chunkhash]-[contenthash]-[name]',
             }),
+        );
+        config.plugins.push(
+            new ReactRefreshWebpackPlugin(),
         );
 
         config.resolve.extensions.push('.ts', '.tsx', '.less');
