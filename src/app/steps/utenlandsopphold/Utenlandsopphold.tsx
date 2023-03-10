@@ -16,7 +16,6 @@ import {
     UtenlandsoppholdFormComponents,
     UtenlandsoppholdFormData,
 } from './utenlandsoppholdFormTypes';
-import { Utenlandsopphold } from 'app/types/domain/InformasjonOmUtenlandsopphold';
 import { useIntl } from 'react-intl';
 import actionCreator from 'app/context/action/actionCreator';
 import stepConfig, { getPreviousStepHref } from 'app/step-config/stepConfig';

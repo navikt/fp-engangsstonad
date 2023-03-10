@@ -8,7 +8,7 @@ module.exports = {
     testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
     moduleFileExtensions: ['js', 'json', 'ts', 'tsx', 'less', 'css'],
     moduleNameMapper: {
-        '\\.(svg)$': '<rootDir>/jest/mocks/fileMock.js',
+        '\\.(svg)$': '<rootDir>/mocks/fileMock.js',
         '\\.(less|css)$': 'identity-obj-proxy',
         '^app/(.*)$':  '<rootDir>/src/app/$1',
         '^assets/(.*)$':  '<rootDir>/src/app/assets/$1',

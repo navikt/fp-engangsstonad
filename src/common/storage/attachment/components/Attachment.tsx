@@ -6,16 +6,16 @@ import SlettKnapp from '../../../components/slett-knapp/SlettKnapp';
 
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import Lenke from 'nav-frontend-lenker';
-import { Attachment } from 'common/storage/attachment/types/Attachment';
+import { Attachment as AttachmentType } from 'common/storage/attachment/types/Attachment';
 import { bytesString } from 'common/util/filesize';
 import { bemUtils, VedleggIkon } from '@navikt/fp-common';
 
 import './attachment.less';
 
 interface OwnProps {
-    attachment: Attachment;
+    attachment: AttachmentType;
     showFileSize?: boolean;
-    onDelete?: (file: Attachment) => void;
+    onDelete?: (file: AttachmentType) => void;
 }
 
 type Props = OwnProps;
