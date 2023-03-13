@@ -165,7 +165,7 @@
         "promise": "^8.3.0",
         "sass": "^1.58.3",
         "sass-loader": "^13.0.2",
-        "sinon": "^15.0.1",
+        "sinon": "^15.0.2",
         "source-map-loader": "^4.0.1",
         "style-loader": "^3.3.1",
         "svg-sprite-loader": "^6.0.11",
