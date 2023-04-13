@@ -163,7 +163,7 @@
         "mustache-loader": "^1.4.3",
         "postcss-loader": "^7.0.2",
         "promise": "^8.3.0",
-        "sass": "^1.58.3",
+        "sass": "^1.62.0",
         "sass-loader": "^13.0.2",
         "sinon": "^15.0.1",
         "source-map-loader": "^4.0.1",
