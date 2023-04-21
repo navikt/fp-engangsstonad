@@ -1,3 +1,5 @@
+Kodebasen er flyttet til et monorepo https://github.com/navikt/foreldrepengesoknad.
+
 # Selvbetjeningsløsning for søknad om engangsstønad.  
 
 Kildekoden til frontend-appen for ny selvbetjeningsløsning for
